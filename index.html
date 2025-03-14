@@ -126,13 +126,13 @@
     </div>
 
     <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
     <script>
         // Inicializar Supabase com a URL e a chave fornecidas
         const supabaseUrl = 'https://pykjxqtrcytxeqobinek.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5a2p4cXRyY3l0eGVxb2JpbmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5NTkxNjQsImV4cCI6MjA1NzUzNTE2NH0.2hq5RrYJ-gTcC488lbNX6A4RVix1y4PFCd2cZVQ03dM';
-        const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
+        const supabase = createClient(supabaseUrl, supabaseKey);
 
         // Carregar itens do Supabase ao iniciar
         window.onload = function() {
@@ -145,8 +145,8 @@
 
             // Sincronização em tempo real com Supabase
             supabase
-                .from('lista_compras')
-                .on('*', () => {
+                .channel('lista_compras')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'lista_compras' }, () => {
                     atualizarLista();
                 })
                 .subscribe();
