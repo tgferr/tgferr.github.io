@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EsqueceNada - Lista de Compras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 50px 12px 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-btn {
+            position: absolute;
+            right: 10px;
+            color: #27ae60;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .lista-compras {
+            list-style: none;
+        }
+
+        .lista-compras li {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: move;
+        }
+
+        .lista-compras li.dragging {
+            opacity: 0.5;
+            transform: scale(0.98);
+        }
+
+        .lista-compras li.completed {
+            background: #ecf0f1;
+            opacity: 0.7;
+        }
+
+        .lista-compras li span.item-text {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .action-btn {
+            font-size: 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .check { color: #27ae60; }
+        .delete { color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EsqueceNada - Lista de Compras</h1>
+        <div class="input-area">
+            <input type="text" id="itemInput" placeholder="Adicione um item...">
+            <span class="add-btn check" onclick="adicionarItem()">✓</span>
+        </div>
+        <ul id="listaItens" class="lista-compras"></ul>
+    </div>
+
+    <script>
+        // Carregar itens do localStorage ao iniciar
+        window.onload = function() {
+            carregarItens();
+        };
+
+        function carregarItens() {
+            const lista = document.getElementById('listaItens');
+            const itensSalvos = JSON.parse(localStorage.getItem('listaCompras')) || [];
+            
+            itensSalvos.forEach(item => {
+                const li = document.createElement('li');
+                li.draggable = true;
+                li.innerHTML = `
+                    <span class="item-text">${item.texto}</span>
+                    <span class="action-btn check" onclick="toggleComplete(this)">✓</span>
+                    <span class="action-btn delete" onclick="excluirItem(this)">🗑️</span>
+                `;
+                if (item.concluido) {
+                    li.classList.add('completed');
+                }
+                lista.appendChild(li);
+
+                // Adicionar eventos de drag-and-drop
+                li.addEventListener('dragstart', handleDragStart);
+                li.addEventListener('dragover', handleDragOver);
+                li.addEventListener('drop', handleDrop);
+                li.addEventListener('dragend', handleDragEnd);
+            });
+        }
+
+        function salvarItens() {
+            const lista = document.getElementById('listaItens');
+            const itens = [];
+            lista.querySelectorAll('li').forEach(li => {
+                itens.push({
+                    texto: li.querySelector('.item-text').textContent,
+                    concluido: li.classList.contains('completed')
+                });
+            });
+            localStorage.setItem('listaCompras', JSON.stringify(itens));
+        }
+
+        function adicionarItem() {
+            const input = document.getElementById('itemInput');
+            const texto = input.value.trim();
+            
+            if (texto !== '') {
+                const lista = document.getElementById('listaItens');
+                const li = document.createElement('li');
+                li.draggable = true;
+                li.innerHTML = `
+                    <span class="item-text">${texto}</span>
+                    <span class="action-btn check" onclick="toggleComplete(this)">✓</span>
+                    <span class="action-btn delete" onclick="excluirItem(this)">🗑️</span>
+                `;
+                
+                lista.appendChild(li);
+                input.value = '';
+                
+                li.addEventListener('dragstart', handleDragStart);
+                li.addEventListener('dragover', handleDragOver);
+                li.addEventListener('drop', handleDrop);
+                li.addEventListener('dragend', handleDragEnd);
+
+                salvarItens();
+            }
+        }
+
+        function toggleComplete(element) {
+            const li = element.parentElement;
+            li.classList.toggle('completed');
+            salvarItens();
+        }
+
+        function excluirItem(element) {
+            element.parentElement.remove();
+            salvarItens();
+        }
+
+        let draggedItem = null;
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            setTimeout(() => this.classList.add('dragging'), 0);
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            
+            const draggingElement = document.querySelector('.dragging');
+            const rect = this.getBoundingClientRect();
+            const offset = e.clientY - rect.top;
+            const middleY = rect.height / 2;
+
+            if (offset > middleY) {
+                this.parentNode.insertBefore(draggedItem, this.nextSibling);
+            } else {
+                this.parentNode.insertBefore(draggedItem, this);
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            salvarItens();
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+            draggedItem = null;
+            salvarItens();
+        }
+
+        document.getElementById('itemInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') adicionarItem();
+        });
+    </script>
+</body>
+</html>
