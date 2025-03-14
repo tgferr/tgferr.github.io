@@ -6,6 +6,8 @@
     <title>EsqueceNada - Lista de Compras</title>
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
         * {
             margin: 0;
@@ -133,6 +135,10 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5a2p4cXRyY3l0eGVxb2JpbmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5NTkxNjQsImV4cCI6MjA1NzUzNTE2NH0.2hq5RrYJ-gTcC488lbNX6A4RVix1y4PFCd2cZVQ03dM';
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
+        // Gerar um identificador único para este dispositivo
+        const deviceId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+        let lastActionId = null; // Armazenar o ID da última ação local
+
         // Carregar itens do Supabase ao iniciar
         window.onload = function() {
             carregarItens();
@@ -145,8 +151,15 @@
             // Sincronização em tempo real com Supabase
             supabaseClient
                 .channel('lista_compras')
-                .on('postgres_changes', { event: '*', schema: 'public', table: 'lista_compras' }, () => {
-                    atualizarLista(); // Atualizar lista automaticamente ao detectar mudanças
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'lista_compras' }, (payload) => {
+                    // Verificar se a mudança foi feita por este dispositivo
+                    const actionId = payload.new?.action_id || payload.old?.action_id;
+                    if (actionId && actionId === lastActionId) {
+                        console.log('Mudança local ignorada:', payload);
+                        return; // Ignorar mudanças locais
+                    }
+                    console.log('Mudança remota detectada:', payload);
+                    atualizarLista(); // Atualizar lista para mudanças remotas
                 })
                 .subscribe();
 
@@ -205,11 +218,12 @@
                 }
 
                 const ordem = itens.length;
+                lastActionId = Date.now().toString(); // Gerar um ID para a ação
 
-                // Adicionar novo item ao supabaseClient
+                // Adicionar novo item ao supabaseClient com o action_id
                 const { error: insertError } = await supabaseClient
                     .from('lista_compras')
-                    .insert([{ texto: texto, concluido: false, ordem: ordem }]);
+                    .insert([{ texto: texto, concluido: false, ordem: ordem, action_id: lastActionId }]);
 
                 if (insertError) {
                     console.error('Erro ao adicionar item:', insertError);
@@ -227,19 +241,26 @@
             li.classList.toggle('completed');
             const concluido = li.classList.contains('completed');
 
+            lastActionId = Date.now().toString(); // Gerar um ID para a ação
+
             const { error } = await supabaseClient
                 .from('lista_compras')
-                .update({ concluido: concluido })
+                .update({ concluido: concluido, action_id: lastActionId })
                 .eq('id', itemId);
 
             if (error) {
                 console.error('Erro ao atualizar item:', error);
+                return;
             }
+
+            atualizarLista(); // Atualizar a lista imediatamente após a alteração
         }
 
         async function excluirItem(element) {
             const li = element.parentElement;
             const itemId = li.dataset.id;
+
+            lastActionId = Date.now().toString(); // Gerar um ID para a ação
 
             const { error } = await supabaseClient
                 .from('lista_compras')
@@ -248,7 +269,10 @@
 
             if (error) {
                 console.error('Erro ao excluir item:', error);
+                return;
             }
+
+            atualizarLista(); // Atualizar a lista imediatamente após a exclusão
         }
 
         let draggedItem = null;
@@ -281,12 +305,14 @@
             const lista = document.getElementById('listaItens');
             const itens = lista.querySelectorAll('li');
 
+            lastActionId = Date.now().toString(); // Gerar um ID para a ação
+
             // Atualizar a ordem no supabaseClient
             const updates = Array.from(itens).map(async (li, index) => {
                 const itemId = li.dataset.id;
                 const { error } = await supabaseClient
                     .from('lista_compras')
-                    .update({ ordem: index })
+                    .update({ ordem: index, action_id: lastActionId })
                     .eq('id', itemId);
                 if (error) {
                     console.error('Erro ao atualizar ordem:', error);
@@ -294,6 +320,7 @@
             });
 
             await Promise.all(updates);
+            atualizarLista(); // Atualizar a lista imediatamente após a reordenação
         }
 
         function handleDragEnd() {
