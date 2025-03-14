@@ -125,19 +125,53 @@
         <ul id="listaItens" class="lista-compras"></ul>
     </div>
 
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-        // Carregar itens do localStorage ao iniciar
+        // Inicializar Supabase com a URL e a chave fornecidas
+        const supabaseUrl = 'https://pykjxqtrcytxeqobinek.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5a2p4cXRyY3l0eGVxb2JpbmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5NTkxNjQsImV4cCI6MjA1NzUzNTE2NH0.2hq5RrYJ-gTcC488lbNX6A4RVix1y4PFCd2cZVQ03dM';
+        const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Carregar itens do Supabase ao iniciar
         window.onload = function() {
             carregarItens();
         };
 
-        function carregarItens() {
+        async function carregarItens() {
             const lista = document.getElementById('listaItens');
-            const itensSalvos = JSON.parse(localStorage.getItem('listaCompras')) || [];
-            
-            itensSalvos.forEach(item => {
+            lista.innerHTML = ''; // Limpar lista antes de carregar
+
+            // Sincronização em tempo real com Supabase
+            supabase
+                .from('lista_compras')
+                .on('*', () => {
+                    atualizarLista();
+                })
+                .subscribe();
+
+            atualizarLista();
+        }
+
+        async function atualizarLista() {
+            const lista = document.getElementById('listaItens');
+            lista.innerHTML = ''; // Limpar lista atual
+
+            const { data: itens, error } = await supabase
+                .from('lista_compras')
+                .select('*')
+                .order('ordem', { ascending: true });
+
+            if (error) {
+                console.error('Erro ao carregar itens:', error);
+                return;
+            }
+
+            itens.forEach(item => {
                 const li = document.createElement('li');
                 li.draggable = true;
+                li.dataset.id = item.id; // Armazenar o ID do item
                 li.innerHTML = `
                     <span class="item-text">${item.texto}</span>
                     <span class="action-btn check" onclick="toggleComplete(this)">✓</span>
@@ -156,53 +190,65 @@
             });
         }
 
-        function salvarItens() {
-            const lista = document.getElementById('listaItens');
-            const itens = [];
-            lista.querySelectorAll('li').forEach(li => {
-                itens.push({
-                    texto: li.querySelector('.item-text').textContent,
-                    concluido: li.classList.contains('completed')
-                });
-            });
-            localStorage.setItem('listaCompras', JSON.stringify(itens));
-        }
-
-        function adicionarItem() {
+        async function adicionarItem() {
             const input = document.getElementById('itemInput');
             const texto = input.value.trim();
             
             if (texto !== '') {
-                const lista = document.getElementById('listaItens');
-                const li = document.createElement('li');
-                li.draggable = true;
-                li.innerHTML = `
-                    <span class="item-text">${texto}</span>
-                    <span class="action-btn check" onclick="toggleComplete(this)">✓</span>
-                    <span class="action-btn delete" onclick="excluirItem(this)">🗑️</span>
-                `;
+                // Contar quantos itens existem para definir a ordem
+                const { data: itens, error } = await supabase
+                    .from('lista_compras')
+                    .select('id');
                 
-                lista.appendChild(li);
-                input.value = '';
-                
-                li.addEventListener('dragstart', handleDragStart);
-                li.addEventListener('dragover', handleDragOver);
-                li.addEventListener('drop', handleDrop);
-                li.addEventListener('dragend', handleDragEnd);
+                if (error) {
+                    console.error('Erro ao contar itens:', error);
+                    return;
+                }
 
-                salvarItens();
+                const ordem = itens.length;
+
+                // Adicionar novo item ao Supabase
+                const { error: insertError } = await supabase
+                    .from('lista_compras')
+                    .insert([{ texto: texto, concluido: false, ordem: ordem }]);
+
+                if (insertError) {
+                    console.error('Erro ao adicionar item:', insertError);
+                    return;
+                }
+
+                input.value = '';
             }
         }
 
-        function toggleComplete(element) {
+        async function toggleComplete(element) {
             const li = element.parentElement;
+            const itemId = li.dataset.id;
             li.classList.toggle('completed');
-            salvarItens();
+            const concluido = li.classList.contains('completed');
+
+            const { error } = await supabase
+                .from('lista_compras')
+                .update({ concluido: concluido })
+                .eq('id', itemId);
+
+            if (error) {
+                console.error('Erro ao atualizar item:', error);
+            }
         }
 
-        function excluirItem(element) {
-            element.parentElement.remove();
-            salvarItens();
+        async function excluirItem(element) {
+            const li = element.parentElement;
+            const itemId = li.dataset.id;
+
+            const { error } = await supabase
+                .from('lista_compras')
+                .delete()
+                .eq('id', itemId);
+
+            if (error) {
+                console.error('Erro ao excluir item:', error);
+            }
         }
 
         let draggedItem = null;
@@ -230,15 +276,29 @@
             }
         }
 
-        function handleDrop(e) {
+        async function handleDrop(e) {
             e.preventDefault();
-            salvarItens();
+            const lista = document.getElementById('listaItens');
+            const itens = lista.querySelectorAll('li');
+
+            // Atualizar a ordem no Supabase
+            const updates = Array.from(itens).map(async (li, index) => {
+                const itemId = li.dataset.id;
+                const { error } = await supabase
+                    .from('lista_compras')
+                    .update({ ordem: index })
+                    .eq('id', itemId);
+                if (error) {
+                    console.error('Erro ao atualizar ordem:', error);
+                }
+            });
+
+            await Promise.all(updates);
         }
 
         function handleDragEnd() {
             this.classList.remove('dragging');
             draggedItem = null;
-            salvarItens();
         }
 
         document.getElementById('itemInput').addEventListener('keypress', (e) => {
