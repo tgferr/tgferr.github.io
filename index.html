@@ -146,7 +146,7 @@
             supabaseClient
                 .channel('lista_compras')
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'lista_compras' }, () => {
-                    atualizarLista();
+                    atualizarLista(); // Atualizar lista automaticamente ao detectar mudanças
                 })
                 .subscribe();
 
@@ -217,6 +217,7 @@
                 }
 
                 input.value = '';
+                atualizarLista(); // Atualizar a lista imediatamente após a inserção
             }
         }
 
