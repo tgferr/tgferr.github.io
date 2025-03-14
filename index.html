@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EsqueceNada - Lista de Compras</title>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -125,14 +127,11 @@
         <ul id="listaItens" class="lista-compras"></ul>
     </div>
 
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-
     <script>
         // Inicializar Supabase com a URL e a chave fornecidas
         const supabaseUrl = 'https://pykjxqtrcytxeqobinek.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5a2p4cXRyY3l0eGVxb2JpbmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5NTkxNjQsImV4cCI6MjA1NzUzNTE2NH0.2hq5RrYJ-gTcC488lbNX6A4RVix1y4PFCd2cZVQ03dM';
-        const supabase = createClient(supabaseUrl, supabaseKey);
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         // Carregar itens do Supabase ao iniciar
         window.onload = function() {
@@ -144,7 +143,7 @@
             lista.innerHTML = ''; // Limpar lista antes de carregar
 
             // Sincronização em tempo real com Supabase
-            supabase
+            supabaseClient
                 .channel('lista_compras')
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'lista_compras' }, () => {
                     atualizarLista();
@@ -158,7 +157,7 @@
             const lista = document.getElementById('listaItens');
             lista.innerHTML = ''; // Limpar lista atual
 
-            const { data: itens, error } = await supabase
+            const { data: itens, error } = await supabaseClient
                 .from('lista_compras')
                 .select('*')
                 .order('ordem', { ascending: true });
@@ -196,7 +195,7 @@
             
             if (texto !== '') {
                 // Contar quantos itens existem para definir a ordem
-                const { data: itens, error } = await supabase
+                const { data: itens, error } = await supabaseClient
                     .from('lista_compras')
                     .select('id');
                 
@@ -207,8 +206,8 @@
 
                 const ordem = itens.length;
 
-                // Adicionar novo item ao Supabase
-                const { error: insertError } = await supabase
+                // Adicionar novo item ao supabaseClient
+                const { error: insertError } = await supabaseClient
                     .from('lista_compras')
                     .insert([{ texto: texto, concluido: false, ordem: ordem }]);
 
@@ -227,7 +226,7 @@
             li.classList.toggle('completed');
             const concluido = li.classList.contains('completed');
 
-            const { error } = await supabase
+            const { error } = await supabaseClient
                 .from('lista_compras')
                 .update({ concluido: concluido })
                 .eq('id', itemId);
@@ -241,7 +240,7 @@
             const li = element.parentElement;
             const itemId = li.dataset.id;
 
-            const { error } = await supabase
+            const { error } = await supabaseClient
                 .from('lista_compras')
                 .delete()
                 .eq('id', itemId);
@@ -281,10 +280,10 @@
             const lista = document.getElementById('listaItens');
             const itens = lista.querySelectorAll('li');
 
-            // Atualizar a ordem no Supabase
+            // Atualizar a ordem no supabaseClient
             const updates = Array.from(itens).map(async (li, index) => {
                 const itemId = li.dataset.id;
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('lista_compras')
                     .update({ ordem: index })
                     .eq('id', itemId);
