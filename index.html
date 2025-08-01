@@ -1,337 +1,409 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EsqueceNada - Lista de Compras</title>
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Guia Interativo: GitHub Copilot Ninja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation bar for easy access to thematic sections (Configuração, Metodologia, Comunicação, etc.). This non-linear structure enhances usability by allowing users to jump to relevant content. Interactive elements like checklists, copy-to-clipboard buttons, and CSS-based diagrams are used to create an engaging learning experience instead of a static document. The goal is to transform a guide into a practical, interactive tool. -->
+    <!-- Visualization & Content Choices: Report Info (Workflow) -> Goal (Organize/Explain) -> Viz (HTML/CSS Diagram) -> Interaction (Hover effects) -> Justification (Visually represents the process flow, making it easier to understand than plain text). Report Info (Code Snippets) -> Goal (Inform/Enable) -> Viz (Styled Code Blocks) -> Interaction (Copy button) -> Justification (Improves usability by allowing quick and error-free copying of templates and commands). Report Info (Checklists) -> Goal (Interact/Track) -> Viz (Styled Checkboxes) -> Interaction (Click to toggle state) -> Justification (Turns passive reading into an active self-assessment tool). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
         }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
         }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-weight: 600;
-            text-align: center;
+        .nav-link.active, .nav-link:hover {
+            color: #2563eb; /* blue-600 */
+            border-bottom-color: #2563eb;
         }
-
-        .input-area {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
+        .code-block {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            border-radius: 0.5rem;
+            padding: 1rem;
             position: relative;
         }
-
-        input {
-            width: 100%;
-            padding: 12px 50px 12px 15px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .add-btn {
+        .copy-btn {
             position: absolute;
-            right: 10px;
-            color: #27ae60;
-            font-size: 24px;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #475569; /* slate-600 */
+            color: #e2e8f0; /* slate-200 */
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: background-color 0.2s;
         }
-
-        .add-btn:hover {
-            transform: scale(1.2);
+        .copy-btn:hover {
+            background-color: #64748b; /* slate-500 */
         }
-
-        .lista-compras {
-            list-style: none;
-        }
-
-        .lista-compras li {
+        .checklist-item {
             display: flex;
             align-items: center;
-            background: #fff;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            cursor: move;
-        }
-
-        .lista-compras li.dragging {
-            opacity: 0.5;
-            transform: scale(0.98);
-        }
-
-        .lista-compras li.completed {
-            background: #ecf0f1;
-            opacity: 0.7;
-        }
-
-        .lista-compras li span.item-text {
-            flex-grow: 1;
-            margin-right: 10px;
-        }
-
-        .action-btn {
-            font-size: 20px;
-            margin: 0 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s;
         }
-
-        .action-btn:hover {
-            transform: scale(1.1);
+        .checklist-item:hover {
+            background-color: #f1f5f9; /* slate-100 */
         }
-
-        .check { color: #27ae60; }
-        .delete { color: #e74c3c; }
+        .checklist-item input[type="checkbox"] {
+            display: none;
+        }
+        .checklist-item .custom-checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #94a3b8; /* slate-400 */
+            border-radius: 0.25rem;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .checklist-item input[type="checkbox"]:checked + .custom-checkbox {
+            background-color: #2563eb; /* blue-600 */
+            border-color: #2563eb;
+        }
+        .checklist-item input[type="checkbox"]:checked + .custom-checkbox::after {
+            content: '✔';
+            color: white;
+            font-size: 0.8rem;
+        }
+        .checklist-item span {
+            transition: all 0.2s;
+        }
+        .checklist-item input[type="checkbox"]:checked ~ span {
+            text-decoration: line-through;
+            color: #64748b; /* slate-500 */
+        }
+        .workflow-step {
+            transition: all 0.3s ease-in-out;
+            border-width: 2px;
+        }
+        .workflow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-color: #2563eb;
+        }
+        .workflow-arrow {
+            color: #94a3b8; /* slate-400 */
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>EsqueceNada - Lista de Compras</h1>
-        <div class="input-area">
-            <input type="text" id="itemInput" placeholder="Adicione um item...">
-            <span class="add-btn check" onclick="adicionarItem()">✓</span>
-        </div>
-        <ul id="listaItens" class="lista-compras"></ul>
-    </div>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">🚀 Copilot Ninja</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div id="nav-links" class="ml-10 flex items-baseline space-x-4">
+                        <a href="#configuracao" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Configuração</a>
+                        <a href="#metodologia" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Metodologia</a>
+                        <a href="#comunicacao" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Comunicação</a>
+                        <a href="#fluxo" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Fluxo & Comandos</a>
+                        <a href="#exemplos" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Exemplos & Dicas</a>
+                        <a href="#checklist" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Checklist</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="intro" class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">O Zen da Produtividade com GitHub Copilot</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Transforme sua interação com o Copilot de uma simples ferramenta para um parceiro de codificação autônomo e de alta performance. O segredo está na comunicação e na estrutura.</p>
+        </section>
+
+        <section id="configuracao" class="mb-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">1. O Segredo das Instructions Perfeitas</h3>
+            <p class="text-slate-600 mb-6">A base para um Copilot eficiente é a personalização. Configure-o para agir como um "agente de codificação" com regras específicas, tornando-o proativo e autônomo.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-bold text-lg mb-3">Custom Instructions (Base)</h4>
+                    <p class="mb-4 text-sm text-slate-500">Esta é sua configuração global. Ela define a persona, autonomia e regras de comunicação do Copilot.</p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                        <pre><code>description: 'Agente de codificação de alto nível.'
+model: GPT-4.1
+title: '4.1 Modo Fera (VS Code v1.102)'
+
+Você é um agente - continue até que a solicitação do usuário esteja completamente resolvida.
+VOCÊ DEVE iterar e continuar até que o problema seja resolvido.
+Você tem tudo o que precisa para resolver este problema.
+O PROBLEMA NÃO PODE SER RESOLVIDO SEM PESQUISA EXTENSA NA INTERNET.
+Sempre comunique-se de forma educada, clara e profissional, utilizando português do Brasil (pt-BR).</code></pre>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-bold text-lg mb-3">Instructions por Linguagem</h4>
+                    <p class="mb-4 text-sm text-slate-500">Crie arquivos `.instructions.md` para garantir que o código gerado siga os padrões de qualidade do seu projeto.</p>
+                    <div class="space-y-4">
+                        <details class="bg-slate-50 p-3 rounded">
+                            <summary class="font-medium cursor-pointer">Python</summary>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                                <pre><code># Python Coding Standards
+- Use type hints em todas as funções
+- Docstrings obrigatórias
+- Siga PEP 8 rigorosamente
+- Use pytest para testes (cobertura > 90%)</code></pre>
+                            </div>
+                        </details>
+                        <details class="bg-slate-50 p-3 rounded">
+                            <summary class="font-medium cursor-pointer">React/TypeScript</summary>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                                <pre><code># React/TypeScript Standards
+- Use functional components com hooks
+- TypeScript obrigatório
+- Testes com Testing Library
+- Separar lógica em hooks customizados</code></pre>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="metodologia" class="mb-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">2. Metodologia de Trabalho para Alta Performance</h3>
+            <p class="text-slate-600 mb-8">Uma interação produtiva segue um ciclo estruturado. Pense em cada tarefa como um projeto, com análise, planejamento, implementação e validação.</p>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <h4 class="font-bold text-lg text-center mb-8">Fluxo de Trabalho Ideal</h4>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
+                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
+                        <div class="text-3xl mb-2">1️⃣</div>
+                        <h5 class="font-semibold">Análise Profunda</h5>
+                        <p class="text-sm text-slate-500">Entenda o problema e o contexto.</p>
+                    </div>
+                    <div class="workflow-arrow text-4xl mx-4 hidden md:block">&rarr;</div>
+                    <div class="workflow-arrow text-4xl my-4 md:hidden">&darr;</div>
+                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
+                        <div class="text-3xl mb-2">2️⃣</div>
+                        <h5 class="font-semibold">Planejamento</h5>
+                        <p class="text-sm text-slate-500">Crie uma lista de tarefas detalhada.</p>
+                    </div>
+                    <div class="workflow-arrow text-4xl mx-4 hidden md:block">&rarr;</div>
+                    <div class="workflow-arrow text-4xl my-4 md:hidden">&darr;</div>
+                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
+                        <div class="text-3xl mb-2">3️⃣</div>
+                        <h5 class="font-semibold">Implementação</h5>
+                        <p class="text-sm text-slate-500">Execute e teste uma tarefa por vez.</p>
+                    </div>
+                    <div class="workflow-arrow text-4xl mx-4 hidden md:block">&rarr;</div>
+                    <div class="workflow-arrow text-4xl my-4 md:hidden">&darr;</div>
+                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
+                        <div class="text-3xl mb-2">4️⃣</div>
+                        <h5 class="font-semibold">Validação</h5>
+                        <p class="text-sm text-slate-500">Verifique tudo antes de finalizar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comunicacao" class="mb-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">3. A Arte de se Comunicar com o Copilot</h3>
+            <p class="text-slate-600 mb-6">A forma como você faz os pedidos é o fator mais importante. Comunicação vaga resulta em soluções vagas. Seja específico, dê contexto e defina o sucesso.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                    <h4 class="font-bold text-lg text-green-800 mb-3">✅ O Que Fazer</h4>
+                    <ul class="space-y-3 text-green-700">
+                        <li><strong class="font-semibold">Seja Específico:</strong> "O teste X falha no arquivo Y com o erro Z. Investigue."</li>
+                        <li><strong class="font-semibold">Forneça Contexto:</strong> "Preciso do endpoint GET para X. Aqui está a URL da doc da API externa: [...]"</li>
+                        <li><strong class="font-semibold">Use Comandos de Continuidade:</strong> "Continue", "Retomar", "Tentar novamente".</li>
+                        <li><strong class="font-semibold">Defina Critérios de Sucesso:</strong> "Pronto significa: todos os testes passam, cobertura > 90%."</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                    <h4 class="font-bold text-lg text-red-800 mb-3">❌ O Que Não Fazer</h4>
+                    <ul class="space-y-3 text-red-700">
+                        <li><strong class="font-semibold">Ser Vago:</strong> "Faz aí", "Arruma isso".</li>
+                        <li><strong class="font-semibold">Não dar Contexto:</strong> "Implementa rapidinho."</li>
+                        <li><strong class="font-semibold">Minimizar a Complexidade:</strong> "É só uma coisinha simples."</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="fluxo" class="mb-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">4. Fluxo de Trabalho e Comandos Essenciais</h3>
+            <p class="text-slate-600 mb-6">Use comandos claros para cada etapa do seu trabalho, desde a análise inicial até a validação final. Isso estrutura a interação e melhora os resultados.</p>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="space-y-2">
+                    <details class="p-4 bg-slate-50 rounded-lg">
+                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Investigação</summary>
+                        <p class="mt-2 text-slate-600">"Investigue o erro em [arquivo] e identifique a causa raiz."</p>
+                        <p class="mt-1 text-slate-600">"Analise a estrutura do projeto e sugira melhorias."</p>
+                    </details>
+                    <details class="p-4 bg-slate-50 rounded-lg">
+                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Implementação</summary>
+                        <p class="mt-2 text-slate-600">"Implemente [feature] com testes completos."</p>
+                        <p class="mt-1 text-slate-600">"Corrija todos os problemas de lint e tipo."</p>
+                    </details>
+                    <details class="p-4 bg-slate-50 rounded-lg">
+                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Validação</summary>
+                        <p class="mt-2 text-slate-600">"Execute todos os testes e garanta 100% de sucesso."</p>
+                        <p class="mt-1 text-slate-600">"Verifique se a cobertura está acima de [X]%."</p>
+                    </details>
+                    <details class="p-4 bg-slate-50 rounded-lg">
+                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Continuidade</summary>
+                        <p class="mt-2 text-slate-600">"Continue com a próxima tarefa da lista."</p>
+                        <p class="mt-1 text-slate-600">"Retome do último ponto incompleto."</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="exemplos" class="mb-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">5. Exemplos Práticos e Dicas de Ninja</h3>
+            <p class="text-slate-600 mb-6">Veja como aplicar esses conceitos na prática e algumas dicas para extrair o máximo de seu parceiro de codificação.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Exemplos de Interação</h4>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <p><strong class="font-semibold">Você:</strong> "O teste `test_media_endpoint` está falhando. Consegue arrumar?"</p>
+                            <p class="mt-2 text-blue-600"><strong class="font-semibold">Copilot:</strong> "Entendido. Vou investigar a falha, aplicar a correção e validar com todos os testes."</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <p><strong class="font-semibold">Você:</strong> "Preciso de um endpoint para buscar status de vídeos UGC. A doc está em [URL]."</p>
+                            <p class="mt-2 text-blue-600"><strong class="font-semibold">Copilot:</strong> "Ok. Vou implementar o endpoint completo, com controller, use case, testes e documentação."</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">🏆 Dicas de Ninja</h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700 bg-white p-6 rounded-lg shadow">
+                        <li><strong class="font-semibold">Sempre Forneça Contexto:</strong> Cole código, explique o comportamento esperado.</li>
+                        <li><strong class="font-semibold">Use Comandos Iterativos:</strong> "Continue até que todos os testes passem."</li>
+                        <li><strong class="font-semibold">Defina Critérios Claros:</strong> Especifique métricas de sucesso (cobertura, etc.).</li>
+                        <li><strong class="font-semibold">Aproveite a Autonomia:</strong> Deixe o Copilot investigar e descobrir soluções.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="checklist" class="scroll-mt-20">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">🏆 Checklist de Sucesso e Template Final</h3>
+            <p class="text-slate-600 mb-6">Use este checklist para garantir que você está preparado para uma sessão produtiva e o template para criar solicitações perfeitas.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="font-bold text-lg mb-4">Checklist de Produtividade</h4>
+                    <div class="space-y-2">
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"></span>
+                            <span class="ml-2">Instructions personalizadas configuradas.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"></span>
+                            <span class="ml-2">Contexto do projeto compreendido.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"></span>
+                            <span class="ml-2">Objetivos claramente definidos.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"></span>
+                            <span class="ml-2">Validação contínua implementada.</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span class="custom-checkbox"></span>
+                            <span class="ml-2">Todos os testes passando ao finalizar.</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                    <h4 class="font-bold text-lg mb-4 text-blue-800">Template de Solicitação Perfeita</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                        <pre><code>**Contexto**: [Descreva o projeto, tecnologias, situação atual]
+
+**Objetivo**: [O que precisa ser alcançado - seja específico]
+
+**Requisitos**:
+- Requisito técnico 1
+- Requisito de qualidade 2
+
+**Critérios de Sucesso**:
+- [ ] Critério mensurável 1 (Ex: 100% de testes passando)
+- [ ] Critério mensurável 2 (Ex: Cobertura > 90%)
+
+**Recursos**: [URLs, documentação, exemplos]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 border-t border-slate-200">
+        <p class="text-slate-500">Salve este guia e use como referência em todos os seus projetos!</p>
+    </footer>
 
     <script>
-        // Inicializar Supabase com a URL e a chave fornecidas
-        const supabaseUrl = 'https://pykjxqtrcytxeqobinek.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5a2p4cXRyY3l0eGVxb2JpbmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5NTkxNjQsImV4cCI6MjA1NzUzNTE2NH0.2hq5RrYJ-gTcC488lbNX6A4RVix1y4PFCd2cZVQ03dM';
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-        // Carregar itens do Supabase ao iniciar
-        window.onload = function() {
-            carregarItens();
-        };
-
-        async function carregarItens() {
-            const lista = document.getElementById('listaItens');
-            lista.innerHTML = ''; // Limpar lista antes de carregar
-
-            // Sincronização em tempo real com Supabase
-            supabaseClient
-                .channel('lista_compras')
-                .on('postgres_changes', { event: '*', schema: 'public', table: 'lista_compras' }, () => {
-                    atualizarLista(); // Atualizar lista automaticamente ao detectar mudanças
-                })
-                .subscribe();
-
-            atualizarLista();
-        }
-
-        async function atualizarLista() {
-            const lista = document.getElementById('listaItens');
-            lista.innerHTML = ''; // Limpar lista atual
-
-            const { data: itens, error } = await supabaseClient
-                .from('lista_compras')
-                .select('*')
-                .order('ordem', { ascending: true });
-
-            if (error) {
-                console.error('Erro ao carregar itens:', error);
-                return;
-            }
-
-            itens.forEach(item => {
-                const li = document.createElement('li');
-                li.draggable = true;
-                li.dataset.id = item.id; // Armazenar o ID do item
-                li.innerHTML = `
-                    <span class="item-text">${item.texto}</span>
-                    <span class="action-btn check" onclick="toggleComplete(this)">✓</span>
-                    <span class="action-btn delete" onclick="excluirItem(this)">🗑️</span>
-                `;
-                if (item.concluido) {
-                    li.classList.add('completed');
-                }
-                lista.appendChild(li);
-
-                // Adicionar eventos de drag-and-drop
-                li.addEventListener('dragstart', handleDragStart);
-                li.addEventListener('dragover', handleDragOver);
-                li.addEventListener('drop', handleDrop);
-                li.addEventListener('dragend', handleDragEnd);
+        function copyCode(button) {
+            const pre = button.nextElementSibling;
+            const code = pre.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerText = 'Copiado!';
+                setTimeout(() => {
+                    button.innerText = 'Copiar';
+                }, 2000);
+            }).catch(err => {
+                console.error('Falha ao copiar texto: ', err);
             });
         }
 
-        async function adicionarItem() {
-            const input = document.getElementById('itemInput');
-            const texto = input.value.trim();
-            
-            if (texto !== '') {
-                // Contar quantos itens existem para definir a ordem
-                const { data: itens, error } = await supabaseClient
-                    .from('lista_compras')
-                    .select('id');
-                
-                if (error) {
-                    console.error('Erro ao contar itens:', error);
-                    return;
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('#nav-links a');
 
-                const ordem = itens.length;
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
 
-                // Adicionar novo item ao Supabase e obter o item inserido
-                const { data: novoItem, error: insertError } = await supabaseClient
-                    .from('lista_compras')
-                    .insert([{ texto: texto, concluido: false, ordem: ordem }])
-                    .select()
-                    .single();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
 
-                if (insertError) {
-                    console.error('Erro ao adicionar item:', insertError);
-                    return;
-                }
-
-                // Adicionar o novo item localmente sem recarregar toda a lista
-                const lista = document.getElementById('listaItens');
-                const li = document.createElement('li');
-                li.draggable = true;
-                li.dataset.id = novoItem.id;
-                li.innerHTML = `
-                    <span class="item-text">${novoItem.texto}</span>
-                    <span class="action-btn check" onclick="toggleComplete(this)">✓</span>
-                    <span class="action-btn delete" onclick="excluirItem(this)">🗑️</span>
-                `;
-                lista.appendChild(li);
-
-                // Adicionar eventos de drag-and-drop ao novo item
-                li.addEventListener('dragstart', handleDragStart);
-                li.addEventListener('dragover', handleDragOver);
-                li.addEventListener('drop', handleDrop);
-                li.addEventListener('dragend', handleDragEnd);
-
-                input.value = '';
-                // Não chamamos atualizarLista() aqui, pois o evento postgres_changes cuidará disso
-            }
-        }
-
-        async function toggleComplete(element) {
-            const li = element.parentElement;
-            const itemId = li.dataset.id;
-            li.classList.toggle('completed');
-            const concluido = li.classList.contains('completed');
-
-            const { error } = await supabaseClient
-                .from('lista_compras')
-                .update({ concluido: concluido })
-                .eq('id', itemId);
-
-            if (error) {
-                console.error('Erro ao atualizar item:', error);
-            }
-            // Não chamamos atualizarLista() aqui, pois o evento postgres_changes cuidará disso
-        }
-
-        async function excluirItem(element) {
-            const li = element.parentElement;
-            const itemId = li.dataset.id;
-
-            const { error } = await supabaseClient
-                .from('lista_compras')
-                .delete()
-                .eq('id', itemId);
-
-            if (error) {
-                console.error('Erro ao excluir item:', error);
-                return;
-            }
-
-            // Remover o item localmente sem recarregar toda a lista
-            li.remove();
-            // Não chamamos atualizarLista() aqui, pois o evento postgres_changes cuidará disso
-        }
-
-        let draggedItem = null;
-
-        function handleDragStart(e) {
-            draggedItem = this;
-            setTimeout(() => this.classList.add('dragging'), 0);
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            
-            const draggingElement = document.querySelector('.dragging');
-            const rect = this.getBoundingClientRect();
-            const offset = e.clientY - rect.top;
-            const middleY = rect.height / 2;
-
-            if (offset > middleY) {
-                this.parentNode.insertBefore(draggedItem, this.nextSibling);
-            } else {
-                this.parentNode.insertBefore(draggedItem, this);
-            }
-        }
-
-        async function handleDrop(e) {
-            e.preventDefault();
-            const lista = document.getElementById('listaItens');
-            const itens = lista.querySelectorAll('li');
-
-            // Atualizar a ordem no Supabase
-            const updates = Array.from(itens).map(async (li, index) => {
-                const itemId = li.dataset.id;
-                const { error } = await supabaseClient
-                    .from('lista_compras')
-                    .update({ ordem: index })
-                    .eq('id', itemId);
-                if (error) {
-                    console.error('Erro ao atualizar ordem:', error);
-                }
+            sections.forEach(section => {
+                observer.observe(section);
             });
-
-            await Promise.all(updates);
-            // Não chamamos atualizarLista() aqui, pois o evento postgres_changes cuidará disso
-        }
-
-        function handleDragEnd() {
-            this.classList.remove('dragging');
-            draggedItem = null;
-        }
-
-        document.getElementById('itemInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') adicionarItem();
         });
     </script>
 </body>
