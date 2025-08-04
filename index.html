@@ -396,14 +396,7 @@
                 <p>
                   Conta corporativa ativa com licença aprovada pelo time de TI
                 </p>
-                <ul
-                  style="
-                    margin: 0.5rem 0;
-                    padding-left: 1rem;
-                    color: var(--text-muted);
-                    font-size: 0.85rem;
-                  "
-                >
+                <ul class="prerequisite-list">
                   <li>Licença Copilot for Business ativa</li>
                   <li>Conta GitHub corporativa (@luizalabs.com)</li>
                   <li>Política de uso assinada</li>
@@ -423,14 +416,7 @@
               <div class="prerequisite-content">
                 <h4>VS Code Configurado</h4>
                 <p>Extensões instaladas e funcionando corretamente</p>
-                <ul
-                  style="
-                    margin: 0.5rem 0;
-                    padding-left: 1rem;
-                    color: var(--text-muted);
-                    font-size: 0.85rem;
-                  "
-                >
+                <ul class="prerequisite-list">
                   <li>GitHub Copilot extension</li>
                   <li>GitHub Copilot Chat extension</li>
                   <li>Login realizado com conta corporativa</li>
@@ -449,16 +435,16 @@
             </div>
           </div>
 
-          <div class="warning-box" style="margin-top: 2rem">
+          <div class="warning-box">
             <i class="fas fa-exclamation-triangle"></i>
-            <div>
+            <div class="warning-box-content">
               <p>
                 <strong>Importante:</strong> Este template foi desenvolvido
                 especificamente para projetos da Luiza Labs. Se você não tem
                 acesso ao GitHub Copilot corporativo, entre em contato com o
                 time de TI.
               </p>
-              <p style="margin-top: 0.5rem">
+              <p>
                 <strong>Contato:</strong> #github-copilot-suporte ou
                 tiago.ferreira@luizalabs.com
               </p>
@@ -477,82 +463,65 @@
             Labs
           </p>
           <div class="download-card">
-            <div class="download-info">
-              <div class="download-icon">
-                <i class="fas fa-file-archive"></i>
-              </div>
-              <div class="download-details">
-                <h4>Copilot Init Template v1.0 - Luiza Labs</h4>
-                <p>
-                  Template otimizado para configuração automática do GitHub
-                  Copilot em projetos da empresa
-                </p>
-                <ul class="download-features">
-                  <li>
-                    <i class="fas fa-check"></i> Configuração automática para
-                    qualquer stack tecnológica
-                  </li>
-                  <li>
-                    <i class="fas fa-check"></i> Segurança corporativa com
-                    allowList/denyList pré-configurados
-                  </li>
-                  <li>
-                    <i class="fas fa-check"></i> Auto-limpeza após configuração
-                    (zero commits acidentais)
-                  </li>
-                  <li>
-                    <i class="fas fa-check"></i> Instruções específicas baseadas
-                    em padrões Luiza Labs
-                  </li>
-                  <li>
-                    <i class="fas fa-check"></i> Suporte para Python,
-                    JavaScript, Java, C#, Go e outros
-                  </li>
-                </ul>
-                <div
-                  style="
-                    margin-top: 1rem;
-                    padding: 0.75rem;
-                    background: var(--bg-secondary);
-                    border-radius: var(--radius-md);
-                  "
-                >
-                  <p
-                    style="
-                      margin: 0;
-                      font-size: 0.875rem;
-                      color: var(--text-secondary);
-                    "
-                  >
-                    <i class="fas fa-user"></i>
-                    <strong>Desenvolvido por:</strong> Tiago Ferreira - Senior
-                    Software Engineer<br />
-                    <i class="fas fa-calendar"></i>
-                    <strong>Última atualização:</strong> Agosto 2025<br />
-                    <i class="fas fa-shield-alt"></i>
-                    <strong>Aprovado para uso:</strong> Luiza Labs Engineering
+            <div class="download-card-content">
+              <div class="download-info">
+                <div class="download-icon">
+                  <i class="fas fa-file-archive"></i>
+                </div>
+                <div class="download-details">
+                  <h4>Copilot Init Template v1.0 - Luiza Labs</h4>
+                  <p>
+                    Template otimizado para configuração automática do GitHub
+                    Copilot em projetos da empresa
                   </p>
+                  <div class="download-features">
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Configuração automática para
+                      qualquer stack tecnológica
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Segurança corporativa com
+                      allowList/denyList pré-configurados
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Auto-limpeza após
+                      configuração (zero commits acidentais)
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Instruções específicas
+                      baseadas em padrões Luiza Labs
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Suporte para Python,
+                      JavaScript, Java, C#, Go e outros
+                    </div>
+                  </div>
+                  <div class="download-author">
+                    <p>
+                      <i class="fas fa-user"></i>
+                      <strong>Desenvolvido por:</strong> Tiago Ferreira - Senior
+                      Software Engineer<br />
+                      <i class="fas fa-calendar"></i>
+                      <strong>Última atualização:</strong> Agosto 2025<br />
+                      <i class="fas fa-shield-alt"></i>
+                      <strong>Aprovado para uso:</strong> Luiza Labs Engineering
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="download-actions">
-              <button
-                class="btn btn-primary btn-lg"
-                onclick="downloadTemplate()"
-              >
-                <i class="fas fa-download"></i>
-                Baixar Template
-              </button>
-              <p class="download-size">~49KB • ZIP</p>
-              <p
-                style="
-                  margin: 0.5rem 0 0 0;
-                  font-size: 0.8rem;
-                  color: var(--text-muted);
-                "
-              >
-                Arquivo seguro • Sem dependências externas
-              </p>
+              <div class="download-actions">
+                <button
+                  class="btn btn-primary btn-lg"
+                  onclick="downloadTemplate()"
+                >
+                  <i class="fas fa-download"></i>
+                  Baixar Template
+                </button>
+                <p class="download-size">~49KB • ZIP</p>
+                <p class="download-security">
+                  Arquivo seguro • Sem dependências externas
+                </p>
+              </div>
             </div>
           </div>
         </div>
