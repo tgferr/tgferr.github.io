@@ -1,0 +1,49 @@
+title: "GitHub Copilot Guide"
+description: "Guia completo para dominar GitHub Copilot em qualquer nível"
+url: ""
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Plugins
+plugins:
+- jekyll-feed
+- jekyll-sitemap
+
+# Exclude files
+exclude:
+- README.md
+- Gemfile
+- Gemfile.lock
+- node_modules
+- vendor
+
+# SEO
+lang: pt-BR
+author: "Copilot Guide Team"
+
+# Social
+github_username: ""
+twitter_username: ""
+
+# Collections
+collections:
+  guides:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+- scope:
+    path: ""
+    type: "pages"
+  values:
+    layout: "default"
+- scope:
+    path: ""
+    type: "guides"
+  values:
+    layout: "guide"

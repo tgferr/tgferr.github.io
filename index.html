@@ -1,424 +1,580 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia Interativo: GitHub Copilot Ninja</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation bar for easy access to thematic sections (Configuração, Metodologia, Comunicação, etc.). This non-linear structure enhances usability by allowing users to jump to relevant content. Interactive elements like checklists, copy-to-clipboard buttons, and CSS-based diagrams are used to create an engaging learning experience instead of a static document. The goal is to transform a guide into a practical, interactive tool. The "Configuração" section has been expanded with a detailed explanation of Chat Modes versus Instructions. -->
-    <!-- Visualization & Content Choices: Report Info (Workflow) -> Goal (Organize/Explain) -> Viz (HTML/CSS Diagram) -> Interaction (Hover effects) -> Justification (Visually represents the process flow, making it easier to understand than plain text). Report Info (Code Snippets) -> Goal (Inform/Enable) -> Viz (Styled Code Blocks) -> Interaction (Copy button) -> Justification (Improves usability by allowing quick and error-free copying of templates and commands). Report Info (Checklists) -> Goal (Interact/Track) -> Viz (Styled Checkboxes) -> Interaction (Click to toggle state) -> Justification (Turns passive reading into an active self-assessment tool). -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
-            color: #1e293b; /* slate-800 */
-        }
-        .nav-link {
-            transition: all 0.3s ease;
-            border-bottom: 2px solid transparent;
-        }
-        .nav-link.active, .nav-link:hover {
-            color: #2563eb; /* blue-600 */
-            border-bottom-color: #2563eb;
-        }
-        .code-block {
-            background-color: #1e293b; /* slate-800 */
-            color: #e2e8f0; /* slate-200 */
-            border-radius: 0.5rem;
-            padding: 1rem;
-            position: relative;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: #475569; /* slate-600 */
-            color: #e2e8f0; /* slate-200 */
-            border: none;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .copy-btn:hover {
-            background-color: #64748b; /* slate-500 */
-        }
-        .checklist-item {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            transition: background-color 0.2s;
-        }
-        .checklist-item:hover {
-            background-color: #f1f5f9; /* slate-100 */
-        }
-        .checklist-item input[type="checkbox"] {
-            display: none;
-        }
-        .checklist-item .custom-checkbox {
-            width: 1.25rem;
-            height: 1.25rem;
-            border: 2px solid #94a3b8; /* slate-400 */
-            border-radius: 0.25rem;
-            margin-right: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        .checklist-item input[type="checkbox"]:checked + .custom-checkbox {
-            background-color: #2563eb; /* blue-600 */
-            border-color: #2563eb;
-        }
-        .checklist-item input[type="checkbox"]:checked + .custom-checkbox::after {
-            content: '✔';
-            color: white;
-            font-size: 0.8rem;
-        }
-        .checklist-item span {
-            transition: all 0.2s;
-        }
-        .checklist-item input[type="checkbox"]:checked ~ span {
-            text-decoration: line-through;
-            color: #64748b; /* slate-500 */
-        }
-        .workflow-step {
-            transition: all 0.3s ease-in-out;
-            border-width: 2px;
-        }
-        .workflow-step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            border-color: #2563eb;
-        }
-        .workflow-arrow {
-            color: #94a3b8; /* slate-400 */
-        }
-    </style>
-</head>
-<body class="antialiased">
-
-    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-slate-800">🚀 Copilot Ninja</h1>
-                </div>
-                <div class="hidden md:block">
-                    <div id="nav-links" class="ml-10 flex items-baseline space-x-4">
-                        <a href="#configuracao" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Configuração</a>
-                        <a href="#metodologia" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Metodologia</a>
-                        <a href="#comunicacao" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Comunicação</a>
-                        <a href="#fluxo" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Fluxo & Comandos</a>
-                        <a href="#exemplos" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Exemplos & Dicas</a>
-                        <a href="#checklist" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Checklist</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Copilot - Guia Completo</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fab fa-github"></i>
+            <span>Copilot Guide</span>
+          </div>
+          <nav class="nav">
+            <a href="#home" class="nav-link active">Início</a>
+            <a href="#profiles" class="nav-link">Perfis</a>
+            <a href="#setup" class="nav-link">Setup</a>
+            <a href="#advanced" class="nav-link">Avançado</a>
+            <a href="#teams" class="nav-link">Equipes</a>
+          </nav>
+          <div class="theme-toggle">
+            <button id="theme-toggle" class="theme-btn">
+              <i class="fas fa-moon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-
-        <section id="intro" class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">O Zen da Produtividade com GitHub Copilot</h2>
-            <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Transforme sua interação com o Copilot de uma simples ferramenta para um parceiro de codificação autônomo e de alta performance. O segredo está na comunicação e na estrutura.</p>
-        </section>
-
-        <section id="configuracao" class="mb-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">1. O Segredo das Instructions e Chat Modes</h3>
-            <p class="text-slate-600 mb-6">A base para um Copilot eficiente é a personalização. As **Instructions** definem a personalidade e as regras do agente, enquanto os **Chat Modes** permitem que você ative contextos específicos para tarefas pontuais.</p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="font-bold text-lg mb-3">Instructions (Configuração Persistente)</h4>
-                    <p class="mb-2 text-slate-700">As instructions são arquivos de texto que moldam o comportamento do Copilot de forma persistente. Elas podem ser **globais** (aplicadas em todas as sessões) ou **locais** (específicas para um projeto).</p>
-                    <ul class="list-disc list-inside space-y-2 text-slate-600">
-                        <li><strong class="font-semibold">Custom Instructions (Globais):</strong> Definem a persona do agente, sua metodologia geral, o idioma (pt-BR) e sua autonomia para pesquisar na web. É a base de todas as interações.</li>
-                        <li><strong class="font-semibold">Instructions Específicas por Linguagem (Locais):</strong> Arquivos `.instructions.md` que vivem na pasta `.vscode` do seu projeto. Eles se sobrepõem às instruções globais e dão ao Copilot o contexto necessário para um código de alta qualidade em um projeto específico.</li>
-                    </ul>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="font-bold text-lg mb-3">Chat Modes (Comandos Contextuais)</h4>
-                    <p class="mb-2 text-slate-700">Os chat modes são comandos dinâmicos, acionados com `@` no Copilot Chat. Eles definem um *contexto temporário* para a sua pergunta, sem alterar as instruções persistentes. A grande diferença é que eles são ideais para tarefas pontuais, como correção de um bug ou geração de testes, enquanto as instructions são para padronização geral.</p>
-                    <ul class="list-disc list-inside space-y-2 text-slate-600">
-                        <li><strong class="font-semibold">Indicação de Uso:</strong> Use chat modes para tarefas únicas que exigem uma persona ou um fluxo de trabalho específico. Por exemplo, use `@tests` para gerar um arquivo de teste para a função em que você está trabalhando, ou `@new_component` para criar um componente React com uma estrutura pré-definida.</li>
-                    </ul>
-                </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="gradient-text">Domine o GitHub Copilot</span>
+              <br />em qualquer nível
+            </h1>
+            <p class="hero-description">
+              Guia completo do iniciante ao especialista. Configure, use e
+              implemente GitHub Copilot com segurança e produtividade máxima.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" onclick="openProfileSelector()">
+                <i class="fas fa-rocket"></i>
+                Começar Agora
+              </button>
+              <button
+                class="btn btn-secondary"
+                onclick="scrollToSection('setup')"
+              >
+                <i class="fas fa-play"></i>
+                Quick Start (5 min)
+              </button>
             </div>
-
-            <div class="grid md:grid-cols-2 gap-8 mt-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="font-bold text-lg mb-3">Instalação e Configuração</h4>
-                    <p class="mb-4 text-sm text-slate-500">Para configurar o Copilot, você pode usar a base do <a href="https://github.com/github/awesome-copilot/tree/main/" target="_blank" class="text-blue-600 underline">repositório awesome-copilot</a>. Siga o passo a passo para iniciantes:</p>
-                    <details class="p-3 rounded bg-slate-50">
-                        <summary class="font-medium cursor-pointer text-slate-700">Passo a passo para iniciantes</summary>
-                        <ol class="list-decimal list-inside space-y-3 mt-4 text-slate-600">
-                            <li><strong class="font-semibold">Instale o Copilot Chat:</strong> Certifique-se de que a extensão `GitHub Copilot Chat` está instalada no seu VS Code.</li>
-                            <li><strong class="font-semibold">Crie a pasta `.vscode`:</strong> Na raiz do seu projeto, crie uma pasta chamada `.vscode`.</li>
-                            <li><strong class="font-semibold">Instruções Globais:</strong> Vá para as configurações do VS Code e procure por `Copilot Chat: Chat View Default Text`. Cole suas instruções globais neste campo ou configure o caminho para um arquivo local.</li>
-                            <li><strong class="font-semibold">Instruções Locais:</strong> Baixe os arquivos de instrução do <a href="https://github.com/github/awesome-copilot/tree/main/instructions" target="_blank" class="text-blue-600 underline">repositório</a> para sua pasta `.vscode`. Para um projeto Python, o arquivo pode ser `python-instructions.instructions.md`.</li>
-                            <li><strong class="font-semibold">Ative no projeto:</strong> Reinicie o VS Code. Agora, ao abrir o Copilot Chat, ele usará as instruções específicas do seu projeto.</li>
-                        </ol>
-                    </details>
+          </div>
+          <div class="hero-visual">
+            <div class="code-preview">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="font-bold text-lg mb-3">Exemplos de Uso com Chat Modes</h4>
-                    <p class="mb-4 text-sm text-slate-500">Veja como usar chat modes para tarefas específicas em Python e React, combinando com as instructions locais que você configurou:</p>
-                    <div class="space-y-4">
-                        <details class="bg-slate-50 p-3 rounded">
-                            <summary class="font-medium cursor-pointer text-slate-700">Python</summary>
-                            <p class="mt-2 text-sm text-slate-600">Com instruções de PEP 8 ativas, você pode usar:</p>
-                            <div class="code-block mt-2">
-                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code>@vscode /fix
-// corrige violações de PEP 8 em uma função
-// que você acabou de escrever.</code></pre>
-                            </div>
-                        </details>
-                        <details class="bg-slate-50 p-3 rounded">
-                            <summary class="font-medium cursor-pointer text-slate-700">React/TypeScript</summary>
-                            <p class="mt-2 text-sm text-slate-600">Com instruções de hooks e tipagem ativas, você pode usar:</p>
-                            <div class="code-block mt-2">
-                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code>@tests /generate
-// gera testes com Testing Library para o
-// componente React selecionado.</code></pre>
-                            </div>
-                        </details>
-                    </div>
+                <span>VS Code + GitHub Copilot</span>
+              </div>
+              <div class="code-content">
+                <div class="code-line">
+                  <span class="comment"># função para calcular fibonacci</span>
                 </div>
+                <div class="code-line copilot-suggestion">
+                  <span class="keyword">def</span>
+                  <span class="function">fibonacci</span
+                  ><span class="punctuation">(</span
+                  ><span class="parameter">n</span
+                  ><span class="punctuation">):</span>
+                </div>
+                <div class="code-line copilot-suggestion">
+                  <span class="indent"> </span><span class="keyword">if</span>
+                  <span class="parameter">n</span>
+                  <span class="operator"><=</span> <span class="number">1</span
+                  ><span class="punctuation">:</span>
+                </div>
+                <div class="code-line copilot-suggestion">
+                  <span class="indent"> </span
+                  ><span class="keyword">return</span>
+                  <span class="parameter">n</span>
+                </div>
+                <div class="tab-hint">
+                  <i class="fas fa-magic"></i>
+                  Pressione Tab para aceitar
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section id="metodologia" class="mb-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">2. Metodologia de Trabalho para Alta Performance</h3>
-            <p class="text-slate-600 mb-8">Uma interação produtiva segue um ciclo estruturado. Pense em cada tarefa como um projeto, com análise, planejamento, implementação e validação.</p>
-            <div class="bg-white p-8 rounded-lg shadow-lg">
-                <h4 class="font-bold text-lg text-center mb-8">Fluxo de Trabalho Ideal</h4>
-                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
-                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
-                        <div class="text-3xl mb-2">1️⃣</div>
-                        <h5 class="font-semibold">Análise Profunda</h5>
-                        <p class="text-sm text-slate-500">Entenda o problema e o contexto.</p>
-                    </div>
-                    <div class="workflow-arrow text-4xl mx-4 hidden md:block">&rarr;</div>
-                    <div class="workflow-arrow text-4xl my-4 md:hidden">&darr;</div>
-                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
-                        <div class="text-3xl mb-2">2️⃣</div>
-                        <h5 class="font-semibold">Planejamento</h5>
-                        <p class="text-sm text-slate-500">Crie uma lista de tarefas detalhada.</p>
-                    </div>
-                    <div class="workflow-arrow text-4xl mx-4 hidden md:block">&rarr;</div>
-                    <div class="workflow-arrow text-4xl my-4 md:hidden">&darr;</div>
-                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
-                        <div class="text-3xl mb-2">3️⃣</div>
-                        <h5 class="font-semibold">Implementação</h5>
-                        <p class="text-sm text-slate-500">Execute e teste uma tarefa por vez.</p>
-                    </div>
-                    <div class="workflow-arrow text-4xl mx-4 hidden md:block">&rarr;</div>
-                    <div class="workflow-arrow text-4xl my-4 md:hidden">&darr;</div>
-                    <div class="workflow-step text-center p-4 bg-slate-50 rounded-lg border-slate-200 w-full md:w-1/4">
-                        <div class="text-3xl mb-2">4️⃣</div>
-                        <h5 class="font-semibold">Validação</h5>
-                        <p class="text-sm text-slate-500">Verifique tudo antes de finalizar.</p>
-                    </div>
-                </div>
+    <!-- Profile Selector -->
+    <section id="profiles" class="profiles">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Escolha seu Perfil</h2>
+          <p class="section-description">
+            Cada perfil tem um roteiro personalizado para maximizar seu
+            aprendizado
+          </p>
+        </div>
+        <div class="profiles-grid">
+          <div class="profile-card" data-profile="junior">
+            <div class="profile-icon">
+              <i class="fas fa-seedling"></i>
             </div>
-        </section>
-
-        <section id="comunicacao" class="mb-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">3. A Arte de se Comunicar com o Copilot</h3>
-            <p class="text-slate-600 mb-6">A forma como você faz os pedidos é o fator mais importante. Comunicação vaga resulta em soluções vagas. Seja específico, dê contexto e defina o sucesso.</p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
-                    <h4 class="font-bold text-lg text-green-800 mb-3">✅ O Que Fazer</h4>
-                    <ul class="space-y-3 text-green-700">
-                        <li><strong class="font-semibold">Seja Específico:</strong> "O teste X falha no arquivo Y com o erro Z. Investigue."</li>
-                        <li><strong class="font-semibold">Forneça Contexto:</strong> "Preciso do endpoint GET para X. Aqui está a URL da doc da API externa: [...]"</li>
-                        <li><strong class="font-semibold">Use Comandos de Continuidade:</strong> "Continue", "Retomar", "Tentar novamente".</li>
-                        <li><strong class="font-semibold">Defina Critérios de Sucesso:</strong> "Pronto significa: todos os testes passam, cobertura > 90%."</li>
-                    </ul>
-                </div>
-                <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
-                    <h4 class="font-bold text-lg text-red-800 mb-3">❌ O Que Não Fazer</h4>
-                    <ul class="space-y-3 text-red-700">
-                        <li><strong class="font-semibold">Ser Vago:</strong> "Faz aí", "Arruma isso".</li>
-                        <li><strong class="font-semibold">Não dar Contexto:</strong> "Implementa rapidinho."</li>
-                        <li><strong class="font-semibold">Minimizar a Complexidade:</strong> "É só uma coisinha simples."</li>
-                    </ul>
-                </div>
+            <h3 class="profile-title">DEV Jr</h3>
+            <p class="profile-description">
+              Primeiro contato com Copilot. Guia passo-a-passo do zero ao
+              produtivo.
+            </p>
+            <div class="profile-features">
+              <span class="feature">⚡ 5 min para funcionar</span>
+              <span class="feature">🛡️ Configuração segura</span>
+              <span class="feature">📸 Apoio visual</span>
             </div>
-        </section>
+            <button class="btn btn-outline" onclick="selectProfile('junior')">
+              Começar Jornada
+            </button>
+          </div>
 
-        <section id="fluxo" class="mb-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">4. Fluxo de Trabalho e Comandos Essenciais</h3>
-            <p class="text-slate-600 mb-6">Use comandos claros para cada etapa do seu trabalho, desde a análise inicial até a validação final. Isso estrutura a interação e melhora os resultados.</p>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="space-y-2">
-                    <details class="p-4 bg-slate-50 rounded-lg">
-                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Investigação</summary>
-                        <p class="mt-2 text-slate-600">"Investigue o erro em [arquivo] e identifique a causa raiz."</p>
-                        <p class="mt-1 text-slate-600">"Analise a estrutura do projeto e sugira melhorias."</p>
-                    </details>
-                    <details class="p-4 bg-slate-50 rounded-lg">
-                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Implementação</summary>
-                        <p class="mt-2 text-slate-600">"Implemente [feature] com testes completos."</p>
-                        <p class="mt-1 text-slate-600">"Corrija todos os problemas de lint e tipo."</p>
-                    </details>
-                    <details class="p-4 bg-slate-50 rounded-lg">
-                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Validação</summary>
-                        <p class="mt-2 text-slate-600">"Execute todos os testes e garanta 100% de sucesso."</p>
-                        <p class="mt-1 text-slate-600">"Verifique se a cobertura está acima de [X]%."</p>
-                    </details>
-                    <details class="p-4 bg-slate-50 rounded-lg">
-                        <summary class="font-semibold text-slate-700 cursor-pointer">Comandos de Continuidade</summary>
-                        <p class="mt-2 text-slate-600">"Continue com a próxima tarefa da lista."</p>
-                        <p class="mt-1 text-slate-600">"Retome do último ponto incompleto."</p>
-                    </details>
-                </div>
+          <div class="profile-card" data-profile="experienced">
+            <div class="profile-icon">
+              <i class="fas fa-code"></i>
             </div>
-        </section>
-
-        <section id="exemplos" class="mb-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">5. Exemplos Práticos e Dicas de Ninja</h3>
-            <p class="text-slate-600 mb-6">Veja como aplicar esses conceitos na prática e algumas dicas para extrair o máximo de seu parceiro de codificação.</p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h4 class="font-bold text-lg mb-4">Exemplos de Interação</h4>
-                    <div class="space-y-4">
-                        <div class="bg-white p-4 rounded-lg shadow">
-                            <p><strong class="font-semibold">Você:</strong> "O teste `test_media_endpoint` está falhando. Consegue arrumar?"</p>
-                            <p class="mt-2 text-blue-600"><strong class="font-semibold">Copilot:</strong> "Entendido. Vou investigar a falha, aplicar a correção e validar com todos os testes."</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg shadow">
-                            <p><strong class="font-semibold">Você:</strong> "Preciso de um endpoint para buscar status de vídeos UGC. A doc está em [URL]."</p>
-                            <p class="mt-2 text-blue-600"><strong class="font-semibold">Copilot:</strong> "Ok. Vou implementar o endpoint completo, com controller, use case, testes e documentação."</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-bold text-lg mb-4">🏆 Dicas de Ninja</h4>
-                    <ul class="list-disc list-inside space-y-2 text-slate-700 bg-white p-6 rounded-lg shadow">
-                        <li><strong class="font-semibold">Sempre Forneça Contexto:</strong> Cole código, explique o comportamento esperado.</li>
-                        <li><strong class="font-semibold">Use Comandos Iterativos:</strong> "Continue até que todos os testes passem."</li>
-                        <li><strong class="font-semibold">Defina Critérios Claros:</strong> Especifique métricas de sucesso (cobertura, etc.).</li>
-                        <li><strong class="font-semibold">Aproveite a Autonomia:</strong> Deixe o Copilot investigar e descobrir soluções.</li>
-                    </ul>
-                </div>
+            <h3 class="profile-title">DEV Experiente</h3>
+            <p class="profile-description">
+              Já usa Copilot mas quer melhorar. Configurações avançadas e
+              automação.
+            </p>
+            <div class="profile-features">
+              <span class="feature">🤖 Configurações avançadas</span>
+              <span class="feature">🎯 Prompts profissionais</span>
+              <span class="feature">🛠️ Modos customizados</span>
             </div>
-        </section>
+            <button
+              class="btn btn-outline"
+              onclick="selectProfile('experienced')"
+            >
+              Evoluir Skills
+            </button>
+          </div>
 
-        <section id="checklist" class="scroll-mt-20">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">🏆 Checklist de Sucesso e Template Final</h3>
-            <p class="text-slate-600 mb-6">Use este checklist para garantir que você está preparado para uma sessão produtiva e o template para criar solicitações perfeitas.</p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="font-bold text-lg mb-4">Checklist de Produtividade</h4>
-                    <div class="space-y-2">
-                        <label class="checklist-item">
-                            <input type="checkbox">
-                            <span class="custom-checkbox"></span>
-                            <span class="ml-2">Instructions personalizadas configuradas.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox">
-                            <span class="custom-checkbox"></span>
-                            <span class="ml-2">Contexto do projeto compreendido.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox">
-                            <span class="custom-checkbox"></span>
-                            <span class="ml-2">Objetivos claramente definidos.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox">
-                            <span class="custom-checkbox"></span>
-                            <span class="ml-2">Validação contínua implementada.</span>
-                        </label>
-                        <label class="checklist-item">
-                            <input type="checkbox">
-                            <span class="custom-checkbox"></span>
-                            <span class="ml-2">Todos os testes passando ao finalizar.</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                    <h4 class="font-bold text-lg mb-4 text-blue-800">Template de Solicitação Perfeita</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                        <pre><code>**Contexto**: [Descreva o projeto, tecnologias, situação atual]
-
-**Objetivo**: [O que precisa ser alcançado - seja específico]
-
-**Requisitos**:
-- Requisito técnico 1
-- Requisito de qualidade 2
-
-**Critérios de Sucesso**:
-- [ ] Critério mensurável 1 (Ex: 100% de testes passando)
-- [ ] Critério mensurável 2 (Ex: Cobertura > 90%)
-
-**Recursos**: [URLs, documentação, exemplos]</code></pre>
-                    </div>
-                </div>
+          <div class="profile-card" data-profile="architect">
+            <div class="profile-icon">
+              <i class="fas fa-building"></i>
             </div>
-        </section>
+            <h3 class="profile-title">Arquiteto/Tech Lead</h3>
+            <p class="profile-description">
+              Implementando em projetos. Padronização e templates corporativos.
+            </p>
+            <div class="profile-features">
+              <span class="feature">📋 Templates de projeto</span>
+              <span class="feature">⚙️ Configuração completa</span>
+              <span class="feature">📚 Estratégias avançadas</span>
+            </div>
+            <button
+              class="btn btn-outline"
+              onclick="selectProfile('architect')"
+            >
+              Liderar Projetos
+            </button>
+          </div>
 
-    </main>
+          <div class="profile-card" data-profile="manager">
+            <div class="profile-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3 class="profile-title">Gestor/CTO</h3>
+            <p class="profile-description">
+              Implementação organizacional. ROI mensurável e políticas
+              corporativas.
+            </p>
+            <div class="profile-features">
+              <span class="feature">🏢 Implementação em escala</span>
+              <span class="feature">📊 Métricas de ROI</span>
+              <span class="feature">🔒 Políticas de segurança</span>
+            </div>
+            <button class="btn btn-outline" onclick="selectProfile('manager')">
+              Escalar Organização
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <footer class="text-center py-8 border-t border-slate-200">
-        <p class="text-slate-500">Salve este guia e use como referência em todos os seus projetos!</p>
+    <!-- Quick Setup -->
+    <section id="setup" class="setup">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Setup em 5 Minutos</h2>
+          <p class="section-description">
+            Configure GitHub Copilot de forma segura e comece a usar agora mesmo
+          </p>
+        </div>
+        <div class="setup-steps">
+          <div class="step-card" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3 class="step-title">Instalar Extensões</h3>
+              <p class="step-description">
+                Instale as extensões necessárias no VS Code
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>VS Code Extensions</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>
+                    → GitHub Copilot<br />
+                    → GitHub Copilot Chat
+                  </code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(1)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3 class="step-title">Fazer Login</h3>
+              <p class="step-description">
+                Conecte sua conta GitHub ao VS Code
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>Comando</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>Ctrl+Shift+P → "GitHub Copilot: Sign In"</code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(2)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3 class="step-title">Configurar Segurança</h3>
+              <p class="step-description">
+                Desabilite telemetria e configure privacidade
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>Settings</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>Ctrl+, → "copilot telemetry" → Desmarcar</code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(3)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3 class="step-title">Configurar Projeto</h3>
+              <p class="step-description">
+                Configure comandos seguros para seu projeto
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>.vscode/settings.json</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>
+                    { "github.copilot.chat.agent.terminal.allowList": [ "npm
+                    run", "make test", "git status" ], "chat.tools.autoApprove":
+                    false }
+                  </code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(4)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="5">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <h3 class="step-title">Testar</h3>
+              <p class="step-description">
+                Valide se tudo está funcionando corretamente
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>Teste Rápido</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>
+                    # função para somar dois números # (Copilot vai sugerir →
+                    Pressione TAB)
+                  </code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(5)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced Features -->
+    <section id="advanced" class="advanced">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Recursos Avançados</h2>
+          <p class="section-description">
+            Desbloqueie todo o potencial do GitHub Copilot
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-terminal"></i>
+            </div>
+            <h3 class="feature-title">Terminal AllowList</h3>
+            <p class="feature-description">
+              Configure quais comandos o Copilot pode executar automaticamente
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('terminal')"
+            >
+              Configurar
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h3 class="feature-title">Chat Modes</h3>
+            <p class="feature-description">
+              Crie modos de chat personalizados para diferentes cenários
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('chatmodes')"
+            >
+              Personalizar
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-file-code"></i>
+            </div>
+            <h3 class="feature-title">Instruction Files</h3>
+            <p class="feature-description">
+              Documente padrões do projeto para o Copilot seguir
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('instructions')"
+            >
+              Criar Template
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Configurações de Segurança</h3>
+            <p class="feature-description">
+              Políticas corporativas e controle de dados
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('security')"
+            >
+              Configurar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Implementation -->
+    <section id="teams" class="teams">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Implementação em Equipes</h2>
+          <p class="section-description">
+            Guia completo para implementar GitHub Copilot em escala
+            organizacional
+          </p>
+        </div>
+        <div class="implementation-phases">
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">1</div>
+              <h3 class="phase-title">Preparação</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Licenças adquiridas</li>
+                <li>Política de segurança definida</li>
+                <li>Aprovação legal</li>
+                <li>Treinamento planejado</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(1)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">2</div>
+              <h3 class="phase-title">Configuração</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Templates corporativos</li>
+                <li>Settings padrão</li>
+                <li>AllowList/DenyList</li>
+                <li>Chat modes corporativos</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(2)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">3</div>
+              <h3 class="phase-title">Onboarding</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Treinamento obrigatório</li>
+                <li>Certificação individual</li>
+                <li>Hands-on practice</li>
+                <li>Q&A sessions</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(3)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">4</div>
+              <h3 class="phase-title">Monitoramento</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Métricas semanais</li>
+                <li>Feedback da equipe</li>
+                <li>ROI mensurado</li>
+                <li>Evolução contínua</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(4)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="roi-metrics">
+          <h3 class="metrics-title">Resultados Esperados</h3>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-value">40-60%</div>
+              <div class="metric-label">Redução no onboarding</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">90%+</div>
+              <div class="metric-label">Consistência de padrões</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">3x</div>
+              <div class="metric-label">Velocidade de desenvolvimento</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">50%</div>
+              <div class="metric-label">Redução em code review</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <div class="footer-logo">
+              <i class="fab fa-github"></i>
+              <span>Copilot Guide</span>
+            </div>
+            <p class="footer-description">
+              Guia completo e gratuito para dominar GitHub Copilot em qualquer
+              nível.
+            </p>
+          </div>
+          <div class="footer-links">
+            <h4>Recursos</h4>
+            <ul>
+              <li><a href="#profiles">Perfis de Usuário</a></li>
+              <li><a href="#setup">Quick Start</a></li>
+              <li><a href="#advanced">Recursos Avançados</a></li>
+              <li><a href="#teams">Implementação em Equipes</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h4>Contribua</h4>
+            <p>Este é um projeto open source. Contribuições são bem-vindas!</p>
+            <a href="https://github.com" class="btn btn-outline btn-sm">
+              <i class="fab fa-github"></i>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Copilot Guide. Conteúdo educacional open source.</p>
+        </div>
+      </div>
     </footer>
 
-    <script>
-        function copyCode(button) {
-            const pre = button.nextElementSibling;
-            const code = pre.innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                button.innerText = 'Copiado!';
-                setTimeout(() => {
-                    button.innerText = 'Copiar';
-                }, 2000);
-            }).catch(err => {
-                console.error('Falha ao copiar texto: ', err);
-            });
-        }
+    <!-- Modals Container -->
+    <div id="modals-container"></div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('#nav-links a');
-
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.3
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        });
-    </script>
-</body>
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/modals.js"></script>
+  </body>
 </html>
