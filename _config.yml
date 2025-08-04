@@ -1,6 +1,6 @@
 title: "GitHub Copilot Guide"
-description: "Guia completo para dominar GitHub Copilot em qualquer nível"
-url: ""
+description: "Guia completo para dominar GitHub Copilot em qualquer nível - by Tiago Ferreira"
+url: "https://tgferr.github.io"
 baseurl: ""
 
 # Build settings
@@ -10,26 +10,25 @@ theme: minima
 
 # Plugins
 plugins:
-- jekyll-feed
-- jekyll-sitemap
+  - jekyll-feed
+  - jekyll-sitemap
 
 # Exclude files
 exclude:
-- README.md
-- Gemfile
-- Gemfile.lock
-- node_modules
-- vendor
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
 
 # SEO
 lang: pt-BR
-author: "Copilot Guide Team"
+author: "Tiago Ferreira"
+email: "tiago.ferreira@luizalabs.com"
 
 # Social
-github_username: ""
-twitter_username: ""
-
-# Collections
+github_username: "tgferr"
+twitter_username: ""# Collections
 collections:
   guides:
     output: true

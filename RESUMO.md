@@ -1,6 +1,16 @@
 # 🎉 SITE CRIADO COM SUCESSO!
 
-## 🚀 **O QUE FOI ENTREGUE**
+## �‍💻 **CRIADO POR**
+
+**Tiago Ferreira**  
+Senior Software Engineer @ Luiza Labs  
+📧 tiago.ferreira@luizalabs.com  
+🌐 https://tgferr.github.io/  
+💼 https://github.com/tgferr  
+
+---
+
+## �🚀 **O QUE FOI ENTREGUE**
 
 Criei um **site completo e interativo** que transforma todo o conteúdo dos templates em uma experiência web elegante e profissional para GitHub Pages.
 

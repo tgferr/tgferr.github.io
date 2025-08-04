@@ -1,6 +1,8 @@
 // Main JavaScript functionality
 document.addEventListener("DOMContentLoaded", function () {
   initializeApp();
+  setLastUpdateDate();
+  showWelcomeMessage();
 });
 
 function initializeApp() {
@@ -10,6 +12,31 @@ function initializeApp() {
   setupCodeAnimation();
   setupCopyButtons();
   setupProfileCards();
+}
+
+// Set last update date
+function setLastUpdateDate() {
+  const lastUpdateEl = document.getElementById("lastUpdate");
+  if (lastUpdateEl) {
+    const updateDate = new Date("2025-08-04");
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "America/Sao_Paulo",
+    };
+    lastUpdateEl.textContent = updateDate.toLocaleDateString("pt-BR", options);
+  }
+}
+
+// Welcome message
+function showWelcomeMessage() {
+  setTimeout(() => {
+    showNotification(
+      "🚀 Bem-vindo ao GitHub Copilot Configuration Template da Luiza Labs!",
+      "info"
+    );
+  }, 1500);
 }
 
 // Theme Toggle
@@ -701,3 +728,118 @@ window.copyModalCode = function (button) {
     }, 2000);
   });
 };
+
+// Template Functions
+window.downloadTemplate = function () {
+  // Create download link
+  const link = document.createElement("a");
+  link.href = "copilot-init-template.zip";
+  link.download = "copilot-init-template.zip";
+  link.style.display = "none";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  // Show success message
+  showNotification("Template baixado com sucesso! 📦", "success");
+};
+
+window.copyToClipboard = function (button) {
+  const codeBlock = button.parentElement.querySelector("pre code");
+  const text = codeBlock.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const originalIcon = button.querySelector("i");
+    const originalText = button.innerHTML;
+
+    button.innerHTML = '<i class="fas fa-check"></i>';
+    button.style.color = "var(--accent-color)";
+
+    setTimeout(() => {
+      button.innerHTML = originalText;
+      button.style.color = "";
+    }, 2000);
+
+    showNotification("Comando copiado! 📋", "success");
+  });
+};
+
+window.showPrerequisiteCheck = function () {
+  const checkModal = `
+    <div class="modal-overlay" id="prerequisite-check">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fas fa-check-circle"></i> Verificação de Pré-requisitos</h3>
+          <button class="close-btn" onclick="closeModal('prerequisite-check')">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="check-item">
+            <h4><i class="fab fa-github"></i> GitHub Copilot Instalado</h4>
+            <p>Verifique se as extensões estão ativas no VS Code:</p>
+            <ul>
+              <li>GitHub Copilot</li>
+              <li>GitHub Copilot Chat</li>
+            </ul>
+            <p><strong>Como verificar:</strong> Ctrl+Shift+P → "GitHub Copilot"</p>
+          </div>
+          
+          <div class="check-item">
+            <h4><i class="fas fa-sign-in-alt"></i> Login Realizado</h4>
+            <p>Confirme que está logado na conta Luiza Labs</p>
+            <p><strong>Como verificar:</strong> Ícone do GitHub no VS Code deve estar verde</p>
+          </div>
+          
+          <div class="check-item">
+            <h4><i class="fas fa-comments"></i> Chat Funcionando</h4>
+            <p>Teste o Copilot Chat:</p>
+            <code>Ctrl+Alt+I → Digite: "Olá, você está funcionando?"</code>
+          </div>
+          
+          <div class="check-results">
+            <button class="btn btn-primary" onclick="testCopilotStatus()">
+              <i class="fas fa-play"></i>
+              Executar Verificação Automática
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  showModal("prerequisite-check", checkModal);
+};
+
+window.testCopilotStatus = function () {
+  showNotification("Verifique manualmente no VS Code: Ctrl+Alt+I", "info");
+};
+
+function showNotification(message, type = "info") {
+  const notification = document.createElement("div");
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `
+    <div class="notification-content">
+      <span>${message}</span>
+      <button onclick="this.parentElement.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.classList.add("show");
+  }, 100);
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      if (notification.parentElement) {
+        notification.remove();
+      }
+    }, 300);
+  }, 5000);
+}

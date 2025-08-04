@@ -1,9 +1,26 @@
-<!DOCTYPE html>
+<!D    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Guia completo para dominar GitHub Copilot - do iniciante ao especialista. Criado por Tiago Ferreira, Senior Software Engineer @ Luiza Labs."
+/>
+<meta name="author" content="Tiago Ferreira" />
+<meta
+  name="keywords"
+  content="GitHub Copilot, AI, Desenvolvimento, Tutorial, Guia, Programação"
+/>
+<meta property="og:title" content="GitHub Copilot Guide - by Tiago Ferreira" />
+<meta
+  property="og:description"
+  content="Domine o GitHub Copilot em qualquer nível - guia completo e interativo"
+/>
+<meta property="og:type" content="website" />
+<title>GitHub Copilot Guide - by Tiago Ferreira</title>YPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GitHub Copilot - Guia Completo</title>
+    <title>GitHub Copilot Guide - by Tiago Ferreira</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
@@ -27,6 +44,7 @@
             <a href="#home" class="nav-link active">Início</a>
             <a href="#profiles" class="nav-link">Perfis</a>
             <a href="#setup" class="nav-link">Setup</a>
+            <a href="#template" class="nav-link">Template</a>
             <a href="#advanced" class="nav-link">Avançado</a>
             <a href="#teams" class="nav-link">Equipes</a>
           </nav>
@@ -347,6 +365,988 @@
       </div>
     </section>
 
+    <!-- Template Section -->
+    <section id="template" class="template">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Template para Novos Projetos</h2>
+          <p class="section-subtitle">
+            Configure Copilot automaticamente em qualquer projeto com nosso
+            template otimizado
+          </p>
+        </div>
+
+        <!-- Prerequisites -->
+        <div class="template-prerequisites">
+          <h3 class="template-section-title">
+            <i class="fas fa-check-circle"></i>
+            Pré-requisitos para Luiza Labs
+          </h3>
+          <p class="section-subtitle">
+            Antes de usar o template, certifique-se de que você atende aos
+            requisitos da empresa
+          </p>
+          <div class="prerequisites-grid">
+            <div class="prerequisite-item">
+              <div class="prerequisite-icon">
+                <i class="fab fa-github"></i>
+              </div>
+              <div class="prerequisite-content">
+                <h4>GitHub Copilot Luiza Labs</h4>
+                <p>
+                  Conta corporativa ativa com licença aprovada pelo time de TI
+                </p>
+                <ul
+                  style="
+                    margin: 0.5rem 0;
+                    padding-left: 1rem;
+                    color: var(--text-muted);
+                    font-size: 0.85rem;
+                  "
+                >
+                  <li>Licença Copilot for Business ativa</li>
+                  <li>Conta GitHub corporativa (@luizalabs.com)</li>
+                  <li>Política de uso assinada</li>
+                </ul>
+                <div class="prerequisite-links">
+                  <a href="#setup" class="link-button">
+                    <i class="fas fa-rocket"></i>
+                    Ver Setup Completo
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="prerequisite-item">
+              <div class="prerequisite-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="prerequisite-content">
+                <h4>VS Code Configurado</h4>
+                <p>Extensões instaladas e funcionando corretamente</p>
+                <ul
+                  style="
+                    margin: 0.5rem 0;
+                    padding-left: 1rem;
+                    color: var(--text-muted);
+                    font-size: 0.85rem;
+                  "
+                >
+                  <li>GitHub Copilot extension</li>
+                  <li>GitHub Copilot Chat extension</li>
+                  <li>Login realizado com conta corporativa</li>
+                </ul>
+                <div class="prerequisite-links">
+                  <a
+                    href="#"
+                    class="link-button"
+                    onclick="showPrerequisiteCheck()"
+                  >
+                    <i class="fas fa-check"></i>
+                    Verificar Status
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="warning-box" style="margin-top: 2rem">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+              <p>
+                <strong>Importante:</strong> Este template foi desenvolvido
+                especificamente para projetos da Luiza Labs. Se você não tem
+                acesso ao GitHub Copilot corporativo, entre em contato com o
+                time de TI.
+              </p>
+              <p style="margin-top: 0.5rem">
+                <strong>Contato:</strong> #github-copilot-suporte ou
+                tiago.ferreira@luizalabs.com
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Template -->
+        <div class="template-download">
+          <h3 class="template-section-title">
+            <i class="fas fa-download"></i>
+            1. Download do Template Oficial
+          </h3>
+          <p class="section-subtitle">
+            Template desenvolvido pela equipe de Engineering Enablement da Luiza
+            Labs
+          </p>
+          <div class="download-card">
+            <div class="download-info">
+              <div class="download-icon">
+                <i class="fas fa-file-archive"></i>
+              </div>
+              <div class="download-details">
+                <h4>Copilot Init Template v1.0 - Luiza Labs</h4>
+                <p>
+                  Template otimizado para configuração automática do GitHub
+                  Copilot em projetos da empresa
+                </p>
+                <ul class="download-features">
+                  <li>
+                    <i class="fas fa-check"></i> Configuração automática para
+                    qualquer stack tecnológica
+                  </li>
+                  <li>
+                    <i class="fas fa-check"></i> Segurança corporativa com
+                    allowList/denyList pré-configurados
+                  </li>
+                  <li>
+                    <i class="fas fa-check"></i> Auto-limpeza após configuração
+                    (zero commits acidentais)
+                  </li>
+                  <li>
+                    <i class="fas fa-check"></i> Instruções específicas baseadas
+                    em padrões Luiza Labs
+                  </li>
+                  <li>
+                    <i class="fas fa-check"></i> Suporte para Python,
+                    JavaScript, Java, C#, Go e outros
+                  </li>
+                </ul>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 0.75rem;
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.875rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <i class="fas fa-user"></i>
+                    <strong>Desenvolvido por:</strong> Tiago Ferreira - Senior
+                    Software Engineer<br />
+                    <i class="fas fa-calendar"></i>
+                    <strong>Última atualização:</strong> Agosto 2025<br />
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>Aprovado para uso:</strong> Luiza Labs Engineering
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="download-actions">
+              <button
+                class="btn btn-primary btn-lg"
+                onclick="downloadTemplate()"
+              >
+                <i class="fas fa-download"></i>
+                Baixar Template
+              </button>
+              <p class="download-size">~49KB • ZIP</p>
+              <p
+                style="
+                  margin: 0.5rem 0 0 0;
+                  font-size: 0.8rem;
+                  color: var(--text-muted);
+                "
+              >
+                Arquivo seguro • Sem dependências externas
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Installation Steps -->
+        <div class="template-steps">
+          <h3 class="template-section-title">
+            <i class="fas fa-list-ol"></i>
+            2. Roteiro de Implementação
+          </h3>
+          <p class="section-subtitle">
+            Siga este processo validado pela Engineering Enablement para
+            configurar Copilot em qualquer projeto
+          </p>
+
+          <!-- Quick Command Box -->
+          <div
+            style="
+              margin: 2rem 0;
+              padding: 1.5rem;
+              background: linear-gradient(
+                135deg,
+                var(--primary-color),
+                var(--accent-color)
+              );
+              border-radius: var(--radius-xl);
+              color: white;
+            "
+          >
+            <h4
+              style="
+                margin: 0 0 1rem 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+              "
+            >
+              <i class="fas fa-bolt"></i>
+              Comando Principal (após extrair o template)
+            </h4>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.1);
+                padding: 1rem;
+                border-radius: var(--radius-md);
+                position: relative;
+              "
+            >
+              <code
+                style="
+                  color: white;
+                  font-size: 0.9rem;
+                  line-height: 1.4;
+                  display: block;
+                "
+                >@workspace Analise este projeto completamente seguindo
+                copilot-init-template/project-template.instructions.md: 1.
+                Identifique stack tecnológico, arquitetura e padrões 2.
+                Configure Copilot otimizado APENAS na pasta .vscode/ 3. NÃO crie
+                arquivos na raiz do projeto 4. Valide configuração final 5.
+                REMOVA a pasta copilot-init-template após configuração</code
+              >
+              <button
+                onclick="copyToClipboard(this)"
+                style="
+                  position: absolute;
+                  top: 0.5rem;
+                  right: 0.5rem;
+                  background: rgba(255, 255, 255, 0.2);
+                  border: none;
+                  color: white;
+                  padding: 0.5rem;
+                  border-radius: var(--radius-sm);
+                  cursor: pointer;
+                "
+              >
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <p style="margin: 1rem 0 0 0; font-size: 0.9rem; opacity: 0.9">
+              <i class="fas fa-info-circle"></i>
+              Execute este comando no Copilot Chat (Ctrl+Alt+I) após extrair o
+              template na raiz do seu projeto
+            </p>
+          </div>
+
+          <div class="steps-container">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Extrair e Copiar Template</h4>
+                <p>
+                  Baixe, extraia e copie a pasta para a
+                  <strong>raiz do seu projeto</strong>
+                </p>
+                <div class="code-block">
+                  <pre><code># Extrair arquivo baixado
+unzip copilot-init-template.zip
+
+# Copiar para seu projeto
+cp -r copilot-init-template /caminho/do/seu/projeto/
+
+# Ou no Windows (PowerShell)
+Expand-Archive copilot-init-template.zip
+Copy-Item -Recurse copilot-init-template C:\caminho\do\seu\projeto\</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 0.75rem;
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.875rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <i class="fas fa-lightbulb"></i> <strong>Dica:</strong> A
+                    pasta deve ficar na raiz do projeto, no mesmo nível que
+                    package.json, pyproject.toml, pom.xml, etc.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Verificar Status Atual</h4>
+                <p>Confirme se o projeto já não tem configuração do Copilot</p>
+                <div class="code-block">
+                  <pre><code># Verificar se já existe configuração
+ls .vscode/copilot-instructions.md 2>/dev/null && echo "⚠️ Configuração existente - faça backup!" || echo "✅ Pronto para configurar"
+
+# Verificar se Copilot está funcionando
+code . # Abrir VS Code no projeto</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="warning-box">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <p>
+                    <strong>Se já existir configuração:</strong> Faça backup de
+                    .vscode/settings.json e .vscode/copilot-instructions.md
+                    antes de continuar
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Executar Configuração Automática</h4>
+                <p>
+                  Abra o VS Code no projeto e execute o comando mágico no
+                  Copilot Chat
+                </p>
+                <div
+                  style="
+                    margin: 1rem 0;
+                    padding: 1rem;
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                    border-left: 4px solid var(--primary-color);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-weight: 600;
+                      color: var(--text-primary);
+                    "
+                  >
+                    <i class="fas fa-keyboard"></i> Como abrir Copilot Chat:
+                  </p>
+                  <ul
+                    style="
+                      margin: 0;
+                      padding-left: 1rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <li><strong>Windows/Linux:</strong> Ctrl+Alt+I</li>
+                    <li><strong>Mac:</strong> Cmd+Alt+I</li>
+                    <li>
+                      <strong>Ou:</strong> Clique no ícone de chat na barra
+                      lateral
+                    </li>
+                  </ul>
+                </div>
+                <div class="code-block large">
+                  <pre><code>@workspace Analise este projeto completamente seguindo copilot-init-template/project-template.instructions.md:
+1. Identifique stack tecnológico, arquitetura e padrões
+2. Configure Copilot otimizado APENAS na pasta .vscode/
+3. NÃO crie arquivos na raiz do projeto
+4. Valide configuração final
+5. REMOVA a pasta copilot-init-template após configuração</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 1rem;
+                    background: rgba(16, 185, 129, 0.1);
+                    border-radius: var(--radius-md);
+                    border-left: 4px solid var(--accent-color);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.9rem;
+                      color: var(--text-primary);
+                    "
+                  >
+                    <i class="fas fa-magic"></i>
+                    <strong>O que acontece:</strong> O Copilot vai analisar
+                    automaticamente seu projeto, identificar a stack
+                    tecnológica, e criar configurações personalizadas em
+                    .vscode/
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>Validação Automática</h4>
+                <p>O Copilot executará estas ações automaticamente:</p>
+                <ul class="validation-list">
+                  <li>
+                    <i class="fas fa-search"></i>
+                    <strong>Análise completa:</strong> Stack tecnológico,
+                    arquitetura e padrões do projeto
+                  </li>
+                  <li>
+                    <i class="fas fa-cog"></i>
+                    <strong>Criar instruções:</strong>
+                    .vscode/copilot-instructions.md personalizado para seu
+                    projeto
+                  </li>
+                  <li>
+                    <i class="fas fa-tools"></i>
+                    <strong>Configurar VS Code:</strong> .vscode/settings.json
+                    com configurações otimizadas
+                  </li>
+                  <li>
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>Segurança:</strong> AllowList/DenyList configurados
+                    para sua stack
+                  </li>
+                  <li>
+                    <i class="fas fa-trash"></i>
+                    <strong>Limpeza:</strong> Remover pasta
+                    copilot-init-template/ automaticamente
+                  </li>
+                  <li>
+                    <i class="fas fa-check"></i>
+                    <strong>Validação:</strong> Testar se tudo está funcionando
+                    corretamente
+                  </li>
+                </ul>
+                <div
+                  style="
+                    margin-top: 1.5rem;
+                    padding: 1rem;
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.9rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <i class="fas fa-clock"></i>
+                    <strong>Tempo estimado:</strong> 30-60 segundos para análise
+                    e configuração completa
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <h4>Teste e Validação Final</h4>
+                <p>
+                  Confirme que o Copilot está configurado e funcionando
+                  perfeitamente
+                </p>
+                <div class="code-block">
+                  <pre><code># Teste básico no Copilot Chat
+@workspace Analise este projeto seguindo .vscode/copilot-instructions.md
+
+# Verificar arquivos criados
+ls -la .vscode/
+
+# Confirmar limpeza (deve dar erro - pasta foi removida)
+ls copilot-init-template/ 2>/dev/null || echo "✅ Template removido com sucesso"</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="success-indicators">
+                  <h5>Indicadores de Sucesso:</h5>
+                  <ul>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Copilot responde
+                      com análise específica do seu projeto
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Pasta
+                      copilot-init-template/ foi removida da raiz
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Arquivos criados
+                      apenas em .vscode/ (copilot-instructions.md e
+                      settings.json)
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Comandos do
+                      projeto (make, npm, etc.) funcionam com aprovação
+                      automática
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Comandos
+                      perigosos (rm, sudo) pedem confirmação manual
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 1rem;
+                    background: linear-gradient(
+                      135deg,
+                      var(--accent-color),
+                      var(--primary-color)
+                    );
+                    border-radius: var(--radius-md);
+                    color: white;
+                  "
+                >
+                  <h5
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      display: flex;
+                      align-items: center;
+                      gap: 0.5rem;
+                    "
+                  >
+                    <i class="fas fa-rocket"></i>
+                    Pronto para usar!
+                  </h5>
+                  <p style="margin: 0; opacity: 0.9; font-size: 0.9rem">
+                    Agora você tem Copilot configurado especificamente para seu
+                    projeto, seguindo padrões da Luiza Labs!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supported Stacks -->
+        <div class="template-stacks">
+          <h3 class="template-section-title">
+            <i class="fas fa-layer-group"></i>
+            Stacks Suportadas
+          </h3>
+          <div class="stacks-grid">
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-python"></i>
+              </div>
+              <h4>Python</h4>
+              <p>FastAPI, Django, Flask</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-js"></i>
+              </div>
+              <h4>JavaScript</h4>
+              <p>React, Node.js, Express</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-java"></i>
+              </div>
+              <h4>Java</h4>
+              <p>Spring Boot, Maven, Gradle</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fas fa-hashtag"></i>
+              </div>
+              <h4>C#</h4>
+              <p>.NET Core, ASP.NET</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-golang"></i>
+              </div>
+              <h4>Go</h4>
+              <p>Gin, Echo, Fiber</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <h4>Outros</h4>
+              <p>Ruby, PHP, Rust, etc.</p>
+              <span class="stack-status experimental">🧪 Experimental</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="template-troubleshooting">
+          <h3 class="template-section-title">
+            <i class="fas fa-wrench"></i>
+            Solução de Problemas
+          </h3>
+          <div class="troubleshooting-grid">
+            <div class="trouble-item">
+              <div class="trouble-icon error">
+                <i class="fas fa-exclamation-circle"></i>
+              </div>
+              <div class="trouble-content">
+                <h4>Template não foi removido</h4>
+                <p>Remova manualmente após configuração:</p>
+                <code>rm -rf copilot-init-template</code>
+              </div>
+            </div>
+            <div class="trouble-item">
+              <div class="trouble-icon warning">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="trouble-content">
+                <h4>Copilot não reconhece configuração</h4>
+                <p>Recarregue o VS Code:</p>
+                <code>Ctrl+Shift+P → "Developer: Reload Window"</code>
+              </div>
+            </div>
+            <div class="trouble-item">
+              <div class="trouble-icon info">
+                <i class="fas fa-info-circle"></i>
+              </div>
+              <div class="trouble-content">
+                <h4>Configuração não funcionou</h4>
+                <p>Verifique se os arquivos foram criados:</p>
+                <code>ls -la .vscode/</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="template-benefits">
+          <h3 class="template-section-title">
+            <i class="fas fa-star"></i>
+            Benefícios do Template
+          </h3>
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <h4>3-5x Mais Produtivo</h4>
+              <p>
+                Desenvolvimento acelerado com contexto específico do projeto
+              </p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h4>100% Seguro</h4>
+              <p>Comandos perigosos bloqueados, dados sensíveis protegidos</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="fas fa-sync"></i>
+              </div>
+              <h4>Consistência Total</h4>
+              <p>Padrões do projeto sempre seguidos automaticamente</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="fas fa-broom"></i>
+              </div>
+              <h4>Projeto Limpo</h4>
+              <p>Configuração organizada, sem arquivos extras na raiz</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Troubleshooting Section -->
+    <section id="troubleshooting" class="section">
+      <div class="container">
+        <h2><i class="fas fa-tools"></i> Troubleshooting</h2>
+        <p class="section-subtitle">
+          Soluções para problemas comuns durante a configuração
+        </p>
+
+        <div class="troubleshooting-grid">
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-exclamation-circle text-warning"></i> Copilot não
+              responde ao comando
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Possíveis causas:</strong></p>
+              <ul>
+                <li>Pasta copilot-init-template não está na raiz do projeto</li>
+                <li>VS Code não está na pasta correta</li>
+                <li>Copilot não está ativo</li>
+              </ul>
+              <p><strong>Solução:</strong></p>
+              <div class="code-block">
+                <pre><code># Verificar localização
+pwd
+ls copilot-init-template/
+
+# Reabrir VS Code na pasta correta
+code .</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-ban text-danger"></i> Erro "Permission denied" no
+              terminal
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Causa:</strong> Comandos bloqueados por segurança</p>
+              <p>
+                <strong>Solução:</strong> Configure allowList no
+                .vscode/settings.json
+              </p>
+              <div class="code-block">
+                <pre><code>{
+  "github.copilot.chat.terminalAllowList": [
+    "npm", "yarn", "make", "mvn", "gradle", "poetry", "pip"
+  ]
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-folder-open text-info"></i> Template não foi
+              removido automaticamente
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Causa:</strong> Processo de limpeza não completou</p>
+              <p><strong>Solução manual:</strong></p>
+              <div class="code-block">
+                <pre><code># Remover manualmente
+rm -rf copilot-init-template/
+
+# Verificar se configuração foi criada
+ls .vscode/copilot-instructions.md</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-file-times text-warning"></i> Configuração não
+              foi criada
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Possíveis causas:</strong></p>
+              <ul>
+                <li>Comando não foi executado completamente</li>
+                <li>Erro durante análise do projeto</li>
+              </ul>
+              <p><strong>Solução:</strong> Execute novamente com debug</p>
+              <div class="code-block">
+                <pre><code>@workspace DEBUG: Analise projeto step-by-step e reporte cada etapa:
+1. Verificar estrutura do projeto
+2. Identificar stack tecnológico  
+3. Criar .vscode/copilot-instructions.md
+4. Configurar .vscode/settings.json
+5. Validar configuração</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-sync-alt text-info"></i> Reconfigurar projeto
+              existente
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Para atualizar configuração existente:</strong></p>
+              <div class="code-block">
+                <pre><code># Backup da configuração atual
+cp .vscode/copilot-instructions.md .vscode/copilot-instructions.md.backup
+cp .vscode/settings.json .vscode/settings.json.backup
+
+# Baixar e aplicar nova configuração
+# (seguir passos normais)</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-question-circle text-primary"></i> Como validar
+              se está funcionando?
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Testes rápidos:</strong></p>
+              <div class="code-block">
+                <pre><code># Teste 1: Análise de projeto
+@workspace Que tipo de projeto é este?
+
+# Teste 2: Comando específico
+@workspace Como rodar testes neste projeto?
+
+# Teste 3: Sugestão de código
+# (Abrir arquivo e pedir sugestão)</code></pre>
+              </div>
+              <p><strong>Indicadores de sucesso:</strong></p>
+              <ul style="margin-top: 0.5rem">
+                <li>Respostas específicas ao seu projeto</li>
+                <li>Comandos corretos (make, npm, etc.)</li>
+                <li>Sugestões seguindo padrões do projeto</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-color);
+          "
+        >
+          <h4 style="margin: 0 0 1rem 0; color: var(--primary-color)">
+            <i class="fas fa-life-ring"></i> Precisa de mais ajuda?
+          </h4>
+          <p style="margin: 0 0 1rem 0">Se o problema persistir, você pode:</p>
+          <ul style="margin: 0">
+            <li>
+              <strong>Verificar logs:</strong> Abra VS Code Developer Tools
+              (Help → Toggle Developer Tools)
+            </li>
+            <li>
+              <strong>Reiniciar:</strong> Recarregue a janela do VS Code
+              (Ctrl+Shift+P → "Developer: Reload Window")
+            </li>
+            <li>
+              <strong>Manual:</strong> Configurar manualmente seguindo
+              templates/copilot-instructions-template.md
+            </li>
+            <li>
+              <strong>Suporte:</strong> Contate o time de Developer Experience
+              da Luiza Labs
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+      <div class="container">
+        <h2><i class="fas fa-question-circle"></i> FAQ</h2>
+        <p class="section-subtitle">
+          Perguntas frequentes sobre o GitHub Copilot Configuration Template
+        </p>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-shield-alt"></i> É seguro usar este template?
+            </h4>
+            <p>
+              Sim! O template apenas cria configurações locais em .vscode/, não
+              modifica código do projeto nem envia dados externos. Todas as
+              configurações seguem boas práticas de segurança da Luiza Labs.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-code-branch"></i> Posso usar em qualquer tipo de
+              projeto?
+            </h4>
+            <p>
+              Sim! O template é agnóstico de tecnologia. Ele analisa
+              automaticamente seu projeto (Python, Node.js, Java, .NET, etc.) e
+              cria configurações específicas para sua stack.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-users"></i> Funciona em projetos de equipe?
+            </h4>
+            <p>
+              Perfeito para equipes! Cada desenvolvedor pode usar o template
+              para ter a mesma configuração otimizada. As configurações ficam em
+              .vscode/ e podem ser commitadas no projeto.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4><i class="fas fa-sync"></i> Como atualizar a configuração?</h4>
+            <p>
+              Baixe a versão mais recente do template e execute o comando
+              novamente. Faça backup das configurações atuais se tiver
+              customizações específicas.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-trash"></i> Por que o template se auto-remove?
+            </h4>
+            <p>
+              Para manter o projeto limpo! O template é apenas um "instalador".
+              Depois de criar as configurações em .vscode/, ele não é mais
+              necessário e é removido automaticamente.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-cog"></i> Posso customizar as configurações?
+            </h4>
+            <p>
+              Claro! Após a configuração inicial, você pode editar
+              .vscode/copilot-instructions.md e .vscode/settings.json conforme
+              suas necessidades específicas.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-terminal"></i> O que é allowList/denyList no
+              terminal?
+            </h4>
+            <p>
+              São listas de comandos permitidos/bloqueados para o Copilot
+              executar automaticamente. Comandos seguros (npm, make) são
+              permitidos, comandos perigosos (rm, sudo) pedem confirmação.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-history"></i> Posso reverter a configuração?
+            </h4>
+            <p>
+              Sim! Basta deletar .vscode/copilot-instructions.md e restaurar
+              .vscode/settings.json original. O Copilot voltará ao comportamento
+              padrão.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Advanced Features -->
     <section id="advanced" class="advanced">
       <div class="container">
@@ -536,36 +1536,52 @@
     <footer class="footer">
       <div class="container">
         <div class="footer-content">
-          <div class="footer-info">
-            <div class="footer-logo">
-              <i class="fab fa-github"></i>
-              <span>Copilot Guide</span>
-            </div>
-            <p class="footer-description">
-              Guia completo e gratuito para dominar GitHub Copilot em qualquer
-              nível.
+          <div class="footer-section">
+            <h4>GitHub Copilot Template</h4>
+            <p>
+              Configuração automatizada do Copilot para projetos da Luiza Labs
             </p>
+            <div class="social-links">
+              <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Slack"><i class="fab fa-slack"></i></a>
+              <a href="#" title="Confluence"
+                ><i class="fab fa-confluence"></i
+              ></a>
+            </div>
           </div>
-          <div class="footer-links">
-            <h4>Recursos</h4>
+          <div class="footer-section">
+            <h4>Links Úteis</h4>
             <ul>
-              <li><a href="#profiles">Perfis de Usuário</a></li>
-              <li><a href="#setup">Quick Start</a></li>
-              <li><a href="#advanced">Recursos Avançados</a></li>
-              <li><a href="#teams">Implementação em Equipes</a></li>
+              <li><a href="#template">Download Template</a></li>
+              <li><a href="#setup">Guia de Setup</a></li>
+              <li><a href="#troubleshooting">Troubleshooting</a></li>
+              <li><a href="#faq">FAQ</a></li>
             </ul>
           </div>
-          <div class="footer-contact">
-            <h4>Contribua</h4>
-            <p>Este é um projeto open source. Contribuições são bem-vindas!</p>
-            <a href="https://github.com" class="btn btn-outline btn-sm">
-              <i class="fab fa-github"></i>
-              GitHub
-            </a>
+          <div class="footer-section">
+            <h4>Suporte</h4>
+            <ul>
+              <li><a href="#">Developer Experience Team</a></li>
+              <li><a href="#">Internal Wiki</a></li>
+              <li><a href="#">Slack #copilot-help</a></li>
+              <li><a href="#">Troubleshooting Guide</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Versão</h4>
+            <p>v1.0.0 - Luiza Labs Edition</p>
+            <p>Última atualização: <span id="lastUpdate"></span></p>
+            <div class="version-info">
+              <span class="badge">Estável</span>
+              <span class="badge">Enterprise</span>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2025 Copilot Guide. Conteúdo educacional open source.</p>
+          <p>&copy; 2024 Luiza Labs. Todos os direitos reservados.</p>
+          <p>
+            GitHub Copilot Configuration Template - Developer Experience Team
+          </p>
         </div>
       </div>
     </footer>
