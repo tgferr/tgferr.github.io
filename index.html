@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation bar for easy access to thematic sections (Configuração, Metodologia, Comunicação, etc.). This non-linear structure enhances usability by allowing users to jump to relevant content. Interactive elements like checklists, copy-to-clipboard buttons, and CSS-based diagrams are used to create an engaging learning experience instead of a static document. The goal is to transform a guide into a practical, interactive tool. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation bar for easy access to thematic sections (Configuração, Metodologia, Comunicação, etc.). This non-linear structure enhances usability by allowing users to jump to relevant content. Interactive elements like checklists, copy-to-clipboard buttons, and CSS-based diagrams are used to create an engaging learning experience instead of a static document. The goal is to transform a guide into a practical, interactive tool. The "Configuração" section has been expanded with a detailed explanation of Chat Modes versus Instructions. -->
     <!-- Visualization & Content Choices: Report Info (Workflow) -> Goal (Organize/Explain) -> Viz (HTML/CSS Diagram) -> Interaction (Hover effects) -> Justification (Visually represents the process flow, making it easier to understand than plain text). Report Info (Code Snippets) -> Goal (Inform/Enable) -> Viz (Styled Code Blocks) -> Interaction (Copy button) -> Justification (Improves usability by allowing quick and error-free copying of templates and commands). Report Info (Checklists) -> Goal (Interact/Track) -> Viz (Styled Checkboxes) -> Interaction (Click to toggle state) -> Justification (Turns passive reading into an active self-assessment tool). -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -133,49 +133,63 @@
         </section>
 
         <section id="configuracao" class="mb-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">1. O Segredo das Instructions Perfeitas</h3>
-            <p class="text-slate-600 mb-6">A base para um Copilot eficiente é a personalização. Configure-o para agir como um "agente de codificação" com regras específicas, tornando-o proativo e autônomo.</p>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">1. O Segredo das Instructions e Chat Modes</h3>
+            <p class="text-slate-600 mb-6">A base para um Copilot eficiente é a personalização. As **Instructions** definem a personalidade e as regras do agente, enquanto os **Chat Modes** permitem que você ative contextos específicos para tarefas pontuais.</p>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="font-bold text-lg mb-3">Custom Instructions (Base)</h4>
-                    <p class="mb-4 text-sm text-slate-500">Esta é sua configuração global. Ela define a persona, autonomia e regras de comunicação do Copilot.</p>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                        <pre><code>description: 'Agente de codificação de alto nível.'
-model: GPT-4.1
-title: '4.1 Modo Fera (VS Code v1.102)'
-
-Você é um agente - continue até que a solicitação do usuário esteja completamente resolvida.
-VOCÊ DEVE iterar e continuar até que o problema seja resolvido.
-Você tem tudo o que precisa para resolver este problema.
-O PROBLEMA NÃO PODE SER RESOLVIDO SEM PESQUISA EXTENSA NA INTERNET.
-Sempre comunique-se de forma educada, clara e profissional, utilizando português do Brasil (pt-BR).</code></pre>
-                    </div>
+                    <h4 class="font-bold text-lg mb-3">Instructions (Configuração Persistente)</h4>
+                    <p class="mb-2 text-slate-700">As instructions são arquivos de texto que moldam o comportamento do Copilot de forma persistente. Elas podem ser **globais** (aplicadas em todas as sessões) ou **locais** (específicas para um projeto).</p>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        <li><strong class="font-semibold">Custom Instructions (Globais):</strong> Definem a persona do agente, sua metodologia geral, o idioma (pt-BR) e sua autonomia para pesquisar na web. É a base de todas as interações.</li>
+                        <li><strong class="font-semibold">Instructions Específicas por Linguagem (Locais):</strong> Arquivos `.instructions.md` que vivem na pasta `.vscode` do seu projeto. Eles se sobrepõem às instruções globais e dão ao Copilot o contexto necessário para um código de alta qualidade em um projeto específico.</li>
+                    </ul>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="font-bold text-lg mb-3">Instructions por Linguagem</h4>
-                    <p class="mb-4 text-sm text-slate-500">Crie arquivos `.instructions.md` para garantir que o código gerado siga os padrões de qualidade do seu projeto.</p>
+                    <h4 class="font-bold text-lg mb-3">Chat Modes (Comandos Contextuais)</h4>
+                    <p class="mb-2 text-slate-700">Os chat modes são comandos dinâmicos, acionados com `@` no Copilot Chat. Eles definem um *contexto temporário* para a sua pergunta, sem alterar as instruções persistentes. A grande diferença é que eles são ideais para tarefas pontuais, como correção de um bug ou geração de testes, enquanto as instructions são para padronização geral.</p>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        <li><strong class="font-semibold">Indicação de Uso:</strong> Use chat modes para tarefas únicas que exigem uma persona ou um fluxo de trabalho específico. Por exemplo, use `@tests` para gerar um arquivo de teste para a função em que você está trabalhando, ou `@new_component` para criar um componente React com uma estrutura pré-definida.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-bold text-lg mb-3">Instalação e Configuração</h4>
+                    <p class="mb-4 text-sm text-slate-500">Para configurar o Copilot, você pode usar a base do <a href="https://github.com/github/awesome-copilot/tree/main/" target="_blank" class="text-blue-600 underline">repositório awesome-copilot</a>. Siga o passo a passo para iniciantes:</p>
+                    <details class="p-3 rounded bg-slate-50">
+                        <summary class="font-medium cursor-pointer text-slate-700">Passo a passo para iniciantes</summary>
+                        <ol class="list-decimal list-inside space-y-3 mt-4 text-slate-600">
+                            <li><strong class="font-semibold">Instale o Copilot Chat:</strong> Certifique-se de que a extensão `GitHub Copilot Chat` está instalada no seu VS Code.</li>
+                            <li><strong class="font-semibold">Crie a pasta `.vscode`:</strong> Na raiz do seu projeto, crie uma pasta chamada `.vscode`.</li>
+                            <li><strong class="font-semibold">Instruções Globais:</strong> Vá para as configurações do VS Code e procure por `Copilot Chat: Chat View Default Text`. Cole suas instruções globais neste campo ou configure o caminho para um arquivo local.</li>
+                            <li><strong class="font-semibold">Instruções Locais:</strong> Baixe os arquivos de instrução do <a href="https://github.com/github/awesome-copilot/tree/main/instructions" target="_blank" class="text-blue-600 underline">repositório</a> para sua pasta `.vscode`. Para um projeto Python, o arquivo pode ser `python-instructions.instructions.md`.</li>
+                            <li><strong class="font-semibold">Ative no projeto:</strong> Reinicie o VS Code. Agora, ao abrir o Copilot Chat, ele usará as instruções específicas do seu projeto.</li>
+                        </ol>
+                    </details>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-bold text-lg mb-3">Exemplos de Uso com Chat Modes</h4>
+                    <p class="mb-4 text-sm text-slate-500">Veja como usar chat modes para tarefas específicas em Python e React, combinando com as instructions locais que você configurou:</p>
                     <div class="space-y-4">
                         <details class="bg-slate-50 p-3 rounded">
-                            <summary class="font-medium cursor-pointer">Python</summary>
+                            <summary class="font-medium cursor-pointer text-slate-700">Python</summary>
+                            <p class="mt-2 text-sm text-slate-600">Com instruções de PEP 8 ativas, você pode usar:</p>
                             <div class="code-block mt-2">
                                 <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code># Python Coding Standards
-- Use type hints em todas as funções
-- Docstrings obrigatórias
-- Siga PEP 8 rigorosamente
-- Use pytest para testes (cobertura > 90%)</code></pre>
+                                <pre><code>@vscode /fix
+// corrige violações de PEP 8 em uma função
+// que você acabou de escrever.</code></pre>
                             </div>
                         </details>
                         <details class="bg-slate-50 p-3 rounded">
-                            <summary class="font-medium cursor-pointer">React/TypeScript</summary>
+                            <summary class="font-medium cursor-pointer text-slate-700">React/TypeScript</summary>
+                            <p class="mt-2 text-sm text-slate-600">Com instruções de hooks e tipagem ativas, você pode usar:</p>
                             <div class="code-block mt-2">
                                 <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code># React/TypeScript Standards
-- Use functional components com hooks
-- TypeScript obrigatório
-- Testes com Testing Library
-- Separar lógica em hooks customizados</code></pre>
+                                <pre><code>@tests /generate
+// gera testes com Testing Library para o
+// componente React selecionado.</code></pre>
                             </div>
                         </details>
                     </div>
