@@ -50,6 +50,191 @@
   --border-light: #475569;
 }
 
+/* Dark mode specific overrides for template section */
+[data-theme="dark"] .template {
+  background: linear-gradient(
+    135deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 100%
+  ) !important;
+}
+
+[data-theme="dark"] .template::before {
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23334155" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') !important;
+  opacity: 0.1 !important;
+}
+
+[data-theme="dark"] .section-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section-subtitle {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .section-description {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .template-section-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .prerequisite-item {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .prerequisite-icon {
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .prerequisite-content h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .prerequisite-content p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .prerequisite-list {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .prerequisite-list li {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .warning-box {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+[data-theme="dark"] .warning-box-content p {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .download-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .download-card-content {
+  background: transparent;
+}
+
+[data-theme="dark"] .download-icon {
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+}
+
+[data-theme="dark"] .download-details h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .download-details p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .feature-item {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .download-author {
+  background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .download-author p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .download-security {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .step-item {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .step-content h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .step-content p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .code-block {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .code-block code {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .validation-list li {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .stack-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .stack-icon {
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+}
+
+[data-theme="dark"] .stack-card h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .stack-card p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .benefit-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .benefit-card h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .benefit-card p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .trouble-item {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .trouble-item h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .trouble-solution {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .faq-item {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .faq-item h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .faq-item p {
+  color: var(--text-secondary);
+}
+
 /* Reset */
 * {
   margin: 0;
@@ -2561,6 +2746,28 @@ body {
 #lastUpdate {
   font-weight: 600;
   color: var(--accent-color);
+}
+
+/* Additional dark mode rules for sections */
+[data-theme="dark"] .section {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section h2 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section h3 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section h4 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section p {
+  color: var(--text-secondary);
 }
 
 /* Additional responsive adjustments for template section */
