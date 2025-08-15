@@ -31,15 +31,60 @@ Template para configuração automática do GitHub Copilot em qualquer projeto. 
 **⚠️ IMPORTANTE**: Use exatamente este comando no Copilot Chat (sem modificações):
 
 ```
-@terminal mkdir -p .github .vscode && echo "Folders ready"
+# GitHub Copilot Template - Configuração Universal
 
-Create .github/copilot-instructions.md with project-specific content based on copilot-init-template/project-template.instructions.md
+Template para configuração automática do GitHub Copilot em qualquer projeto.
 
-Create .vscode/settings.json with GitHub Copilot Agent Mode configuration
+## 🚀 Como Usar
 
-@terminal rm -rf copilot-init-template && echo "Template removed"
+1. **Copiar** este template para a raiz do seu projeto
+2. **Executar** o comando no Copilot Chat
+3. **Validar** configuração criada
 
-Show me the content of both created files to confirm setup.
+## ⚡ Comando Universal
+
+```
+IMPLEMENTE CONFIGURAÇÃO COPILOT UNIVERSAL usando copilot-init-template/:
+
+ANÁLISE AUTOMÁTICA:
+- Detecte stack tecnológico (package.json, requirements.txt, pom.xml, etc.)
+- Identifique build tool (Makefile, npm scripts, gradle, etc.)
+- Mapeie estrutura arquitetural do projeto
+
+GITHUB COPILOT SETUP (.github/):
+- copilot-instructions.md: análise específica do projeto detectado
+- copilot-settings.json: autoApprove + experimentais + chatmodes
+- copilot-chat-modes.json: 8 chatmodes adaptados para a stack
+- docs/chatmodes-guide.md: guia de uso específico
+- docs/copilot-setup.md: setup personalizado
+
+VSCODE WORKSPACE (.vscode/):
+- settings.json: configurações de linguagem/framework detectados
+- tasks.json: tasks baseadas no build tool identificado
+- launch.json: debug configs para stack detectada
+
+PERSONALIZAÇÃO AUTOMÁTICA:
+- Adapte allowList para comandos da stack (make, npm, gradle, mvn, etc.)
+- Configure problem matchers adequados
+- Implemente debug configs específicos da linguagem
+- Personalize chatmodes com contexto da tecnologia
+
+EXECUTE IMPLEMENTAÇÃO COMPLETA AGORA.
+```
+
+## ✅ Resultado Esperado
+
+- **`.github/`**: Configurações GitHub Copilot (instruções, chat modes, docs)
+- **`.vscode/`**: Configurações VS Code (settings, tasks, debug)
+- **Template removido**: Auto-limpeza após configuração
+
+## 📚 Documentação Completa
+
+Consulte [INDEX.md](INDEX.md) para documentação completa e roteiros por perfil.
+
+---
+
+**Comando otimizado para execução direta e configuração universal do GitHub Copilot 2025**
 ```
 
 **🎯 COMANDO ALTERNATIVO** (se o primeiro não executar todas as ações):

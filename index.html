@@ -824,14 +824,34 @@ code . # Abrir VS Code no projeto</code></pre>
                       padding: 2%;
                     "
                   >
-                    SELECIONE O MODO "Agent" e execute:
+                    Execute este comando no Copilot Chat:
                   </p>
-                  <pre><code>@workspace Analise este projeto completamente seguindo copilot-init-template/project-template.instructions.md:
-1. Identifique stack tecnológico, arquitetura e padrões
-2. Configure Copilot seguindo padrões 2025 (.github/ e .vscode/)
-3. NÃO crie arquivos na raiz do projeto
-4. Valide configuração final
-5. REMOVA a pasta copilot-init-template após configuração</code></pre>
+                  <pre><code>IMPLEMENTE CONFIGURAÇÃO COPILOT UNIVERSAL usando copilot-init-template/:
+
+ANÁLISE AUTOMÁTICA:
+- Detecte stack tecnológico (package.json, requirements.txt, pom.xml, etc.)
+- Identifique build tool (Makefile, npm scripts, gradle, etc.)
+- Mapeie estrutura arquitetural do projeto
+
+GITHUB COPILOT SETUP (.github/):
+- copilot-instructions.md: análise específica do projeto detectado
+- copilot-settings.json: autoApprove + experimentais + chatmodes
+- copilot-chat-modes.json: 8 chatmodes adaptados para a stack
+- docs/chatmodes-guide.md: guia de uso específico
+- docs/copilot-setup.md: setup personalizado
+
+VSCODE WORKSPACE (.vscode/):
+- settings.json: configurações de linguagem/framework detectados
+- tasks.json: tasks baseadas no build tool identificado
+- launch.json: debug configs para stack detectada
+
+PERSONALIZAÇÃO AUTOMÁTICA:
+- Adapte allowList para comandos da stack (make, npm, gradle, mvn, etc.)
+- Configure problem matchers adequados
+- Implemente debug configs específicos da linguagem
+- Personalize chatmodes com contexto da tecnologia
+
+EXECUTE IMPLEMENTAÇÃO COMPLETA AGORA.</code></pre>
                   <button class="copy-btn" onclick="copyToClipboard(this)">
                     <i class="fas fa-copy"></i>
                   </button>
