@@ -44,14 +44,17 @@ Template para configuração automática do GitHub Copilot em qualquer projeto.
 ## ⚡ Comando Universal
 
 ```
+
 IMPLEMENTE CONFIGURAÇÃO COPILOT UNIVERSAL usando copilot-init-template/:
 
 ANÁLISE AUTOMÁTICA:
+
 - Detecte stack tecnológico (package.json, requirements.txt, pom.xml, etc.)
 - Identifique build tool (Makefile, npm scripts, gradle, etc.)
 - Mapeie estrutura arquitetural do projeto
 
 GITHUB COPILOT SETUP (.github/):
+
 - copilot-instructions.md: análise específica do projeto detectado
 - copilot-settings.json: autoApprove + experimentais + chatmodes
 - copilot-chat-modes.json: 8 chatmodes adaptados para a stack
@@ -59,17 +62,20 @@ GITHUB COPILOT SETUP (.github/):
 - docs/copilot-setup.md: setup personalizado
 
 VSCODE WORKSPACE (.vscode/):
+
 - settings.json: configurações de linguagem/framework detectados
 - tasks.json: tasks baseadas no build tool identificado
 - launch.json: debug configs para stack detectada
 
 PERSONALIZAÇÃO AUTOMÁTICA:
+
 - Adapte allowList para comandos da stack (make, npm, gradle, mvn, etc.)
 - Configure problem matchers adequados
 - Implemente debug configs específicos da linguagem
 - Personalize chatmodes com contexto da tecnologia
 
 EXECUTE IMPLEMENTAÇÃO COMPLETA AGORA.
+
 ```
 
 ## ✅ Resultado Esperado
