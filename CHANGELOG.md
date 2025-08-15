@@ -5,18 +5,21 @@
 ### 🚀 **MAJOR IMPROVEMENTS**
 
 #### ⚡ **COMANDO UNIVERSAL OTIMIZADO**
+
 - **Novo arquivo**: `COMANDO-UNIVERSAL.md` com comando que **executa** ao invés de explicar
 - **Estrutura clara**: IMPLEMENTE → ANÁLISE → SETUP → EXECUTE
 - **Personalização automática**: Adapta para qualquer stack tecnológica
 - **Auto-limpeza**: Remove template automaticamente
 
 #### 📖 **README SIMPLIFICADO**
+
 - **Reduzido**: De 274 linhas para 45 linhas (83% menor)
 - **Foco prático**: Apenas essencial para execução
 - **URL centralizada**: [tgferr.github.io](https://tgferr.github.io)
 - **Comando destacado**: Principal função em evidência
 
 #### 🎯 **INDEX.MD REORGANIZADO**
+
 - **Perfis de usuário**: Dev Jr, Experiente, Tech Lead
 - **Roteiros específicos**: Para cada perfil
 - **Solução de problemas**: Seção dedicada com links diretos

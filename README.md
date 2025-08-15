@@ -49,6 +49,3 @@ EXECUTE IMPLEMENTAÇÃO COMPLETA AGORA.
 - **Template incluso**: Documentação detalhada e exemplos
 
 ---
-
-**Criado por**: [Tiago Ferreira](https://github.com/tgferr)  
-**Licença**: MIT
