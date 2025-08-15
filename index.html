@@ -460,8 +460,42 @@
             1. Download do Template Oficial
           </h3>
           <p class="section-subtitle">
-            Template desenvolvido por Tiago Ferreira.
+            Template desenvolvido por Tiago Ferreira - Atualizado para GitHub Copilot 2025.
           </p>
+
+          <!-- Como funciona o template -->
+          <div class="how-it-works" style="margin: 2rem 0; padding: 2rem; background: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+            <h4 style="color: var(--text-primary); margin-bottom: 1rem">
+              <i class="fas fa-cogs"></i> Como o Template Funciona
+            </h4>
+            <div style="color: var(--text-secondary); line-height: 1.6;">
+              <p>Este template usa as <strong>especificações mais atualizadas do GitHub Copilot (2025)</strong> para configurar automaticamente seus projetos:</p>
+              
+              <div style="margin: 1.5rem 0; padding: 1rem; background: var(--bg-primary); border-radius: var(--radius-md); border-left: 4px solid #28a745;">
+                <h5 style="color: var(--text-primary); margin: 0 0 0.5rem 0;">
+                  <i class="fas fa-folder"></i> Estrutura de Pastas (2025)
+                </h5>
+                <ul style="margin: 0; padding-left: 1rem;">
+                  <li><code>.github/copilot-instructions.md</code> - Instruções específicas do projeto</li>
+                  <li><code>.vscode/settings.json</code> - Configurações do Agent Mode e terminal</li>
+                </ul>
+              </div>
+
+              <div style="margin: 1.5rem 0; padding: 1rem; background: var(--bg-primary); border-radius: var(--radius-md); border-left: 4px solid #007bff;">
+                <h5 style="color: var(--text-primary); margin: 0 0 0.5rem 0;">
+                  <i class="fas fa-magic"></i> Automação Inteligente
+                </h5>
+                <p style="margin: 0;">O template analisa seu projeto automaticamente e cria instruções personalizadas baseadas na stack tecnológica, arquitetura e padrões identificados.</p>
+              </div>
+
+              <div style="margin: 1.5rem 0; padding: 1rem; background: var(--bg-primary); border-radius: var(--radius-md); border-left: 4px solid #ffc107;">
+                <h5 style="color: var(--text-primary); margin: 0 0 0.5rem 0;">
+                  <i class="fas fa-shield-alt"></i> Configurações de Segurança
+                </h5>
+                <p style="margin: 0;">Inclui configurações do Agent Mode com allowList/denyList para terminal, garantindo segurança nas operações automatizadas.</p>
+              </div>
+            </div>
+          </div>
           <div class="download-card">
             <div class="download-card-content">
               <div class="download-info">
@@ -469,7 +503,7 @@
                   <i class="fas fa-file-archive"></i>
                 </div>
                 <div class="download-details">
-                  <h4>Copilot Init Template v1.0 - Luiza Labs</h4>
+                  <h4>Copilot Init Template v2.0 - GitHub Copilot 2025</h4>
                   <p>
                     Template otimizado para configuração automática do GitHub
                     Copilot em projetos da empresa
@@ -645,7 +679,7 @@ code . # Abrir VS Code no projeto</code></pre>
                 <div class="code-block large">
                   <pre><code>@workspace Analise este projeto completamente seguindo copilot-init-template/project-template.instructions.md:
 1. Identifique stack tecnológico, arquitetura e padrões
-2. Configure Copilot otimizado APENAS na pasta .vscode/
+2. Configure Copilot seguindo padrões 2025 (.github/ e .vscode/)
 3. NÃO crie arquivos na raiz do projeto
 4. Valide configuração final
 5. REMOVA a pasta copilot-init-template após configuração</code></pre>
