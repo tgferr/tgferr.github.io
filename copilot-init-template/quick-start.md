@@ -2,44 +2,79 @@
 
 ## 🚀 **SETUP RELÂMPAGO**
 
-### 1️⃣ **INSTALAR** (1 min)
+### 1️⃣ **PRÉ-REQUISITOS** (1 min)
+
+- ✅ VS Code instalado
+- ✅ GitHub Copilot extension ativa
+- ✅ GitHub Copilot Chat extension ativa
+- ✅ Login realizado
+
+### 2️⃣ **COPIAR TEMPLATE** (1 min)
 
 ```bash
-VS Code Extensions:
-→ GitHub Copilot
-→ GitHub Copilot Chat
+# Copie a pasta copilot-init-template para a raiz do seu projeto
+# (Download já foi feito do site)
 ```
 
-### 2️⃣ **LOGIN** (1 min)
+### 3️⃣ **COMANDO MÁGICO** (2 min)
 
-```bash
-Ctrl+Shift+P → "GitHub Copilot: Sign In"
+Abra VS Code no seu projeto e execute no Copilot Chat (Ctrl+Alt+I):
+
+```
+@workspace Analise este projeto completamente seguindo copilot-init-template/project-template.instructions.md:
+1. Identifique stack tecnológico, arquitetura e padrões
+2. Configure Copilot seguindo padrões 2025 (.github/ e .vscode/)
+3. NÃO crie arquivos na raiz do projeto
+4. Valide configuração final
+5. REMOVA a pasta copilot-init-template após configuração
 ```
 
-### 3️⃣ **SEGURANÇA** (1 min)
+### 4️⃣ **VALIDAÇÃO** (1 min)
 
-```bash
-Ctrl+, → Pesquisar: "copilot telemetry" → Desmarcar
-```
+Verifique se foram criados:
 
-### 4️⃣ **CONFIGURAR PROJETO** (2 min)
+- ✅ `.github/copilot-instructions.md` (instruções personalizadas)
+- ✅ `.vscode/settings.json` (configurações Agent Mode)
+- ✅ Pasta `copilot-init-template` foi removida
 
-```bash
-# Criar .vscode/settings.json na raiz do projeto:
-{
-  "github.copilot.chat.agent.terminal.allowList": [
-    "npm run", "make test", "git status", "ls"
-  ],
-  "github.copilot.chat.agent.terminal.denyList": [
-    "rm", "sudo", "curl"
-  ],
-  "chat.tools.autoApprove": false,
-  "github.copilot.chat.codeGeneration.useInstructionFiles": true
+## 🎯 **PRONTO!**
+
+Agora você tem:
+
+- 🤖 **Copilot personalizado** para seu projeto
+- 🛡️ **Configurações de segurança** ativas
+- 🚀 **Produtividade máxima** desde o primeiro uso
+
+## 🆘 **PROBLEMAS?**
+
+### Comando não respondeu?
+
+- Pasta `copilot-init-template` está na raiz?
+- VS Code aberto na pasta correta?
+- Copilot Chat funcionando?
+
+### Configuração incompleta?
+
+- Execute novamente o comando
+- Verifique se os arquivos foram criados
+- Consulte `copilot-advanced-settings.md`
+
+### Ainda com dúvidas?
+
+Google Chat: **tiago.ferreira** ou **Tiago Ferreira**
+],
+"github.copilot.chat.agent.terminal.denyList": [
+"rm", "sudo", "curl"
+],
+"chat.tools.autoApprove": false,
+"github.copilot.chat.codeGeneration.useInstructionFiles": true
 }
 
 # Instruções customizadas vão em .github/copilot-instructions.md
+
 # (criado automaticamente pelo template)
-```
+
+````
 
 ### 5️⃣ **TESTAR** (30 seg)
 
@@ -48,7 +83,7 @@ Ctrl+, → Pesquisar: "copilot telemetry" → Desmarcar
 # função para somar dois números
 
 # Copilot vai sugerir → Pressione TAB
-```
+````
 
 ---
 

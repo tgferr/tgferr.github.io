@@ -1,5 +1,39 @@
 # 🎯 Configurações VS Code para GitHub Copilot
 
+## 📁 **ESTRUTURA OFICIAL DE PASTAS**
+
+### ✅ **Localização Correta dos Arquivos (2025)**
+
+**IMPORTANTE**: Use sempre a pasta `.github/` para arquivos do GitHub Copilot:
+
+```
+projeto/
+├── .github/                              # ✅ PASTA OFICIAL para GitHub Copilot
+│   ├── copilot-instructions.md           # ✅ Instruções principais do Copilot
+│   ├── instructions/                     # ✅ Instruções específicas
+│   │   ├── python.instructions.md        # ✅ Instruções para Python
+│   │   ├── react.instructions.md         # ✅ Instruções para React/JS
+│   │   └── docker.instructions.md        # ✅ Instruções para Docker
+│   └── prompts/                          # ✅ Prompt files reutilizáveis
+│       ├── code-review.prompt.md         # ✅ Prompt para code review
+│       └── testing.prompt.md             # ✅ Prompt para testes
+└── .vscode/                              # ✅ APENAS para configurações VS Code
+    ├── settings.json                     # ✅ Configurações específicas do VS Code
+    ├── tasks.json                        # ✅ Tasks do VS Code
+    ├── launch.json                       # ✅ Debug configurations
+    └── extensions.json                   # ✅ Extensões recomendadas
+```
+
+### ❌ **ESTRUTURA INCORRETA** (Causa comandos "foscos"):
+
+```
+projeto/
+├── .vscode/
+│   ├── copilot-instructions.md          # ❌ Local ERRADO - causa UI fosca
+│   ├── python.instructions.md           # ❌ Local ERRADO - não é reconhecido
+│   └── settings.json                    # ✅ Correto
+```
+
 ## 📁 Estrutura de Configurações
 
 ### 1. Settings.json Global
@@ -16,11 +50,11 @@ Configurações aplicadas a todos os projetos:
     "markdown": true
   },
 
-  // === Chat Instructions ===
+  // === Chat Instructions (CONFIGURAÇÃO CORRETA) ===
   "github.copilot.chat.instructionFiles": [
-    "*.instructions.md",
-    "templates/*.instructions.md",
-    ".copilot/instructions.md"
+    ".github/copilot-instructions.md", // ✅ Arquivo principal
+    ".github/instructions/*.instructions.md", // ✅ Instruções específicas
+    ".github/prompts/*.prompt.md" // ✅ Prompt files
   ],
 
   // === Custom Chat Modes ===
@@ -104,10 +138,11 @@ Configurações específicas do projeto:
 
 ```json
 {
-  // === Project Specific Instructions ===
+  // === Project Specific Instructions (PASTA CORRETA) ===
   "github.copilot.chat.instructionFiles": [
-    "ps-core-product-api.instructions.md",
-    "templates/project-template.instructions.md"
+    ".github/copilot-instructions.md", // ✅ Instruções principais
+    ".github/instructions/python.instructions.md", // ✅ Instruções Python
+    ".github/instructions/api.instructions.md" // ✅ Instruções API
   ],
 
   // === Python Configuration ===
@@ -550,83 +585,96 @@ Para múltiplos projetos:
 2. Verificar se dependências estão instaladas
 3. Verificar arquivo `.env`
 
-## 🔧 Configurações Avançadas do GitHub Copilot
+## 🔧 Configurações Avançadas do GitHub Copilot (2025)
 
 ### 🤖 Configurações do Agent Mode
 
-#### Terminal Allow/Deny List
+#### ⚠️ CONFIGURAÇÕES ATUALIZADAS (2025)
 
-As configurações mais importantes para controlar quais comandos o Copilot Agent pode executar automaticamente:
+**IMPORTANTE**: As configurações `allowList`/`denyList` foram **DEPRECATED** em 2025!
+
+❌ **DEPRECATED** (não usar mais):
+
+- `github.copilot.chat.agent.terminal.allowList`
+- `github.copilot.chat.agent.terminal.denyList`
+
+✅ **NOVA SINTAXE** (2025):
 
 ```json
 {
-  // === Agent Mode Terminal Control ===
-  "github.copilot.chat.agent.terminal.allowList": [
-    "npm",
-    "yarn",
-    "pnpm",
-    "pip",
-    "poetry",
-    "make",
-    "git",
-    "docker",
-    "docker-compose",
-    "python",
-    "node",
-    "ls",
-    "cat",
-    "pwd",
-    "echo",
-    "/cd .*/", // Regex para permitir mudança de diretório
-    "/npm (install|update|run).*/", // Regex para comandos npm específicos
-    "/make (test|lint|coverage|run)/" // Regex para comandos make específicos
-  ],
+  // === NOVA CONFIGURAÇÃO DE TERMINAL (2025) ===
+  "chat.tools.terminal.autoApprove": {
+    // Comandos auto-aprovados (true = sem confirmação)
+    "mkdir": true,
+    "echo": true,
+    "ls": true,
+    "cat": true,
+    "pwd": true,
+    "make": true,
+    "npm": true,
+    "yarn": true,
+    "pip": true,
+    "poetry": true,
+    "python": true,
+    "node": true,
+    "git": true,
+    "docker": true,
 
-  "github.copilot.chat.agent.terminal.denyList": [
-    "rm",
-    "rmdir",
-    "sudo",
-    "su",
-    "chmod",
-    "chown",
-    "dd",
-    "mkfs",
-    "fdisk",
-    "/rm -rf.*/", // Regex para bloquear rm -rf
-    "/sudo .*/", // Regex para bloquear qualquer comando sudo
-    "/.*password.*/i" // Regex case-insensitive para comandos com password
-  ],
+    // Regex patterns para comandos específicos
+    "/^git (status|show|log|diff)\\b/": true,
+    "/^npm (install|run|test)\\b/": true,
+    "/^make (test|lint|coverage|run)\\b/": true,
+    "/^poetry (install|update|run)\\b/": true,
+    "/^docker (ps|logs|images)\\b/": true,
 
-  // === Agent Mode Settings ===
+    // Comandos SEMPRE bloqueados (false = sempre pedir confirmação)
+    "rm": false,
+    "rmdir": false,
+    "sudo": false,
+    "chmod": false,
+    "chown": false,
+    "del": false,
+    "kill": false,
+    "curl": false,
+    "wget": false,
+    "eval": false,
+
+    // Regex patterns para comandos perigosos
+    "/rm\\s+-rf/": false,
+    "/sudo\\s+/": false,
+    "/password/i": false,
+    "/secret/i": false,
+    "/key/i": false,
+    "/.env/": false
+  },
+
+  // === Agent Mode Settings (2025) ===
   "chat.agent.enabled": true,
-  "chat.agent.maxRequests": 15,
+  "chat.agent.maxRequests": 25, // Limite atualizado para 2025
   "github.copilot.chat.agent.runTasks": true,
   "github.copilot.chat.agent.autoFix": true,
 
-  // === Tools Configuration ===
+  // === Tools Configuration (2025) ===
   "chat.extensionTools.enabled": true,
-  "chat.tools.autoApprove": false, // CUIDADO: não recomendado true
+  "chat.tools.autoApprove": false, // EXPERIMENTAL: auto-aprovar TODAS as tools
+  "chat.mcp.enabled": true, // MCP support
   "chat.mcp.discovery.enabled": true,
 
-  // === Edit Requests ===
-  "chat.editRequests": "hover", // "inline" | "hover" | "input" | "none"
-  "chat.editing.autoAcceptDelay": 5000 // 5 segundos para auto-aceitar
+  // === Edit Requests (2025) ===
+  "chat.editRequests": "inline", // "inline" | "hover" | "input" | "none"
+  "chat.editing.autoAcceptDelay": 0, // 0 = desabilitado, >0 = segundos para auto-aceitar
+  "chat.checkpoints.enabled": true // Checkpoints para reverter mudanças
 }
 ```
 
-#### Explicação das Configurações Terminal
+#### ✅ Explicação da Nova Sintaxe
 
-**allowList**: Lista de comandos ou regex que podem ser executados automaticamente
+**chat.tools.terminal.autoApprove**: Objeto com comandos e valores boolean/regex
 
-- Strings simples: comandos exatos (ex: `"npm"`, `"git"`)
-- Regex: padrões complexos entre `/` (ex: `/npm (install|run).*/`)
-- Case sensitive por padrão
-
-**denyList**: Lista que sobrescreve allowList e força confirmação
-
-- Comandos perigosos sempre bloqueados
-- Regex para padrões complexos de comandos perigosos
-- Pode usar flags como `/i` para case-insensitive
+- `true`: Comando executado automaticamente sem confirmação
+- `false`: Sempre pede confirmação antes de executar
+- Regex entre `/`: Padrões complexos (ex: `/^git status\\b/`)
+- Comandos `false` sempre sobrescrevem `true`
 
 ### 🎛️ Configurações Avançadas de Chat
 
@@ -634,10 +682,9 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
 {
   // === Chat Behavior ===
   "github.copilot.chat.instructionFiles": [
-    "*.instructions.md",
-    "templates/*.instructions.md",
-    ".copilot/**/*.md",
-    "docs/copilot/**/*.md"
+    ".github/copilot-instructions.md",
+    ".github/instructions/*.instructions.md",
+    ".github/prompts/*.prompt.md"
   ],
 
   // === Custom Instructions por Linguagem ===
@@ -734,9 +781,9 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
 
 ```json
 {
-  // === Project Specific ===
+  // === Project Specific (PASTA CORRETA) ===
   "github.copilot.chat.instructionFiles": [
-    "ps-core-product-api.instructions.md" // Arquivo específico do projeto
+    ".github/copilot-instructions.md" // ✅ Arquivo específico do projeto
   ],
 
   // === Context Awareness ===
@@ -753,7 +800,8 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
     "**/pyproject.toml",
     "**/package.json",
     "**/Makefile",
-    "**/README.md"
+    "**/README.md",
+    ".github/**/*.md" // ✅ Incluir arquivos da pasta .github
   ],
 
   "github.copilot.chat.context.exclude": [
@@ -761,40 +809,41 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
     "**/__pycache__/**",
     "**/dist/**",
     "**/build/**",
-    "**/.git/**"
+    "**/.git/**",
+    "**/.vscode/**" // ✅ Excluir configurações VS Code do contexto
   ]
 }
 ```
 
-## 🚨 Configurações de Segurança Recomendadas
+## 🚨 Configurações de Segurança Recomendadas (2025)
 
 ### ⚠️ Configurações CRÍTICAS para Ambientes Corporativos
 
 ```json
 {
-  // === SEGURANÇA MÁXIMA ===
+  // === SEGURANÇA MÁXIMA (2025) ===
   "chat.tools.autoApprove": false, // NUNCA true em produção
-  "github.copilot.chat.agent.terminal.allowList": [
+
+  // NOVA SINTAXE PARA TERMINAL (2025)
+  "chat.tools.terminal.autoApprove": {
     // Lista muito restritiva - apenas comandos seguros
-    "ls",
-    "cat",
-    "pwd",
-    "echo",
-    "make test",
-    "make lint",
-    "make coverage"
-  ],
-  "github.copilot.chat.agent.terminal.denyList": [
+    "ls": true,
+    "cat": true,
+    "pwd": true,
+    "echo": true,
+    "/^make (test|lint|coverage)\\b/": true,
+
     // Bloquear TODOS os comandos perigosos
-    "rm",
-    "sudo",
-    "chmod",
-    "curl",
-    "wget",
-    "/.*password.*/i",
-    "/.*secret.*/i",
-    "/.*key.*/i"
-  ],
+    "rm": false,
+    "sudo": false,
+    "chmod": false,
+    "curl": false,
+    "wget": false,
+    "/password/i": false,
+    "/secret/i": false,
+    "/key/i": false,
+    "/env/i": false
+  },
 
   // === PRIVACY MÁXIMO ===
   "telemetry.telemetryLevel": "off",
@@ -817,38 +866,41 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
 
 ```json
 {
-  // === DESENVOLVIMENTO SEGURO ===
+  // === DESENVOLVIMENTO SEGURO (2025) ===
   "chat.tools.autoApprove": false, // Sempre revisar comandos
-  "chat.agent.maxRequests": 10, // Limitar requests por sessão
-  "chat.editing.autoAcceptDelay": 10000, // 10s para revisar antes de aceitar
+  "chat.agent.maxRequests": 25, // Limite atualizado para 2025
+  "chat.editing.autoAcceptDelay": 0, // Desabilitado por segurança
 
-  // === TERMINAL CONTROLADO ===
-  "github.copilot.chat.agent.terminal.allowList": [
-    "npm run",
-    "yarn",
-    "poetry",
-    "make",
-    "git status",
-    "git diff",
-    "git log",
-    "python -m pytest",
-    "node",
-    "python"
-  ],
+  // === TERMINAL CONTROLADO (NOVA SINTAXE 2025) ===
+  "chat.tools.terminal.autoApprove": {
+    "npm": true,
+    "yarn": true,
+    "poetry": true,
+    "make": true,
+    "python": true,
+    "node": true,
+    "/^git (status|diff|log)\\b/": true,
+    "/^npm run\\b/": true,
+    "/^make (test|lint|coverage|run)\\b/": true,
+    "/^python -m pytest\\b/": true
+  },
 
   // === CONTEXT INTELIGENTE ===
   "github.copilot.chat.context.workspace": true,
   "github.copilot.chat.context.git": true,
-  "github.copilot.chat.instructionFiles": ["*.instructions.md", "docs/**/*.md"]
+  "github.copilot.chat.instructionFiles": [
+    ".github/copilot-instructions.md",
+    ".github/instructions/*.instructions.md"
+  ]
 }
 ```
 
-## 📋 Checklist de Configuração
+## 📋 Checklist de Configuração (2025)
 
 ### ✅ Setup Inicial
 
-- [ ] Configurar `terminal.allowList` com comandos do projeto
-- [ ] Definir `terminal.denyList` com comandos perigosos
+- [ ] Configurar `chat.tools.terminal.autoApprove` com comandos do projeto
+- [ ] Definir comandos perigosos como `false` no autoApprove
 - [ ] Configurar `instructionFiles` para o projeto
 - [ ] Definir `customInstructions` para workflows específicos
 - [ ] Configurar privacy settings apropriados
@@ -858,7 +910,7 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
 - [ ] `chat.tools.autoApprove: false`
 - [ ] `telemetry.telemetryLevel: "error"` ou `"off"`
 - [ ] Context exclusions para arquivos sensíveis
-- [ ] Terminal denyList com comandos perigosos
+- [ ] Terminal autoApprove com comandos perigosos bloqueados
 - [ ] Revisar permissions de workspace
 
 ### ✅ Otimização de Produtividade
@@ -871,65 +923,58 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
 
 ---
 
-## 💡 Dicas Avançadas de Uso
+## 💡 Dicas Avançadas de Uso (2025)
 
-### 🎯 Terminal Allow/Deny List - Casos de Uso
+### 🎯 Terminal AutoApprove - Casos de Uso
 
-#### Para Projetos Python/FastAPI:
+#### Para Projetos Python/FastAPI (2025):
 
 ```json
 {
-  "allowList": [
-    "poetry",
-    "pip",
-    "python",
-    "pytest",
-    "make test",
-    "make lint",
-    "make coverage",
-    "make run",
-    "/poetry (install|update|run).*/",
-    "/python -m (pytest|uvicorn|black|isort).*/",
-    "/make (test|lint|coverage|run|docker-restart)/"
-  ]
+  "chat.tools.terminal.autoApprove": {
+    "poetry": true,
+    "pip": true,
+    "python": true,
+    "pytest": true,
+    "/^make (test|lint|coverage|run)\\b/": true,
+    "/^poetry (install|update|run)\\b/": true,
+    "/^python -m (pytest|uvicorn|black|isort)\\b/": true,
+    "/^make (test|lint|coverage|run|docker-restart)\\b/": true
+  }
 }
 ```
 
-#### Para Projetos Node.js/React:
+#### Para Projetos Node.js/React (2025):
 
 ```json
 {
-  "allowList": [
-    "npm",
-    "yarn",
-    "pnpm",
-    "node",
-    "npm run",
-    "yarn dev",
-    "yarn build",
-    "yarn test",
-    "/npm (install|run|test).*/",
-    "/yarn (install|dev|build|test).*/",
-    "/npx .*/"
-  ]
+  "chat.tools.terminal.autoApprove": {
+    "npm": true,
+    "yarn": true,
+    "pnpm": true,
+    "node": true,
+    "/^npm (install|run|test)\\b/": true,
+    "/^yarn (install|dev|build|test)\\b/": true,
+    "/^npx\\s+/": true
+  }
 }
 ```
 
-#### Para Projetos Docker:
+#### Para Projetos Docker (2025):
 
 ```json
 {
-  "allowList": [
-    "docker",
-    "docker-compose",
-    "/docker (build|run|ps|logs).*/",
-    "/docker-compose (up|down|ps|logs).*/",
-    "make docker-restart"
-  ],
-  "denyList": [
-    "/docker (rm|rmi|system prune).*/", // Comandos destrutivos
-    "/docker.*--rm.*/" // Auto-remove containers
-  ]
+  "chat.tools.terminal.autoApprove": {
+    "docker": true,
+    "docker-compose": true,
+    "/^docker (build|run|ps|logs)\\b/": true,
+    "/^docker-compose (up|down|ps|logs)\\b/": true,
+    "/^make docker-restart\\b/": true,
+
+    // Comandos destrutivos sempre bloqueados
+    "/docker (rm|rmi|system prune)/": false,
+    "/docker.*--rm/": false
+  }
 }
 ```
 
@@ -958,3 +1003,253 @@ As configurações mais importantes para controlar quais comandos o Copilot Agen
 ```
 
 Use essas configurações avançadas para ter controle total sobre o GitHub Copilot e maximizar sua produtividade com segurança!
+
+---
+
+## 🔍 **POR QUE COMANDOS FICAM "FOSCOS" NA PASTA .vscode?**
+
+### 📋 **Explicação Técnica**
+
+O VS Code usa diferentes tratamentos visuais para identificar quando arquivos estão em locais incorretos:
+
+#### ✅ **Comportamento Normal** (pasta .github):
+
+- **Pasta**: `.github/copilot-instructions.md`
+- **VS Code**: Reconhece como arquivo oficial do GitHub Copilot
+- **Interface**: Comandos aparecem **normais** e **ativos**
+- **Funcionalidade**: **100% funcional**
+
+#### ❌ **Comportamento com Aviso** (pasta .vscode):
+
+- **Pasta**: `.vscode/copilot-instructions.md`
+- **VS Code**: Detecta arquivo do GitHub Copilot em local errado
+- **Interface**: Comandos aparecem **"foscos/desbotados"**
+- **Funcionalidade**: **Pode funcionar parcialmente**, mas não é oficial
+
+### 🎯 **Como Identificar o Problema**
+
+1. **Comandos foscos**: Se você vê comandos do Copilot com aparência desbotada
+2. **Autocomplete limitado**: Sugestões reduzidas ou ausentes
+3. **Reconhecimento parcial**: Algumas instruções funcionam, outras não
+
+### 🔧 **Como Corrigir**
+
+```bash
+# 1. Mover arquivos para local correto
+mkdir -p .github/instructions
+mv .vscode/*.instructions.md .github/instructions/
+mv .vscode/copilot-instructions.md .github/
+
+# 2. Atualizar settings.json
+# Remover referências à pasta .vscode
+# Adicionar referências à pasta .github
+
+# 3. Reiniciar VS Code
+```
+
+### 📚 **Documentação Oficial**
+
+**GitHub Documentation confirms**:
+
+- ✅ `.github/copilot-instructions.md` - **OFICIAL**
+- ✅ `.github/instructions/*.instructions.md` - **OFICIAL**
+- ❌ `.vscode/copilot-instructions.md` - **NÃO OFICIAL**
+
+### 🎉 **Resultado Esperado Após Correção**
+
+- **Comandos nítidos**: Todos os comandos do Copilot aparecem normais
+- **Funcionalidade completa**: 100% das features funcionam
+- **Performance otimizada**: Reconhecimento mais rápido das instruções
+- **Compatibilidade total**: Funciona em todos os ambientes (Web, Desktop, Codespaces)
+
+---
+
+## 📋 **CHECKLIST FINAL DE VALIDAÇÃO**
+
+### ✅ **Estrutura de Pastas Correta**
+
+- [ ] Arquivos `.instructions.md` estão em `.github/instructions/`
+- [ ] Arquivo `copilot-instructions.md` está em `.github/`
+- [ ] Prompt files estão em `.github/prompts/`
+- [ ] Pasta `.vscode/` contém apenas configs VS Code
+
+### ✅ **Configurações Atualizadas**
+
+- [ ] `settings.json` referencia `.github/` paths
+- [ ] Removidas referências deprecated
+- [ ] Terminal autoApprove configurado (nova sintaxe 2025)
+- [ ] Context includes/excludes configurados
+
+### ✅ **Funcionalidade Testada**
+
+- [ ] Comandos Copilot aparecem **nítidos** (não foscos)
+- [ ] Custom instructions são reconhecidas
+- [ ] Agent mode funciona corretamente
+- [ ] Terminal commands funcionam conforme esperado
+
+### ✅ **Migração Completa**
+
+- [ ] Backup das configurações antigas criado
+- [ ] Nova estrutura testada
+- [ ] Documentação do projeto atualizada
+- [ ] Time notificado sobre mudanças
+
+---
+
+**🎯 RESUMO**: Use **`.github/`** para GitHub Copilot, **`.vscode/`** para VS Code. Esta é a estrutura oficial que garante funcionalidade completa e interface nítida!
+
+---
+
+## 🔄 **GUIA DE MIGRAÇÃO 2025**
+
+### ⚠️ **CONFIGURAÇÕES DEPRECATED - MIGRAR URGENTEMENTE**
+
+Se você tem essas configurações antigas no seu `settings.json`, **REMOVA e substitua**:
+
+#### ❌ **REMOVER** (Deprecated):
+
+```json
+{
+  "github.copilot.chat.agent.terminal.allowList": [...],
+  "github.copilot.chat.agent.terminal.denyList": [...]
+}
+```
+
+#### ✅ **SUBSTITUIR POR** (2025):
+
+```json
+{
+  "chat.tools.terminal.autoApprove": {
+    "comando": true, // ou false
+    "/regex\b/": true
+  }
+}
+```
+
+### 🚀 **SCRIPT DE MIGRAÇÃO AUTOMÁTICA**
+
+Crie um arquivo `migrate-copilot-config.py`:
+
+```python
+#!/usr/bin/env python3
+"""
+Script para migrar configurações deprecated do GitHub Copilot
+"""
+import json
+import os
+from pathlib import Path
+
+def migrate_settings():
+    """Migra settings.json para nova sintaxe 2025"""
+
+    # Caminhos para settings.json
+    paths = [
+        Path.home() / '.config/Code/User/settings.json',  # Linux
+        Path.home() / 'Library/Application Support/Code/User/settings.json',  # macOS
+        Path.home() / 'AppData/Roaming/Code/User/settings.json',  # Windows
+        Path('.vscode/settings.json')  # Workspace
+    ]
+
+    for settings_path in paths:
+        if settings_path.exists():
+            print(f"🔄 Migrando: {settings_path}")
+            migrate_file(settings_path)
+
+
+def migrate_file(file_path):
+    """Migra um arquivo específico"""
+
+    with open(file_path, 'r') as f:
+        settings = json.load(f)
+
+    changed = False
+
+    # Migrar allowList para autoApprove
+    if 'github.copilot.chat.agent.terminal.allowList' in settings:
+        allow_list = settings.pop('github.copilot.chat.agent.terminal.allowList')
+        deny_list = settings.pop('github.copilot.chat.agent.terminal.denyList', [])
+
+        # Converter para nova sintaxe
+        auto_approve = {}
+
+        # Adicionar comandos permitidos
+        for cmd in allow_list:
+            auto_approve[cmd] = True
+
+        # Adicionar comandos negados
+        for cmd in deny_list:
+            auto_approve[cmd] = False
+
+        settings['chat.tools.terminal.autoApprove'] = auto_approve
+        changed = True
+        print(f"  ✅ Migrou allowList/denyList para autoApprove")
+
+    # Atualizar outras configurações
+    old_new_mapping = {
+        'chat.agent.maxRequests': 25,
+        'chat.agent.enabled': True,
+        'chat.mcp.enabled': True,
+        'chat.checkpoints.enabled': True
+    }
+
+    for key, default_value in old_new_mapping.items():
+        if key not in settings:
+            settings[key] = default_value
+            changed = True
+            print(f"  ✅ Adicionou: {key}")
+
+    if changed:
+        # Backup
+        backup_path = f"{file_path}.backup"
+        os.rename(file_path, backup_path)
+        print(f"  💾 Backup criado: {backup_path}")
+
+        # Salvar migrado
+        with open(file_path, 'w') as f:
+            json.dump(settings, f, indent=2)
+
+        print(f"  🎉 Migração concluída!")
+    else:
+        print(f"  ✨ Nenhuma migração necessária")
+
+if __name__ == "__main__":
+    print("🚀 Iniciando migração das configurações do GitHub Copilot...")
+    migrate_settings()
+    print("✅ Migração concluída! Reinicie o VS Code.")
+```
+
+### 📋 **CHECKLIST DE MIGRAÇÃO**
+
+- [ ] Executar script de migração
+- [ ] Verificar se configurações antigas foram removidas
+- [ ] Testar comandos de terminal no Agent Mode
+- [ ] Atualizar documentação do projeto
+- [ ] Compartilhar novas configurações com o time
+
+### 🔍 **VALIDAÇÃO PÓS-MIGRAÇÃO**
+
+Após migrar, teste no VS Code:
+
+1. **Abrir Chat** (`Ctrl+Alt+I`)
+2. **Entrar em Agent Mode** (`Ctrl+Shift+Alt+I`)
+3. **Testar comando permitido**: `@terminal ls`
+4. **Testar comando bloqueado**: `@terminal rm -rf`
+5. **Verificar se pede confirmação corretamente**
+
+---
+
+## 📚 **RECURSOS ADICIONAIS 2025**
+
+### 🔗 **Links Oficiais**
+
+- [VS Code Copilot Settings Reference](https://code.visualstudio.com/docs/copilot/reference/copilot-settings)
+- [Agent Mode Documentation](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode)
+- [Terminal AutoApprove Guide](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode#_auto-approve-terminal-commands)
+
+### 🆕 **Novidades 2025**
+
+- **GPT-5 Support**: Novo modelo disponível
+- **MCP Servers**: Extensibilidade via Model Context Protocol
+- **Chat Checkpoints**: Reverter mudanças facilmente
+- **Virtual Tools**: Mais de 128 tools por request
+- **Improved Context**: Melhor awareness do workspace

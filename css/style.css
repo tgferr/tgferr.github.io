@@ -584,6 +584,107 @@ body {
 }
 
 /* Sections */
+section {
+  padding: 5rem 0;
+  position: relative;
+}
+
+/* Seções específicas com espaçamento personalizado */
+.hero {
+  padding: 8rem 0 6rem;
+}
+
+.features {
+  padding: 6rem 0;
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--bg-primary);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.template {
+  padding: 6rem 0;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.faq {
+  padding: 5rem 0;
+}
+
+.advanced {
+  padding: 5rem 0;
+}
+
+.teams {
+  padding: 5rem 0;
+}
+
+.footer {
+  padding: 3rem 0 2rem;
+  margin-top: 2rem;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-section {
+  margin: 0 auto;
+}
+
+.footer-section p {
+  margin: 0.5rem 0;
+  color: var(--text-secondary);
+}
+
+.footer-section p:first-child {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
@@ -1571,6 +1672,42 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  section {
+    padding: 3rem 0;
+  }
+
+  .hero {
+    padding: 5rem 0 3rem;
+  }
+
+  .features {
+    padding: 4rem 0;
+  }
+
+  .template {
+    padding: 4rem 0;
+    margin: 1rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .footer {
+    padding: 2rem 0 1rem;
+    margin-top: 1rem;
+  }
+}
+@media (max-width: 768px) {
   .hero-content {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1695,9 +1832,10 @@ body {
 /* Template Section - Complete Redesign */
 .template {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  padding: 4rem 0;
+  padding: 6rem 0;
   position: relative;
   overflow: hidden;
+  margin: 2rem 0;
 }
 
 .template::before {
