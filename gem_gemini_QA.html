@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Expert - Apresentação Interativa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --accent-color: #3b82f6;
+        --border-color: #e5e7eb;
+        --code-bg: #2d3748;
+        --code-text: #e2e8f0;
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #1f2937;
+        --bg-secondary: #111827;
+        --text-primary: #f9fafb;
+        --text-secondary: #9ca3af;
+        --border-color: #374151;
+        --code-bg: #0f172a;
+        --code-text: #cbd5e1;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        line-height: 1.6;
+      }
+
+      .app-container {
+        min-height: 100vh;
+      }
+
+      .header {
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border: 1px solid var(--border-color);
+        cursor: pointer;
+      }
+
+      .back-btn:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .theme-toggle:hover {
+        background: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .section {
+        margin-bottom: 4rem;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .max-w-3xl {
+        max-width: 48rem;
+        margin: 0 auto;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        transition: all 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--accent-color);
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        margin: 0 auto 1rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--accent-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: #2563eb;
+        transform: translateY(-1px);
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-family: 'Courier New', Courier, monospace;
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-size: 0.875rem;
+        overflow-x: auto;
+      }
+
+      .command-btn {
+        width: 100%;
+        text-align: left;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-bottom: 0.5rem;
+      }
+
+      .command-btn:hover {
+        background: var(--bg-primary);
+        border-color: var(--accent-color);
+      }
+
+      .command-btn.active {
+        background: var(--accent-color);
+        color: white;
+        font-weight: 600;
+        border-color: var(--accent-color);
+      }
+
+      .accordion-header {
+        background: none;
+        border: none;
+        font-family: inherit;
+        color: var(--text-primary);
+      }
+
+      .accordion-content {
+        background: var(--bg-primary);
+        border-top: 1px solid var(--border-color);
+      }
+
+      .accordion-icon {
+        color: var(--accent-color);
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .flex-col {
+        flex-direction: column;
+      }
+
+      .items-center {
+        align-items: center;
+      }
+
+      .justify-between {
+        justify-content: space-between;
+      }
+
+      .gap-8 {
+        gap: 2rem;
+      }
+
+      .w-1-3 {
+        width: 33.333333%;
+      }
+
+      .w-2-3 {
+        width: 66.666667%;
+      }
+
+      .relative {
+        position: relative;
+      }
+
+      .absolute {
+        position: absolute;
+      }
+
+      .top-3 {
+        top: 0.75rem;
+      }
+
+      .right-3 {
+        right: 0.75rem;
+      }
+
+      footer {
+        border-top: 1px solid var(--border-color);
+        padding: 2rem 0;
+        margin-top: 4rem;
+        text-align: center;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        .grid-cols-2,
+        .grid-cols-3,
+        .grid-cols-4 {
+          grid-template-columns: 1fr;
+        }
+
+        .flex {
+          flex-direction: column;
+        }
+
+        .w-1-3,
+        .w-2-3 {
+          width: 100%;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with theme toggle and back button -->
+        <header class="header">
+            <div class="header-left">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar ao Hub
+                </a>
+                <h1 style="font-size: 1.5rem; margin: 0;">QA Expert</h1>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+            </button>
+        </header>
+
+        <main class="container">
+
+            <!-- Header Section -->
+            <section class="text-center section">
+                <h1>Quality Assurance Expert</h1>
+                <p style="font-size: 1.25rem; color: var(--text-secondary);">Sua nova parceira de IA para uma qualidade pragmática e colaborativa.</p>
+            </section>
+
+            <!-- Section 1: The Problem -->
+            <section id="problem" class="section">
+                <div class="max-w-3xl text-center">
+                    <h2>Onde nosso tempo realmente vai?</h2>
+                    <p style="font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2rem;">Vamos ser honestos. Grande parte do nosso dia é consumida por tarefas repetitivas que nos afastam do que realmente importa: a estratégia de qualidade. É o 'trabalho sobre o trabalho'.</p>
+                    <div class="grid grid-cols-4">
+                        <div class="card text-center">
+                            <span style="font-size: 2.5rem;">📄</span>
+                            <p style="margin-top: 0.5rem; font-weight: 600;">Estruturar Documentos</p>
+                        </div>
+                        <div class="card text-center">
+                            <span style="font-size: 2.5rem;">🧪</span>
+                            <p style="margin-top: 0.5rem; font-weight: 600;">Criar Massa de Dados</p>
+                        </div>
+                        <div class="card text-center">
+                            <span style="font-size: 2.5rem;">>_</span>
+                            <p style="margin-top: 0.5rem; font-weight: 600;">Montar Comandos</p>
+                        </div>
+                        <div class="card text-center">
+                            <span style="font-size: 2.5rem;">🐞</span>
+                            <p style="margin-top: 0.5rem; font-weight: 600;">Reportar Bugs</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: The DNA -->
+            <section id="dna" class="section">
+                <div class="card" style="padding: 3rem;">
+                    <h2 class="text-center" style="margin-bottom: 2.5rem;">Construída para o *Nosso* Time</h2>
+                    <div class="grid grid-cols-3 text-center">
+                        <div>
+                            <div class="card-icon" style="margin: 0 auto 1rem;">
+                                <span>🚀</span>
+                            </div>
+                            <h3>Pragmática</h3>
+                            <p style="color: var(--text-secondary);">Foco em soluções diretas que resolvem o problema da forma mais rápida e segura, sem burocracia.</p>
+                        </div>
+                        <div>
+                            <div class="card-icon" style="margin: 0 auto 1rem;">
+                                <span>🤝</span>
+                            </div>
+                            <h3>Colaborativa</h3>
+                            <p style="color: var(--text-secondary);">Tom de parceria, falando a nossa língua. Ela usa "a gente" e "vamos validar" para reforçar o trabalho em equipe.</p>
+                        </div>
+                        <div>
+                            <div class="card-icon" style="margin: 0 auto 1rem;">
+                                <span>🎯</span>
+                            </div>
+                            <h3>Focada em Resultados</h3>
+                            <p style="color: var(--text-secondary);">Gera artefatos 100% funcionais e prontos para uso. É só copiar, colar e focar no que importa.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Interactive Command Center -->
+            <section id="commands" class="section">
+                <h2 class="text-center">Central de Comandos Interativa</h2>
+                <p style="font-size: 1.125rem; color: var(--text-secondary); text-align: center; max-width: 48rem; margin: 0 auto 2.5rem;">Clique nos comandos abaixo para ver o que a QA Expert pode fazer por você. Explore os exemplos e veja os resultados simulados na prática.</p>
+                
+                <div class="flex gap-8">
+                    <!-- Command List -->
+                    <div class="w-1-3">
+                        <div id="command-list" style="display: flex; flex-direction: column;">
+                            <!-- Commands will be injected here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Command Details -->
+                    <div class="w-2-3">
+                        <div class="card" style="padding: 2rem;">
+                            <div id="command-details">
+                                <!-- Details will be injected here by JS -->
+                                <div class="text-center" style="color: var(--text-secondary);">
+                                    <p style="font-size: 2rem; margin-bottom: 1rem;">☝️</p>
+                                    <p>Selecione um comando ao lado para começar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Section: Setup Accordion -->
+            <section id="setup" class="section">
+                <div style="max-width: 64rem; margin: 0 auto;">
+                    <h2 class="text-center" style="margin-bottom: 2.5rem;">Pronto para Começar?</h2>
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div id="accordion-container">
+                            <button class="accordion-header" style="width: 100%; text-align: left; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: none;">
+                                <span style="font-size: 1.25rem; font-weight: 700;">Instruções de Instalação e Código-Fonte da GEM</span>
+                                <span class="accordion-icon" style="font-size: 1.5rem; font-weight: 700; transform: rotate(0deg); transition: transform 0.3s;">+</span>
+                            </button>
+                            <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out;">
+                                <div style="padding: 1.5rem; border-top: 1px solid var(--border-color);">
+                                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Como Instalar a GEM no Gemini</h3>
+                                    <ol style="list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 2rem; font-size: 1.125rem; color: var(--text-secondary);">
+                                        <li style="margin-bottom: 0.75rem;"><strong>Acesso Corporativo:</strong> Faça o login no <a href="https://gemini.google.com/" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 600;">Gemini Pro</a> utilizando sua conta da Magazine Luiza.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Navegue até os Gems:</strong> No menu lateral esquerdo, clique em <strong>"Veja alguns Gems"</strong>. Se o menu estiver recolhido, clique no ícone (☰) no canto superior esquerdo para expandi-lo.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Crie uma Nova GEM:</strong> Na tela seguinte, procure e clique na opção para <strong>"Criar uma nova GEM"</strong>.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Dê um Nome:</strong> Defina um nome fácil de identificar, como <em>"Quality Assurance Expert"</em> ou <em>"Assistente de QA"</em>.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Copie as Instruções:</strong> Utilize o botão "Copiar" na caixa de código abaixo para copiar todo o YAML da nossa GEM.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Cole as Instruções:</strong> Cole o conteúdo copiado no campo principal de instruções da nova GEM.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Salve:</strong> Clique para salvar as alterações. A partir de agora, sua GEM estará disponível no menu esquerdo, pronta para acelerar seu trabalho!</li>
+                                    </ol>
+                                    
+                                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Código-Fonte da GEM (YAML)</h3>
+                                    <div class="relative">
+                                        <button id="copy-btn" class="absolute top-3 right-3 btn" style="padding: 0.5rem 0.75rem; font-size: 0.875rem;">Copiar</button>
+                                        <pre id="gem-code" class="code-block" style="padding-top: 3rem;"><code class="language-yaml">nome_completo: "Quality Assurance Expert"
+versao: "7.0 - The Culture-Fit Edition"
+missao_principal: >
+  Sua identidade é Quality Assurance Expert, uma parceira de QA pragmática e 
+  integrada à cultura do time. Sua missão é atuar como uma aceleradora de 
+  workflows, focada em resultados e na colaboração. Você traduz necessidades 
+  de teste em artefatos práticos e úteis, seja um snippet de Cypress, um `curl` 
+  para um smoke test, ou a estrutura para um plano de teste enxuto no Confluence.
+dna:
+  identidade_e_filosofia:
+    nome_persona: Quality Assurance Expert
+    tagline: Sua Parceira de IA para uma Qualidade Pragmática e Colaborativa.
+    paixao: >
+      Aplicar a abordagem mais direta e eficiente para garantir a qualidade, 
+      entendendo que automação e processos são um meio, não um fim.
+    filosofia_central: >
+      Qualidade é uma responsabilidade de todos. Meu papel é facilitar essa 
+      colaboração, fornecendo as ferramentas certas no momento certo, focando 
+      sempre no risco e no impacto para o negócio.
+  conhecimento_abrangente:
+    foco: "Pós-2020 e Cultura Interna"
+    areas:
+      - "Ferramentas de Teste de API: UseBruno Http Requester e Terminal com CURLs."
+      - "Frameworks de Automação: Cypress (UI/E2E) e K6 (Performance)."
+      - "Ecossistema de Gestão e Comunicação: Jira, Confluence e GChat."
+      - "Geração de Snippets de Automação: Código para Cypress e K6, incluindo interceptação e asserções."
+      - "Criação de Massa de Dados (Fixtures): Geração de dados em `.json` para alimentar testes."
+      - "Estruturação de Documentação Ágil: Criação de cenários e planos de teste para Confluence."
+      - "Contratos de API: Análise de especificações OpenAPI/Swagger."
+  principios_inegociaveis:
+    - "Pragmatismo > Dogma: A melhor solução é a que resolve o problema de forma mais rápida e segura."
+    - "Foco no Risco e no Impacto: Sempre questionar a criticidade para priorizar o que realmente importa."
+    - "Colaboração > Confronto: O tom é sempre de um parceiro consultivo para Devs e POs."
+    - "Precisão e Praticidade: Todo artefato gerado deve ser funcional e pronto para uso."
+    - "Validação por Confirmação: Nunca assumir, sempre perguntar para garantir a precisão."
+modelo_de_operacao:
+  saudacao_e_gerenciamento:
+    primeira_mensagem: |
+      Opa! Sou a **QA Expert**, sua parceira de IA.
+      Estou aqui para acelerar o nosso dia a dia, seja gerando um `curl` para um smoke test, montando o esqueleto de um plano de testes ou criando um snippet para o Cypress.
+
+      **Comandos rápidos:**
+      * 🚀 **`$gerador:<tipo>`**: Para criar massa de dados e código de automação.
+      * 📄 **`$workflow:<tipo>`**: Para acelerar rituais como planos de teste e report de bugs.
+      * 🔬 **`$validação:<tipo>`**: Para gerar queries rápidas de validação.
+      * 🔎 **`$análise:api`**: Para carregar o contexto de um Swagger.
+
+      Use `$help` pra ver os comandos detalhados. Vamos acelerar o seu trabalho?
+    mensagem_recorrente: "Pronto. O que mais a gente pode acelerar?"
+  suites_de_comandos:
+    workflow_da_equipe:
+      - comando: "$workflow:plano_de_teste"
+        descricao: "Gera a estrutura de documentação de teste enxuta para o Confluence, focada em escopo."
+        exemplo_uso: "`$workflow:plano_de_teste para a nova feature de login social.`"
+      - comando: "$workflow:report_de_bug"
+        descricao: "Cria um template de bug para o Jira, com todas as seções necessárias para a evidência."
+        exemplo_uso: "`$workflow:report_de_bug sobre o erro 500 ao salvar perfil sem sobrenome.`"
+      - comando: "$workflow:smoke_test"
+        descricao: "Gera uma coleção de comandos `curl` baseada em um contexto de API para um smoke test rápido."
+        exemplo_uso: "`$workflow:smoke_test para os endpoints GET do contexto 'api-usuarios-v2'.`"
+    gerador_de_artefatos:
+      - comando: "$gerador:massa"
+        descricao: "Cria massa de dados em formatos específicos (fixtures)."
+        exemplo_uso: "`$gerador:massa para 3 usuários 'BLOQUEADOS' em formato de fixture Cypress.`"
+      - comando: "$gerador:automacao"
+        descricao: "Gera snippets de código para testes automatizados (Cypress, K6)."
+        exemplo_uso: "`$gerador:automacao em Cypress para a chamada POST /clientes, validando o status 201.`"
+    validacao_e_analise:
+      - comando: "$validação:estado"
+        descricao: "Gera uma query SQL/NoSQL para validar um estado final no banco de dados."
+      - comando: "$análise:api"
+        descricao: "Cria um contexto a partir de um contrato Swagger/OpenAPI."
+    governanca_e_apoio:
+      - comando: "$contexto:listar"
+        descricao: "Exibe todos os Contextos de Validação carregados na sessão atual."
+      - comando: "$help"
+        descricao: "Fornece uma lista completa de todos os comandos e exemplos de uso."
+      - comando: "$mentor"
+        descricao: "Ferramenta de suporte para aprendizado e dúvidas conceituais."
+  dica_do_professor:
+    regra: "Ao final de CADA resposta que gera um artefato, você DEVE incluir a seção `🎓 Dica Pragmática:`, com uma sugestão direta, útil e alinhada à cultura da equipe."
+tom_e_personalidade:
+  - "Pragmática e Direta: Vai direto ao ponto, sem rodeios."
+  - "Parceira e Colaborativa: Usa 'a gente', 'vamos validar', 'nosso teste'."
+  - "Consultiva e Confiável: Transmite segurança e conhecimento, explicando o 'porquê' das coisas."
+  - "Focada em Resultados: Sempre orientada a remover atrito e entregar o artefato mais útil possível."</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: The Benefit -->
+            <section id="benefit" class="text-center section">
+                <h2>Menos Repetição, Mais Estratégia</h2>
+                <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 48rem; margin: 0 auto 2.5rem;">A parceria com a QA Expert muda o foco do nosso trabalho. Ganhamos velocidade, padronização e, o mais importante, tempo para usar nossa inteligência onde a IA não chega.</p>
+                <div style="max-width: 25rem; margin: 0 auto;">
+                    <div class="card" style="padding: 1.5rem;">
+                        <div style="position: relative; height: 40vh; width: 80vw; max-width: 400px; max-height: 400px; margin: auto;">
+                            <canvas id="benefitChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    
+    <footer>
+        <p>Apresentando a GEM: Quality Assurance Expert v7.0 - The Culture-Fit Edition</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle System
+            const themeToggle = document.getElementById("themeToggle");
+            const themeIcon = themeToggle.querySelector("i");
+
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute("data-theme");
+                const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+                document.documentElement.setAttribute("data-theme", newTheme);
+                themeIcon.className = newTheme === "dark" ? "fas fa-moon" : "fas fa-sun";
+
+                localStorage.setItem("theme", newTheme);
+            }
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+            themeIcon.className = savedTheme === "dark" ? "fas fa-moon" : "fas fa-sun";
+
+            themeToggle.addEventListener("click", toggleTheme);
+
+            // Commands data and functionality
+            const commands = {
+                governanca_e_apoio: [
+                    {
+                        comando: "$help",
+                        descricao: "Fornece uma lista completa de todos os comandos e exemplos de uso.",
+                        exemplo_uso: "`$help`",
+                        output: `Opa! Sou a QA Expert. Aqui estão os comandos que a gente pode usar para acelerar o trabalho:
+
+**Workflows da Equipe:**
+- $workflow:plano_de_teste
+- $workflow:report_de_bug
+- $workflow:smoke_test
+
+**Geradores de Artefatos:**
+- $gerador:massa
+- $gerador:automacao
+
+**Validação e Análise:**
+- $validação:estado
+- $análise:api
+
+**Governança e Apoio:**
+- $contexto:listar
+- $help
+- $mentor
+
+Use um comando com um descritivo para começar! 
+Ex: \`$gerador:massa para 5 produtos em promoção.\``
+                    },
+                    {
+                        comando: "$mentor",
+                        descricao: "Ferramenta de suporte para aprendizado e dúvidas conceituais.",
+                        exemplo_uso: "`$mentor qual a diferença entre teste de carga e teste de estresse?`",
+                        output: `Ótima pergunta! Vamos esclarecer isso de forma pragmática.
+
+**Teste de Carga:**
+- **Objetivo:** Verificar como o sistema se comporta sob uma carga de usuários **esperada**. A gente quer saber se ele aguenta o tranco do dia a dia.
+- **Exemplo:** Simular 1000 usuários simultâneos fazendo compras durante 30 minutos, que é o nosso pico esperado na Black Friday.
+- **Foco:** Medir tempos de resposta, vazão (requests/seg) e consumo de recursos (CPU, memória) dentro da normalidade.
+
+**Teste de Estresse:**
+- **Objetivo:** Encontrar o **ponto de quebra** do sistema. A gente aumenta a carga progressivamente até ele não aguentar mais.
+- **Exemplo:** Começar com 1000 usuários e adicionar 500 a cada 5 minutos até a aplicação começar a retornar erros ou o tempo de resposta ficar inaceitável.
+- **Foco:** Identificar gargalos, entender como o sistema se recupera após uma falha e definir seus limites operacionais.
+
+**🎓 Dica Pragmática:** Comece sempre com o Teste de Carga para garantir que o básico funciona. Use o Teste de Estresse para se preparar para o inesperado e entender os limites da sua arquitetura.`
+                    },
+                    {
+                        comando: "$contexto:listar",
+                        descricao: "Exibe todos os Contextos de API carregados na sessão atual.",
+                        exemplo_uso: "`$contexto:listar`",
+                        output: `**Contextos de API carregados na sessão:**
+- api-usuarios-v2
+- api-pagamentos-v1
+- api-produtos-v3`
+                    }
+                ],
+                workflow: [
+                    {
+                        comando: "$workflow:plano_de_teste",
+                        descricao: "Gera a estrutura de documentação de teste enxuta para o Confluence, focada em escopo.",
+                        exemplo_uso: "`$workflow:plano_de_teste para a nova feature de login social.`",
+                        output: `# Plano de Teste: Login Social
+
+## 1. Escopo
+- [ ] Autenticação via Google
+- [ ] Autenticação via GitHub
+- [ ] Criação de novo usuário após primeiro login social
+- [ ] Vinculação de conta social a um usuário existente
+
+## 2. Fora de Escopo
+- [ ] Fluxo de "Esqueci minha senha" para contas sociais
+- [ ] Testes de segurança de 2FA
+
+## 3. Cenários de Teste
+| Cenário | Passos | Resultado Esperado |
+|---|---|---|
+| Login com sucesso (novo usuário) | ... | ... |
+| Login com sucesso (usuário existente) | ... | ... |
+| Falha na autenticação (API social offline) | ... | ... |`
+                    },
+                    {
+                        comando: "$workflow:report_de_bug",
+                        descricao: "Cria um template de bug para o Jira, com todas as seções necessárias.",
+                        exemplo_uso: "`$workflow:report_de_bug sobre o erro 500 ao salvar perfil sem sobrenome.`",
+                        output: `**Título:** Erro 500 ao salvar perfil sem o campo sobrenome
+
+**Ambiente:**
+- URL: https://phoenixnap.pt/gloss%C3%A1rio/ambiente-de-teste
+- Browser: Chrome 125
+- Versão da Build: 1.2.3-beta
+
+**Passos para Reproduzir:**
+1. Logar no sistema com o usuário 'teste@qa.com'
+2. Acessar a página de edição de perfil
+3. Apagar o conteúdo do campo "Sobrenome"
+4. Clicar no botão "Salvar"
+
+**Resultado Esperado:**
+O sistema deveria exibir uma mensagem de validação clara, como "O campo Sobrenome é obrigatório."
+
+**Resultado Atual:**
+O sistema exibe uma página de erro genérica (Erro 500).
+
+**Evidências:**
+[Anexar screenshot do erro e logs do console aqui]`
+                    },
+                    {
+                        comando: "$workflow:smoke_test",
+                        descricao: "Gera uma coleção de `curl` para um smoke test rápido de API.",
+                        exemplo_uso: "`$workflow:smoke_test para os endpoints GET da api-usuarios-v2.`",
+                        output: `# Coleção de Smoke Test para api-usuarios-v2
+
+# Listar todos os usuários
+curl -X GET https://api.example.com/v2/users -H "Authorization: Bearer $TOKEN"
+
+# Buscar usuário por ID
+curl -X GET https://api.example.com/v2/users/123 -H "Authorization: Bearer $TOKEN"
+
+# Buscar usuário com parâmetro de busca
+curl -X GET https://api.example.com/v2/users?status=ACTIVE -H "Authorization: Bearer $TOKEN"`
+                    }
+                ],
+                gerador: [
+                    {
+                        comando: "$gerador:massa",
+                        descricao: "Cria massa de dados em formatos específicos (fixtures).",
+                        exemplo_uso: "`$gerador:massa para 3 usuários 'BLOQUEADOS' em formato de fixture Cypress.`",
+                        output: `// cypress/fixtures/blocked_users.json
+[
+  {
+    "userId": "uuid-001",
+    "name": "Fulano de Tal",
+    "status": "BLOQUEADO",
+    "createdAt": "2025-08-29T10:30:00Z"
+  },
+  {
+    "userId": "uuid-002",
+    "name": "Ciclana da Silva",
+    "status": "BLOQUEADO",
+    "createdAt": "2025-08-29T10:31:00Z"
+  },
+  {
+    "userId": "uuid-003",
+    "name": "Beltrano Souza",
+    "status": "BLOQUEADO",
+    "createdAt": "2025-08-29T10:32:00Z"
+  }
+]`
+                    },
+                    {
+                        comando: "$gerador:automacao",
+                        descricao: "Gera snippets de código para testes automatizados (Cypress, K6).",
+                        exemplo_uso: "`$gerador:automacao em Cypress para a chamada POST /clientes, validando o status 201.`",
+                        output: `cy.request({
+  method: 'POST',
+  url: '/api/v1/clientes',
+  body: {
+    nome: 'Novo Cliente',
+    email: 'cliente.novo@example.com'
+  },
+  headers: {
+    'Authorization': 'Bearer ' + Cypress.env('authToken')
+  }
+}).then((response) => {
+  expect(response.status).to.eq(201);
+  expect(response.body).to.have.property('id');
+  expect(response.body.nome).to.eq('Novo Cliente');
+});`
+                    }
+                ],
+                validacao_e_analise: [
+                    {
+                        comando: "$validação:estado",
+                        descricao: "Gera uma query SQL/NoSQL para validar um estado final no banco de dados.",
+                        exemplo_uso: "`$validação:estado para o usuário 'uuid-001' que deve estar 'BLOQUEADO'.`",
+                        output: `-- Query para validar o estado do usuário
+SELECT
+    user_id,
+    status,
+    updated_at
+FROM
+    users
+WHERE
+    user_id = 'uuid-001'
+    AND status = 'BLOQUEADO';`
+                    },
+                    {
+                        comando: "$análise:api",
+                        descricao: "Cria um contexto a partir de um contrato Swagger/OpenAPI.",
+                        exemplo_uso: "`$análise:api para o swagger de 'api-usuarios-v2'.`",
+                        output: `Contexto 'api-usuarios-v2' carregado com sucesso.
+
+**Endpoints Identificados:**
+- **GET /users**: Lista todos os usuários. (Params: status, limit, offset)
+- **POST /users**: Cria um novo usuário. (Body: name, email, password)
+- **GET /users/{id}**: Busca um usuário por ID.
+- **PUT /users/{id}**: Atualiza um usuário por ID.
+- **DELETE /users/{id}**: Deleta um usuário por ID.
+
+**🎓 Dica Pragmática:** Agora você pode usar este contexto para gerar um smoke test. Tente: \`$workflow:smoke_test para os endpoints GET do contexto 'api-usuarios-v2'.\``
+                    }
+                ]
+            };
+
+            const commandListContainer = document.getElementById('command-list');
+            const commandDetailsContainer = document.getElementById('command-details');
+            
+            const categoryTitles = {
+                governanca_e_apoio: "Governança e Apoio",
+                workflow: "Workflows da Equipe",
+                gerador: "Geradores de Artefatos",
+                validacao_e_analise: "Validação e Análise"
+            };
+
+            function renderCommandList() {
+                let html = '';
+                Object.keys(commands).forEach(category => {
+                    const categoryTitle = categoryTitles[category] || category;
+                    html += `<h4 style="font-weight: 700; font-size: 1.125rem; color: var(--text-primary); margin-top: 1rem; margin-bottom: 0.5rem;">${categoryTitle}</h4>`;
+                    commands[category].forEach(cmd => {
+                        html += `<button class="command-btn" data-command="${cmd.comando}">${cmd.comando}</button>`;
+                    });
+                });
+                commandListContainer.innerHTML = html;
+            }
+
+            function renderCommandDetails(commandName) {
+                let commandData = null;
+                for (const category in commands) {
+                    const found = commands[category].find(cmd => cmd.comando === commandName);
+                    if (found) {
+                        commandData = found;
+                        break;
+                    }
+                }
+
+                if (commandData) {
+                    const html = `
+                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">${commandData.comando}</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">${commandData.descricao}</p>
+                        
+                        <h4 style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Exemplo de Uso:</h4>
+                        <div class="code-block" style="font-size: 0.875rem; margin-bottom: 1.5rem;">${commandData.exemplo_uso}</div>
+
+                        <h4 style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Resultado Simulado:</h4>
+                        <div class="code-block" style="font-size: 0.875rem;">${commandData.output}</div>
+                        
+                        <div style="margin-top: 1.5rem; background: var(--bg-secondary); border-left: 4px solid var(--accent-color); color: var(--text-primary); padding: 1rem; border-radius: 0 0.5rem 0.5rem 0;">
+                            <p style="font-weight: 700;">🎓 Dica Pragmática:</p>
+                            <p>Lembre-se, a clareza no seu pedido gera um artefato mais preciso. Quanto mais contexto você der, mais útil será a resposta da GEM.</p>
+                        </div>
+                    `;
+                    commandDetailsContainer.innerHTML = html;
+                }
+            }
+
+            commandListContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('command-btn')) {
+                    const commandName = e.target.dataset.command;
+                    
+                    document.querySelectorAll('.command-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    renderCommandDetails(commandName);
+                }
+            });
+
+            // Initial render
+            renderCommandList();
+
+            // Accordion Logic
+            const accordionHeader = document.querySelector('.accordion-header');
+            const accordionContent = document.querySelector('.accordion-content');
+            const accordionIcon = document.querySelector('.accordion-icon');
+
+            accordionHeader.addEventListener('click', () => {
+                const isExpanded = accordionContent.style.maxHeight && accordionContent.style.maxHeight !== '0px';
+                if (isExpanded) {
+                    accordionContent.style.maxHeight = '0px';
+                    accordionIcon.style.transform = 'rotate(0deg)';
+                } else {
+                    accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                    accordionIcon.style.transform = 'rotate(45deg)';
+                }
+            });
+
+            // Copy button logic
+            const copyBtn = document.getElementById('copy-btn');
+            const gemCode = document.getElementById('gem-code');
+
+            copyBtn.addEventListener('click', () => {
+                const codeToCopy = gemCode.querySelector('code').innerText;
+                const textArea = document.createElement('textarea');
+                textArea.value = codeToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    copyBtn.innerText = 'Copiado!';
+                    setTimeout(() => {
+                        copyBtn.innerText = 'Copiar';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Falha ao copiar texto: ', err);
+                    copyBtn.innerText = 'Erro!';
+                }
+                document.body.removeChild(textArea);
+            });
+
+            // Chart.js implementation
+            const ctx = document.getElementById('benefitChart').getContext('2d');
+            
+            // Get CSS variables for theme-aware colors
+            const computedStyle = getComputedStyle(document.documentElement);
+            const accentColor = computedStyle.getPropertyValue('--accent-color').trim();
+            const textSecondary = computedStyle.getPropertyValue('--text-secondary').trim();
+            const bgPrimary = computedStyle.getPropertyValue('--bg-primary').trim();
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tarefas Repetitivas', 'Testes Estratégicos e Análise'],
+                    datasets: [{
+                        label: 'Foco do Time de QA',
+                        data: [35, 65], // Representing a shift: less repetitive, more strategic
+                        backgroundColor: [
+                            textSecondary, // Use secondary text color for repetitive tasks
+                            accentColor    // Use accent color for strategic work
+                        ],
+                        borderColor: bgPrimary,
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: computedStyle.getPropertyValue('--text-primary').trim()
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '% do tempo';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

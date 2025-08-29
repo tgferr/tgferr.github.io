@@ -2,7 +2,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   initializeApp();
   setLastUpdateDate();
-  showWelcomeMessage();
 });
 
 function initializeApp() {
@@ -27,16 +26,6 @@ function setLastUpdateDate() {
     };
     lastUpdateEl.textContent = updateDate.toLocaleDateString("pt-BR", options);
   }
-}
-
-// Welcome message
-function showWelcomeMessage() {
-  setTimeout(() => {
-    showNotification(
-      "🚀 Bem-vindo ao GitHub Copilot Configuration Template da Luiza Labs!",
-      "info"
-    );
-  }, 1500);
 }
 
 // Theme Toggle

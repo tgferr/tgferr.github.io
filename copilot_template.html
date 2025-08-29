@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="GitHub Copilot Template - Configuração automática atualizada com estrutura .github/ correta, comandos que executam e sintaxe 2025. Criado por Tiago Ferreira."
+    />
+    <meta name="author" content="Tiago Ferreira" />
+    <meta
+      name="keywords"
+      content="GitHub Copilot, AI, Desenvolvimento, Tutorial, Guia, Programação"
+    />
+    <meta
+      property="og:title"
+      content="GitHub Copilot Template - by Tiago Ferreira"
+    />
+    <meta
+      property="og:description"
+      content="Template automático atualizado para GitHub Copilot - estrutura .github/ correta, comandos funcionais e sintaxe atualizada"
+    />
+    <meta property="og:type" content="website" />
+    <title>GitHub Copilot Template - by Tiago Ferreira</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <a
+              href="index.html"
+              style="
+                text-decoration: none;
+                color: inherit;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-right: 1rem;
+              "
+            >
+              <i class="fas fa-arrow-left"></i>
+              <span>Voltar ao Hub</span>
+            </a>
+            <i class="fab fa-github"></i>
+            <span>Copilot Guide</span>
+          </div>
+          <nav class="nav">
+            <a href="#home" class="nav-link active">Início</a>
+            <a href="#template" class="nav-link">Template</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+          </nav>
+          <div class="theme-toggle">
+            <button id="theme-toggle" class="theme-btn">
+              <i class="fas fa-moon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="gradient-text">GitHub Copilot Template</span>
+              <br />Configuração Automática Atualizada
+            </h1>
+            <div class="hero-actions">
+              <button
+                class="btn btn-primary"
+                onclick="scrollToSection('template')"
+              >
+                <i class="fas fa-download"></i>
+                Baixar Template
+              </button>
+              <a href="#template" class="btn btn-secondary">
+                <i class="fas fa-info-circle"></i>
+                Como Usar
+              </a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="code-preview">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <span>VS Code + GitHub Copilot</span>
+              </div>
+              <div class="code-content">
+                <div class="code-line">
+                  <span class="comment"># função para calcular fibonacci</span>
+                </div>
+                <div class="code-line copilot-suggestion">
+                  <span class="keyword">def</span>
+                  <span class="function">fibonacci</span
+                  ><span class="punctuation">(</span
+                  ><span class="parameter">n</span
+                  ><span class="punctuation">):</span>
+                </div>
+                <div class="code-line copilot-suggestion">
+                  <span class="indent"> </span><span class="keyword">if</span>
+                  <span class="parameter">n</span>
+                  <span class="operator"><=</span> <span class="number">1</span
+                  ><span class="punctuation">:</span>
+                </div>
+                <div class="code-line copilot-suggestion">
+                  <span class="indent"> </span
+                  ><span class="keyword">return</span>
+                  <span class="parameter">n</span>
+                </div>
+                <div class="tab-hint">
+                  <i class="fas fa-magic"></i>
+                  Pressione Tab para aceitar
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recursos Avançados -->
+    <section id="features" class="features">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Com essa instalação você vai conseguir:</h2>
+        </div>
+        <div class="features-grid">
+          <div
+            class="feature-card"
+            style="
+              background: var(--bg-primary);
+              padding: 2rem;
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--border-color);
+            "
+          >
+            <div
+              class="feature-icon"
+              style="
+                font-size: 2.5rem;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-magic"></i>
+            </div>
+            <h3>Configuração automática para qualquer stack tecnológica</h3>
+            <p>
+              O template analisa seu projeto e configura o Copilot com
+              instruções específicas para Python, JavaScript, Java, C#, Go e
+              outros.
+            </p>
+          </div>
+
+          <div
+            class="feature-card"
+            style="
+              background: var(--bg-primary);
+              padding: 2rem;
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--border-color);
+            "
+          >
+            <div
+              class="feature-icon"
+              style="
+                font-size: 2.5rem;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Segurança com allowList/denyList pré-configurados</h3>
+            <p>
+              Configurações de segurança do Agent Mode com listas de comandos
+              permitidos e bloqueados para terminal.
+            </p>
+          </div>
+
+          <div
+            class="feature-card"
+            style="
+              background: var(--bg-primary);
+              padding: 2rem;
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--border-color);
+            "
+          >
+            <div
+              class="feature-icon"
+              style="
+                font-size: 2.5rem;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-broom"></i>
+            </div>
+            <h3>Auto-limpeza após configuração</h3>
+            <p>
+              Zero commits acidentais - o template se remove automaticamente
+              após configurar o projeto.
+            </p>
+          </div>
+
+          <div
+            class="feature-card"
+            style="
+              background: var(--bg-primary);
+              padding: 2rem;
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--border-color);
+            "
+          >
+            <div
+              class="feature-icon"
+              style="
+                font-size: 2.5rem;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-folder"></i>
+            </div>
+            <h3>Estrutura de pastas GitHub Copilot</h3>
+            <p>
+              Usa as especificações mais atualizadas com
+              .github/copilot-instructions.md e .vscode/settings.json.
+            </p>
+          </div>
+
+          <div
+            class="feature-card"
+            style="
+              background: var(--bg-primary);
+              padding: 2rem;
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--border-color);
+            "
+          >
+            <div
+              class="feature-icon"
+              style="
+                font-size: 2.5rem;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-check"></i>
+            </div>
+            <h3>Instruções específicas baseadas em melhores práticas</h3>
+            <p>
+              Templates personalizados com padrões de código, arquitetura e
+              convenções do seu projeto.
+            </p>
+          </div>
+
+          <div
+            class="feature-card"
+            style="
+              background: var(--bg-primary);
+              padding: 2rem;
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--border-color);
+            "
+          >
+            <div
+              class="feature-icon"
+              style="
+                font-size: 2.5rem;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-code"></i>
+            </div>
+            <h3>Suporte para múltiplas linguagens</h3>
+            <p>
+              Python, JavaScript, TypeScript, Java, C#, Go, Rust e muitas outras
+              linguagens suportadas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile Selector -->
+    <section id="profiles" class="profiles" style="display: none">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Escolha seu Perfil</h2>
+          <p class="section-description">
+            Cada perfil tem um roteiro personalizado para maximizar seu
+            aprendizado
+          </p>
+        </div>
+        <div class="profiles-grid">
+          <div class="profile-card" data-profile="junior">
+            <div class="profile-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <h3 class="profile-title">Pouca experiência?</h3>
+            <p class="profile-description">
+              Primeiro contato com Copilot. Guia passo-a-passo do zero ao
+              produtivo.
+            </p>
+            <div class="profile-features">
+              <span class="feature">⚡ 5 min para funcionar</span>
+              <span class="feature">🛡️ Configuração segura</span>
+              <span class="feature">📸 Apoio visual</span>
+            </div>
+            <button class="btn btn-outline" onclick="selectProfile('junior')">
+              Começar Jornada
+            </button>
+          </div>
+
+          <div class="profile-card" data-profile="experienced">
+            <div class="profile-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="profile-title">Já tenho alguma experiência!</h3>
+            <p class="profile-description">
+              Já usa Copilot mas quer melhorar. Configurações avançadas e
+              automação.
+            </p>
+            <div class="profile-features">
+              <span class="feature">🤖 Configurações avançadas</span>
+              <span class="feature">🎯 Prompts profissionais</span>
+              <span class="feature">🛠️ Modos customizados</span>
+            </div>
+            <button
+              class="btn btn-outline"
+              onclick="selectProfile('experienced')"
+            >
+              Evoluir Skills
+            </button>
+          </div>
+
+          <div class="profile-card" data-profile="architect">
+            <div class="profile-icon">
+              <i class="fas fa-building"></i>
+            </div>
+            <h3 class="profile-title">Arquiteto/Tech Lead</h3>
+            <p class="profile-description">
+              Implementando em projetos. Padronização e templates corporativos.
+            </p>
+            <div class="profile-features">
+              <span class="feature">📋 Templates de projeto</span>
+              <span class="feature">⚙️ Configuração completa</span>
+              <span class="feature">📚 Estratégias avançadas</span>
+            </div>
+            <button
+              class="btn btn-outline"
+              onclick="selectProfile('architect')"
+            >
+              Liderar Projetos
+            </button>
+          </div>
+
+          <div class="profile-card" data-profile="manager">
+            <div class="profile-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3 class="profile-title">Gestor/CTO</h3>
+            <p class="profile-description">
+              Implementação organizacional. ROI mensurável e políticas
+              corporativas.
+            </p>
+            <div class="profile-features">
+              <span class="feature">🏢 Implementação em escala</span>
+              <span class="feature">📊 Métricas de ROI</span>
+              <span class="feature">🔒 Políticas de segurança</span>
+            </div>
+            <button class="btn btn-outline" onclick="selectProfile('manager')">
+              Escalar Organização
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Setup -->
+    <section id="setup" class="setup" style="display: none">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Setup em 5 Minutos</h2>
+          <p class="section-description">
+            Configure GitHub Copilot de forma segura e comece a usar agora mesmo
+          </p>
+        </div>
+        <div class="setup-steps">
+          <div class="step-card" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3 class="step-title">Instalar Extensões</h3>
+              <p class="step-description">
+                Instale as extensões necessárias no VS Code
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>VS Code Extensions</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>
+                    → GitHub Copilot<br />
+                    → GitHub Copilot Chat
+                  </code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(1)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3 class="step-title">Fazer Login</h3>
+              <p class="step-description">
+                Conecte sua conta GitHub ao VS Code
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>Comando</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>Ctrl+Shift+P → "GitHub Copilot: Sign In"</code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(2)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3 class="step-title">Configurar Segurança</h3>
+              <p class="step-description">
+                Desabilite telemetria e configure privacidade
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>Settings</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>Ctrl+, → "copilot telemetry" → Desmarcar</code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(3)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3 class="step-title">Configurar Projeto</h3>
+              <p class="step-description">
+                Configure comandos seguros para seu projeto
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>.vscode/settings.json</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>
+                    { "github.copilot.chat.agent.terminal.allowList": [ "npm
+                    run", "make test", "git status" ], "chat.tools.autoApprove":
+                    false }
+                  </code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(4)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="5">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <h3 class="step-title">Testar</h3>
+              <p class="step-description">
+                Valide se tudo está funcionando corretamente
+              </p>
+              <div class="step-code">
+                <div class="code-header">
+                  <span>Teste Rápido</span>
+                  <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="code-content">
+                  <code>
+                    # função para somar dois números # (Copilot vai sugerir →
+                    Pressione TAB)
+                  </code>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="openStepModal(5)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Template Section -->
+    <section id="template" class="template">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Template para Novos Projetos</h2>
+          <p class="section-subtitle">
+            Configure Copilot automaticamente em qualquer projeto com nosso
+            template otimizado
+          </p>
+        </div>
+
+        <!-- Download Template -->
+        <div class="template-download">
+          <h3 class="template-section-title">
+            <i class="fas fa-download"></i>
+            Download do Template
+          </h3>
+          <p class="section-subtitle">
+            Template para configuração automática do GitHub Copilot - Atualizado
+            para especificações 2025.
+          </p>
+
+          <!-- Como funciona o template -->
+          <div
+            class="how-it-works"
+            style="
+              margin: 2rem 0;
+              padding: 2rem;
+              background: var(--bg-secondary);
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--border-color);
+            "
+          >
+            <h4 style="color: var(--text-primary); margin-bottom: 1rem">
+              <i class="fas fa-cogs"></i> Como o Template Funciona
+            </h4>
+            <div style="color: var(--text-secondary); line-height: 1.6">
+              <p>
+                Este template usa as
+                <strong
+                  >especificações mais atualizadas do GitHub Copilot
+                  (2025)</strong
+                >
+                para configurar automaticamente seus projetos:
+              </p>
+
+              <div
+                style="
+                  margin: 1.5rem 0;
+                  padding: 1rem;
+                  background: var(--bg-primary);
+                  border-radius: var(--radius-md);
+                  border-left: 4px solid #28a745;
+                "
+              >
+                <h5 style="color: var(--text-primary); margin: 0 0 0.5rem 0">
+                  <i class="fas fa-folder"></i> Estrutura de Pastas (2025)
+                </h5>
+                <ul style="margin: 0; padding-left: 1rem">
+                  <li>
+                    <code>.github/copilot-instructions.md</code> - Instruções
+                    específicas do projeto
+                  </li>
+                  <li>
+                    <code>.vscode/settings.json</code> - Configurações do Agent
+                    Mode e terminal
+                  </li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  margin: 1.5rem 0;
+                  padding: 1rem;
+                  background: var(--bg-primary);
+                  border-radius: var(--radius-md);
+                  border-left: 4px solid #007bff;
+                "
+              >
+                <h5 style="color: var(--text-primary); margin: 0 0 0.5rem 0">
+                  <i class="fas fa-magic"></i> Automação Inteligente
+                </h5>
+                <p>
+                  O template analisa seu projeto automaticamente e cria
+                  instruções personalizadas baseadas na stack tecnológica,
+                  arquitetura e padrões identificados.
+                </p>
+              </div>
+
+              <div
+                style="
+                  margin: 1.5rem 0;
+                  padding: 1rem;
+                  background: var(--bg-primary);
+                  border-radius: var(--radius-md);
+                  border-left: 4px solid #ffc107;
+                "
+              >
+                <h5 style="color: var(--text-primary); margin: 0 0 0.5rem 0">
+                  <i class="fas fa-shield-alt"></i> Configurações de Segurança
+                </h5>
+                <p>
+                  Inclui configurações do Agent Mode com allowList/denyList para
+                  terminal, garantindo segurança nas operações automatizadas.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="download-card">
+            <div class="download-card-content">
+              <div class="download-info">
+                <div class="download-icon">
+                  <i class="fas fa-file-archive"></i>
+                </div>
+                <div class="download-details">
+                  <h4>
+                    GitHub Copilot Template v2.0 - Configuração Automática
+                  </h4>
+                  <p>
+                    Template otimizado para configuração automática do GitHub
+                    Copilot em qualquer projeto
+                  </p>
+                  <div class="download-features">
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Configuração automática para
+                      qualquer stack tecnológica
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Segurança corporativa com
+                      allowList/denyList pré-configurados
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Auto-limpeza após
+                      configuração (zero commits acidentais)
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Instruções específicas
+                      baseadas em melhores práticas
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-check"></i> Suporte para Python,
+                      JavaScript, Java, C#, Go e outros
+                    </div>
+                  </div>
+                  <div class="download-author">
+                    <p>
+                      <i class="fas fa-calendar"></i>
+                      <strong>Última atualização:</strong> Agosto 2025<br />
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="download-actions">
+                <button
+                  class="btn btn-primary btn-lg"
+                  onclick="downloadTemplate()"
+                >
+                  <i class="fas fa-download"></i>
+                  Baixar Template
+                </button>
+                <p class="download-size">~49KB • ZIP</p>
+                <p class="download-security">
+                  Arquivo seguro • Sem dependências externas
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Installation Steps -->
+        <div class="template-steps">
+          <h3 class="template-section-title">
+            <i class="fas fa-list-ol"></i>
+            Como Usar o Template
+          </h3>
+
+          <div class="steps-container">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Extrair e Copiar Template</h4>
+                <p>
+                  Baixe, extraia e copie a pasta para a
+                  <strong>raiz do seu projeto</strong>
+                </p>
+                <div class="code-block">
+                  <pre><code># Extrair arquivo baixado
+unzip copilot-init-template.zip
+
+# Copiar para seu projeto
+cp -r copilot-init-template /caminho/do/seu/projeto/
+
+# Ou no Windows (PowerShell)
+Expand-Archive copilot-init-template.zip
+Copy-Item -Recurse copilot-init-template C:\caminho\do\seu\projeto\</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 0.75rem;
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.875rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <i class="fas fa-lightbulb"></i> <strong>Dica:</strong> A
+                    pasta deve ficar na raiz do projeto, no mesmo nível que
+                    package.json, pyproject.toml, pom.xml, etc.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Verificar Status Atual</h4>
+                <p>Confirme se o projeto já não tem configuração do Copilot</p>
+                <div class="code-block">
+                  <pre><code># Verificar se já existe configuração
+ls .vscode/copilot-instructions.md 2>/dev/null && echo "⚠️ Configuração existente - faça backup!" || echo "✅ Pronto para configurar"
+
+# Verificar se Copilot está funcionando
+code . # Abrir VS Code no projeto</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="warning-box">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <p>
+                    <strong>Se já existir configuração:</strong> Faça backup de
+                    .vscode/settings.json e .vscode/copilot-instructions.md
+                    antes de continuar
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Executar Configuração Automática</h4>
+                <p>
+                  Abra o VS Code no projeto e execute o comando mágico no
+                  Copilot Chat
+                </p>
+                <div
+                  style="
+                    margin: 1rem 0;
+                    padding: 1rem;
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                    border-left: 4px solid var(--primary-color);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-weight: 600;
+                      color: var(--text-primary);
+                    "
+                  >
+                    <i class="fas fa-keyboard"></i> Como abrir Copilot Chat:
+                  </p>
+                  <ul
+                    style="
+                      margin: 0;
+                      padding-left: 1rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <li><strong>Windows/Linux:</strong> Ctrl+Alt+I</li>
+                    <li><strong>Mac:</strong> Cmd+Alt+I</li>
+                    <li>
+                      <strong>Ou:</strong> Clique no ícone de chat na barra
+                      lateral
+                    </li>
+                  </ul>
+                </div>
+                <div class="code-block large">
+                  <p
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      font-weight: 600;
+                      color: var(--text-primary);
+                      padding: 2%;
+                    "
+                  >
+                    Execute este comando no Copilot Chat:
+                  </p>
+                  <pre><code>IMPLEMENTE CONFIGURAÇÃO COPILOT UNIVERSAL usando copilot-init-template/:
+
+ANÁLISE AUTOMÁTICA:
+- Detecte stack tecnológico (package.json, requirements.txt, pom.xml, etc.)
+- Identifique build tool (Makefile, npm scripts, gradle, etc.)
+- Mapeie estrutura arquitetural do projeto
+
+GITHUB COPILOT SETUP (.github/):
+- copilot-instructions.md: análise específica do projeto detectado
+- copilot-settings.json: autoApprove + experimentais + chatmodes
+- copilot-chat-modes.json: 8 chatmodes adaptados para a stack
+- docs/chatmodes-guide.md: guia de uso específico
+- docs/copilot-setup.md: setup personalizado
+
+VSCODE WORKSPACE (.vscode/):
+- settings.json: configurações de linguagem/framework detectados
+- tasks.json: tasks baseadas no build tool identificado
+- launch.json: debug configs para stack detectada
+
+PERSONALIZAÇÃO AUTOMÁTICA:
+- Adapte allowList para comandos da stack (make, npm, gradle, mvn, etc.)
+- Configure problem matchers adequados
+- Implemente debug configs específicos da linguagem
+- Personalize chatmodes com contexto da tecnologia
+
+EXECUTE IMPLEMENTAÇÃO COMPLETA AGORA.</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 1rem;
+                    background: rgba(16, 185, 129, 0.1);
+                    border-radius: var(--radius-md);
+                    border-left: 4px solid var(--accent-color);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.9rem;
+                      color: var(--text-primary);
+                    "
+                  >
+                    <i class="fas fa-magic"></i>
+                    <strong>O que acontece:</strong> O Copilot vai analisar
+                    automaticamente seu projeto, identificar a stack
+                    tecnológica, e criar configurações personalizadas em
+                    .vscode/
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>Validação Automática</h4>
+                <p>O Copilot executará estas ações automaticamente:</p>
+                <ul class="validation-list">
+                  <li>
+                    <i class="fas fa-search"></i>
+                    <strong>Análise completa:</strong> Stack tecnológico,
+                    arquitetura e padrões do projeto
+                  </li>
+                  <li>
+                    <i class="fas fa-cog"></i>
+                    <strong>Criar instruções:</strong>
+                    .vscode/copilot-instructions.md personalizado para seu
+                    projeto
+                  </li>
+                  <li>
+                    <i class="fas fa-tools"></i>
+                    <strong>Configurar VS Code:</strong> .vscode/settings.json
+                    com configurações otimizadas
+                  </li>
+                  <li>
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>Segurança:</strong> AllowList/DenyList configurados
+                    para sua stack
+                  </li>
+                  <li>
+                    <i class="fas fa-trash"></i>
+                    <strong>Limpeza:</strong> Remover pasta
+                    copilot-init-template/ automaticamente
+                  </li>
+                  <li>
+                    <i class="fas fa-check"></i>
+                    <strong>Validação:</strong> Testar se tudo está funcionando
+                    corretamente
+                  </li>
+                </ul>
+                <div
+                  style="
+                    margin-top: 1.5rem;
+                    padding: 1rem;
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.9rem;
+                      color: var(--text-secondary);
+                    "
+                  >
+                    <i class="fas fa-clock"></i>
+                    <strong>Tempo estimado:</strong> 30-60 segundos para análise
+                    e configuração completa
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <h4>Teste e Validação Final</h4>
+                <p>
+                  Confirme que o Copilot está configurado e funcionando
+                  perfeitamente
+                </p>
+                <div class="code-block">
+                  <pre><code># Teste básico no Copilot Chat
+@workspace Analise este projeto seguindo .vscode/copilot-instructions.md
+
+# Verificar arquivos criados
+ls -la .vscode/
+
+# Confirmar limpeza (deve dar erro - pasta foi removida)
+ls copilot-init-template/ 2>/dev/null || echo "✅ Template removido com sucesso"</code></pre>
+                  <button class="copy-btn" onclick="copyToClipboard(this)">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="success-indicators">
+                  <h5>Indicadores de Sucesso:</h5>
+                  <ul>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Copilot responde
+                      com análise específica do seu projeto
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Pasta
+                      copilot-init-template/ foi removida da raiz
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Arquivos criados
+                      apenas em .vscode/ (copilot-instructions.md e
+                      settings.json)
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Comandos do
+                      projeto (make, npm, etc.) funcionam com aprovação
+                      automática
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success"></i> Comandos
+                      perigosos (rm, sudo) pedem confirmação manual
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 1rem;
+                    background: linear-gradient(
+                      135deg,
+                      var(--accent-color),
+                      var(--primary-color)
+                    );
+                    border-radius: var(--radius-md);
+                    color: white;
+                  "
+                >
+                  <h5
+                    style="
+                      margin: 0 0 0.5rem 0;
+                      display: flex;
+                      align-items: center;
+                      gap: 0.5rem;
+                    "
+                  >
+                    <i class="fas fa-rocket"></i>
+                    Pronto para usar!
+                  </h5>
+                  <p>
+                    Agora você tem Copilot configurado especificamente para seu
+                    projeto, seguindo as melhores práticas!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supported Stacks -->
+        <div class="template-stacks">
+          <h3 class="template-section-title">
+            <i class="fas fa-layer-group"></i>
+            Stacks Suportadas
+          </h3>
+          <div class="stacks-grid">
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-python"></i>
+              </div>
+              <h4>Python</h4>
+              <p>FastAPI, Django, Flask</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-js"></i>
+              </div>
+              <h4>JavaScript</h4>
+              <p>React, Node.js, Express</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-java"></i>
+              </div>
+              <h4>Java</h4>
+              <p>Spring Boot, Maven, Gradle</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fas fa-hashtag"></i>
+              </div>
+              <h4>C#</h4>
+              <p>.NET Core, ASP.NET</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fab fa-golang"></i>
+              </div>
+              <h4>Go</h4>
+              <p>Gin, Echo, Fiber</p>
+              <span class="stack-status supported">✅ Suportado</span>
+            </div>
+            <div class="stack-card">
+              <div class="stack-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <h4>Outros</h4>
+              <p>Ruby, PHP, Rust, etc.</p>
+              <span class="stack-status experimental">🧪 Experimental</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="template-troubleshooting">
+          <h3 class="template-section-title">
+            <i class="fas fa-wrench"></i>
+            Solução de Problemas
+          </h3>
+          <div class="troubleshooting-grid">
+            <div class="trouble-item">
+              <div class="trouble-icon error">
+                <i class="fas fa-exclamation-circle"></i>
+              </div>
+              <div class="trouble-content">
+                <h4>Template não foi removido</h4>
+                <p>Remova manualmente após configuração:</p>
+                <code>rm -rf copilot-init-template</code>
+              </div>
+            </div>
+            <div class="trouble-item">
+              <div class="trouble-icon warning">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="trouble-content">
+                <h4>Copilot não reconhece configuração</h4>
+                <p>Recarregue o VS Code:</p>
+                <code>Ctrl+Shift+P → "Developer: Reload Window"</code>
+              </div>
+            </div>
+            <div class="trouble-item">
+              <div class="trouble-icon info">
+                <i class="fas fa-info-circle"></i>
+              </div>
+              <div class="trouble-content">
+                <h4>Configuração não funcionou</h4>
+                <p>Verifique se os arquivos foram criados:</p>
+                <code>ls -la .vscode/</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Troubleshooting Section -->
+    <section id="troubleshooting" class="section" style="display: none">
+      <div class="container">
+        <h2><i class="fas fa-tools"></i> Troubleshooting</h2>
+        <p class="section-subtitle">
+          Soluções para problemas comuns durante a configuração
+        </p>
+
+        <div class="troubleshooting-grid">
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-exclamation-circle text-warning"></i> Copilot não
+              responde ao comando
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Possíveis causas:</strong></p>
+              <ul>
+                <li>Pasta copilot-init-template não está na raiz do projeto</li>
+                <li>VS Code não está na pasta correta</li>
+                <li>Copilot não está ativo</li>
+              </ul>
+              <p><strong>Solução:</strong></p>
+              <div class="code-block">
+                <pre><code># Verificar localização
+pwd
+ls copilot-init-template/
+
+# Reabrir VS Code na pasta correta
+code .</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-ban text-danger"></i> Erro "Permission denied" no
+              terminal
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Causa:</strong> Comandos bloqueados por segurança</p>
+              <p>
+                <strong>Solução:</strong> Configure allowList no
+                .vscode/settings.json
+              </p>
+              <div class="code-block">
+                <pre><code>{
+  "github.copilot.chat.terminalAllowList": [
+    "npm", "yarn", "make", "mvn", "gradle", "poetry", "pip"
+  ]
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-folder-open text-info"></i> Template não foi
+              removido automaticamente
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Causa:</strong> Processo de limpeza não completou</p>
+              <p><strong>Solução manual:</strong></p>
+              <div class="code-block">
+                <pre><code># Remover manualmente
+rm -rf copilot-init-template/
+
+# Verificar se configuração foi criada
+ls .vscode/copilot-instructions.md</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-file-times text-warning"></i> Configuração não
+              foi criada
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Possíveis causas:</strong></p>
+              <ul>
+                <li>Comando não foi executado completamente</li>
+                <li>Erro durante análise do projeto</li>
+              </ul>
+              <p><strong>Solução:</strong> Execute novamente com debug</p>
+              <div class="code-block">
+                <pre><code>@workspace DEBUG: Analise projeto step-by-step e reporte cada etapa:
+1. Verificar estrutura do projeto
+2. Identificar stack tecnológico  
+3. Criar .vscode/copilot-instructions.md
+4. Configurar .vscode/settings.json
+5. Validar configuração</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-sync-alt text-info"></i> Reconfigurar projeto
+              existente
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Para atualizar configuração existente:</strong></p>
+              <div class="code-block">
+                <pre><code># Backup da configuração atual
+cp .vscode/copilot-instructions.md .vscode/copilot-instructions.md.backup
+cp .vscode/settings.json .vscode/settings.json.backup
+
+# Baixar e aplicar nova configuração
+# (seguir passos normais)</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="trouble-item">
+            <h4>
+              <i class="fas fa-question-circle text-primary"></i> Como validar
+              se está funcionando?
+            </h4>
+            <div class="trouble-solution">
+              <p><strong>Testes rápidos:</strong></p>
+              <div class="code-block">
+                <pre><code># Teste 1: Análise de projeto
+@workspace Que tipo de projeto é este?
+
+# Teste 2: Comando específico
+@workspace Como rodar testes neste projeto?
+
+# Teste 3: Sugestão de código
+# (Abrir arquivo e pedir sugestão)</code></pre>
+              </div>
+              <p><strong>Indicadores de sucesso:</strong></p>
+              <ul style="margin-top: 0.5rem">
+                <li>Respostas específicas ao seu projeto</li>
+                <li>Comandos corretos (make, npm, etc.)</li>
+                <li>Sugestões seguindo padrões do projeto</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-color);
+          "
+        >
+          <h4 style="margin: 0 0 1rem 0; color: var(--primary-color)">
+            <i class="fas fa-life-ring"></i> Precisa de mais ajuda?
+          </h4>
+          <p>Se o problema persistir, você pode:</p>
+          <ul style="margin: 0">
+            <li>
+              <strong>Verificar logs:</strong> Abra VS Code Developer Tools
+              (Help → Toggle Developer Tools)
+            </li>
+            <li>
+              <strong>Reiniciar:</strong> Recarregue a janela do VS Code
+              (Ctrl+Shift+P → "Developer: Reload Window")
+            </li>
+            <li>
+              <strong>Manual:</strong> Configurar manualmente seguindo
+              templates/copilot-instructions-template.md
+            </li>
+            <li>
+              <strong>Suporte:</strong> Consulte a documentação ou comunidade
+              GitHub
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+      <div class="container">
+        <h2><i class="fas fa-question-circle"></i> FAQ & Troubleshooting</h2>
+        <p class="section-subtitle">
+          Perguntas frequentes sobre o GitHub Copilot Configuration Template
+        </p>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-shield-alt"></i> É seguro usar este template?
+            </h4>
+            <p>
+              Sim! O template apenas cria configurações locais, não modifica
+              código do projeto nem envia dados externos. Todas as configurações
+              seguem boas práticas de segurança.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-code-branch"></i> Posso usar em qualquer tipo de
+              projeto?
+            </h4>
+            <p>
+              Sim! O template é agnóstico de tecnologia. Ele analisa
+              automaticamente seu projeto (Python, Node.js, Java, .NET, etc.) e
+              cria configurações específicas para sua stack.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-users"></i> Funciona em projetos de equipe?
+            </h4>
+            <p>
+              Perfeito para equipes! Cada desenvolvedor pode usar o template
+              para ter a mesma configuração otimizada. As configurações ficam em
+              .vscode/ e podem ser commitadas no projeto.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4><i class="fas fa-sync"></i> Como atualizar a configuração?</h4>
+            <p>
+              Baixe a versão mais recente do template e execute o comando
+              novamente. Faça backup das configurações atuais se tiver
+              customizações específicas.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-trash"></i> Por que o template se auto-remove?
+            </h4>
+            <p>
+              Para manter o projeto limpo! O template é apenas um "instalador".
+              Depois de criar as configurações em .vscode/, ele não é mais
+              necessário e é removido automaticamente.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-cog"></i> Posso customizar as configurações?
+            </h4>
+            <p>
+              Claro! Após a configuração inicial, você pode editar
+              .vscode/copilot-instructions.md e .vscode/settings.json conforme
+              suas necessidades específicas.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-terminal"></i> O que é allowList/denyList no
+              terminal?
+            </h4>
+            <p>
+              São listas de comandos permitidos/bloqueados para o Copilot
+              executar automaticamente. Comandos seguros (npm, make) são
+              permitidos, comandos perigosos (rm, sudo) pedem confirmação.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              <i class="fas fa-history"></i> Posso reverter a configuração?
+            </h4>
+            <p>
+              Sim! Basta deletar .vscode/copilot-instructions.md e restaurar
+              .vscode/settings.json original. O Copilot voltará ao comportamento
+              padrão.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced Features -->
+    <section id="advanced" class="advanced" style="display: none">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Recursos Avançados</h2>
+          <p class="section-description">
+            Desbloqueie todo o potencial do GitHub Copilot
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-terminal"></i>
+            </div>
+            <h3 class="feature-title">Terminal AllowList</h3>
+            <p class="feature-description">
+              Configure quais comandos o Copilot pode executar automaticamente
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('terminal')"
+            >
+              Configurar
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h3 class="feature-title">Chat Modes</h3>
+            <p class="feature-description">
+              Crie modos de chat personalizados para diferentes cenários
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('chatmodes')"
+            >
+              Personalizar
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-file-code"></i>
+            </div>
+            <h3 class="feature-title">Instruction Files</h3>
+            <p class="feature-description">
+              Documente padrões do projeto para o Copilot seguir
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('instructions')"
+            >
+              Criar Template
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Configurações de Segurança</h3>
+            <p class="feature-description">
+              Políticas corporativas e controle de dados
+            </p>
+            <button
+              class="btn btn-outline"
+              onclick="openFeatureModal('security')"
+            >
+              Configurar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Implementation -->
+    <section id="teams" class="teams" style="display: none">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Implementação em Equipes</h2>
+          <p class="section-description">
+            Guia completo para implementar GitHub Copilot em escala
+            organizacional
+          </p>
+        </div>
+        <div class="implementation-phases">
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">1</div>
+              <h3 class="phase-title">Preparação</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Licenças adquiridas</li>
+                <li>Política de segurança definida</li>
+                <li>Aprovação legal</li>
+                <li>Treinamento planejado</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(1)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">2</div>
+              <h3 class="phase-title">Configuração</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Templates corporativos</li>
+                <li>Settings padrão</li>
+                <li>AllowList/DenyList</li>
+                <li>Chat modes corporativos</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(2)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">3</div>
+              <h3 class="phase-title">Onboarding</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Treinamento obrigatório</li>
+                <li>Certificação individual</li>
+                <li>Hands-on practice</li>
+                <li>Q&A sessions</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(3)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+
+          <div class="phase-card">
+            <div class="phase-header">
+              <div class="phase-number">4</div>
+              <h3 class="phase-title">Monitoramento</h3>
+            </div>
+            <div class="phase-content">
+              <ul class="phase-checklist">
+                <li>Métricas semanais</li>
+                <li>Feedback da equipe</li>
+                <li>ROI mensurado</li>
+                <li>Evolução contínua</li>
+              </ul>
+              <button class="btn btn-outline" onclick="openPhaseModal(4)">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <p>&copy; 2025 Tiago Ferreira. Template de uso livre.</p>
+            <p>
+              Dúvidas? Entre em contato no Google Chat:
+              <strong>tiago.ferreira</strong> ou <strong>Tiago Ferreira</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modals Container -->
+    <div id="modals-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/modals.js"></script>
+  </body>
+</html>
