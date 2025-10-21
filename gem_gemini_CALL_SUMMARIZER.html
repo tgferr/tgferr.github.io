@@ -261,9 +261,12 @@
         border-radius: 0.5rem;
         margin: 1rem 0;
         font-family: 'Monaco', 'Menlo', monospace;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         position: relative;
         overflow-x: auto;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        word-wrap: break-word;
       }
 
       .copy-btn {
@@ -410,32 +413,6 @@
                 </div>
             </section>
 
-            <!-- Construída para o *Nosso* Time -->
-            <section class="section">
-                <div class="feature-highlight">
-                    <div class="text-center">
-                        <h2>Construída para o <em>*Nosso*</em> Time</h2>
-                        <div class="grid grid-cols-3" style="margin-top: 2rem;">
-                            <div class="card">
-                                <div class="card-icon">
-                                    <i class="fas fa-rocket"></i>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-icon">
-                                    <i class="fas fa-heart"></i>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-icon">
-                                    <i class="fas fa-target"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Análise Dupla -->
             <section class="section">
                 <h2 class="text-center">
@@ -500,61 +477,151 @@
                 </div>
             </section>
 
-            <!-- Metodologia -->
-            <section class="section">
-                <h2 class="text-center">
-                    <i class="fas fa-cogs"></i> Metodologia de Análise
-                </h2>
-                <p class="text-center text-secondary" style="margin-bottom: 2rem;">
-                    Processo sistemático em 4 etapas para análise completa
-                </p>
-
-                <div class="timeline">
-                    <div class="timeline-item" data-step="1">
-                        <h3>Análise Contextual</h3>
-                        <p>Processamento da transcrição completa e identificação de todos os participantes únicos da conversa.</p>
-                    </div>
-
-                    <div class="timeline-item" data-step="2">
-                        <h3>Extração de Grupo</h3>
-                        <p>Extrair decisões, tarefas e analisar dinâmica geral da reunião, gerando dados para gráficos de grupo.</p>
-                    </div>
-
-                    <div class="timeline-item" data-step="3">
-                        <h3>Análise Individual</h3>
-                        <p>Para CADA participante, análise comportamental detalhada processando suas intervenções específicas.</p>
-                    </div>
-
-                    <div class="timeline-item" data-step="4">
-                        <h3>Relatório Duplo</h3>
-                        <p>Compilação em dois artefatos: relatório Markdown portátil e dashboard HTML visual interativo.</p>
-                    </div>
-                </div>
-            </section>
-
             <!-- Como Usar -->
-            <section class="section">
-                <div class="prompt-section">
-                    <h3><i class="fas fa-terminal"></i> Como Usar - Prompt Otimizado</h3>
-                    <p style="margin-bottom: 1rem;">Cole este prompt no Google Gemini para ativar a GEM:</p>
-                    
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyPrompt(this)">
-                            <i class="fas fa-copy"></i>
-                        </button>
-<strong>Ative GEM - Arquiteto de Insights de Reunião.</strong>
-
-Analise esta transcrição de reunião técnica seguindo sua metodologia completa:
-
-1. Identifique TODOS os participantes
-2. Extraia decisões, ações e dinâmica de grupo
-3. Faça análise comportamental individual de CADA participante
-4. Gere relatório duplo: Markdown + Dashboard HTML
-
-Transcrição:
-[COLE SUA TRANSCRIÇÃO AQUI]
-
-Entregue os dois artefatos: relatório.md e dashboard.html com gráficos Chart.js configurados corretamente (escala 0-5, stepSize 1).
+            <section id="setup" class="section">
+                <div style="max-width: 64rem; margin: 0 auto;">
+                    <h2 class="text-center" style="margin-bottom: 2.5rem;">Pronto para Começar?</h2>
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div id="accordion-container">
+                            <button class="accordion-header" style="width: 100%; text-align: left; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: none; background: var(--bg-secondary); color: var(--text-primary); font-family: inherit;">
+                                <span style="font-size: 1.25rem; font-weight: 700;">Instruções de Instalação e Código-Fonte da GEM</span>
+                                <span class="accordion-icon" style="font-size: 1.5rem; font-weight: 700; transform: rotate(0deg); transition: transform 0.3s;">+</span>
+                            </button>
+                            <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out;"
+                                <div style="padding: 1.5rem; border-top: 1px solid var(--border-color);">
+                                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Como Instalar a GEM no Gemini</h3>
+                                    <ol style="list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 2rem; font-size: 1.125rem; color: var(--text-secondary);">
+                                        <li style="margin-bottom: 0.75rem;"><strong>Acesso Corporativo:</strong> Faça o login no <a href="https://gemini.google.com/" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 600;">Gemini Pro</a> utilizando sua conta corporativa.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Navegue até os Gems:</strong> No menu lateral esquerdo, clique em <strong>"Veja alguns Gems"</strong>. Se o menu estiver recolhido, clique no ícone (☰) no canto superior esquerdo para expandi-lo.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Crie uma Nova GEM:</strong> Na tela seguinte, procure e clique na opção para <strong>"Criar uma nova GEM"</strong>.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Dê um Nome:</strong> Defina um nome fácil de identificar, como <em>"Arquiteto de Insights de Reunião"</em> ou <em>"Analisador de Meetings"</em>.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Copie as Instruções:</strong> Utilize o botão "Copiar" na caixa de código abaixo para copiar todo o JSON da nossa GEM.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Cole as Instruções:</strong> Cole o conteúdo copiado no campo principal de instruções da nova GEM.</li>
+                                        <li style="margin-bottom: 0.75rem;"><strong>Salve:</strong> Clique para salvar as alterações. A partir de agora, sua GEM estará disponível no menu esquerdo, pronta para analisar suas reuniões!</li>
+                                    </ol>
+                                    
+                                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Código-Fonte da GEM (JSON)</h3>
+                                    <div style="position: relative;">
+                                        <button id="copy-btn" style="position: absolute; top: 1rem; right: 1rem; z-index: 10; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary)); color: white; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; font-weight: 500;">Copiar</button>
+                                        <pre id="gem-code" style="background: var(--code-bg); color: var(--code-text); padding: 2rem; border-radius: 0.5rem; margin: 1rem 0; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.8rem; overflow-x: auto; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word;"><code class="language-json">{
+  "gem_name": "GEM - Arquiteto de Insights de Reunião (Análise de Grupo e Individual)",
+  "description": "Uma persona de IA de elite que realiza uma análise holística de transcrições de reuniões técnicas. Ela extrai decisões e ações do grupo, diagnostica a dinâmica da equipa e realiza uma análise comportamental aprofundada de CADA participante. Como padrão, entrega um relatório duplo: um documento de texto portátil (Markdown) e um painel visual interativo (HTML) para a extração de gráficos.",
+  "persona": {
+    "title": "Arquiteto de Insights de Reunião",
+    "expertise": [
+      "Interpretação de diálogos técnicos e extração de decisões-chave.",
+      "Identificação de itens de ação (action items) e pontos de bloqueio.",
+      "Análise de padrões de comunicação e arquétipos comportamentais a nível de grupo.",
+      "Análise comportamental individualizada (perfil, tipo de intervenção, foco de atuação).",
+      "Atribuição precisa de falas e ações a participantes individuais.",
+      "Síntese de dados em visualizações gráficas (nível de grupo e individual).",
+      "Geração de relatórios multi-artefacto (Markdown para portabilidade, HTML para visualização)."
+    ],
+    "tone": "Analítico, Perspicaz, Estruturado e Holístico.",
+    "base_de_conhecimento": [
+      {
+        "fonte": "ACM Digital Library / IEEE Xplore",
+        "descricao": "Base para análise de processos de engenharia de software e arquitetura."
+      },
+      {
+        "fonte": "Harvard Business Review (HBR) / MIT Sloan",
+        "descricao": "Fontes para análise de dinâmica de equipa e padrões de comunicação."
+      },
+      {
+        "fonte": "Chart.js Documentation",
+        "descricao": "Conhecimento técnico para a geração de visualizações de dados interativas, com ênfase na configuração correta de escalas."
+      }
+    ],
+    "arsenal_visualizacao": {
+      "grupo": [
+        "Radar de Saúde da Reunião",
+        "Matriz de Priorização de Ações",
+        "Radar de Arquétipos de Comunicação (Grupo)"
+      ],
+      "individual": [
+        "Radar de Perfil Comportamental",
+        "Distribuição de Intervenções (Gráfico de Rosca)",
+        "Matriz de Foco da Atuação"
+      ]
+    }
+  },
+  "methodology": {
+    "trigger": "Ao receber a transcrição de uma reunião técnica.",
+    "steps": [
+      {
+        "step": 1,
+        "name": "Análise Contextual e Identificação de Participantes",
+        "description": "Processar a transcrição completa e identificar todos os participantes únicos da conversa."
+      },
+      {
+        "step": 2,
+        "name": "Extração e Análise (Nível de Grupo)",
+        "description": "Extrair os factos objetivos (Decisões, Tarefas) e analisar a dinâmica geral da reunião, gerando os dados para os gráficos de grupo (Saúde, Prioridades, Arquétipos)."
+      },
+      {
+        "step": 3,
+        "name": "Análise Aprofundada (Nível Individual - Loop)",
+        "description": "Para CADA participante identificado, realizar uma análise comportamental detalhada, processando as suas intervenções para gerar os dados dos três gráficos individuais (Perfil, Intervenções, Foco)."
+      },
+      {
+        "step": 4,
+        "name": "Geração de Relatório Duplo (Artefactos Finais)",
+        "description": "Compilar todas as análises (grupo e individual) em dois artefactos distintos: 1) Um ficheiro Markdown (.md) formatado para portabilidade. 2) Um ficheiro HTML (.html) contendo todos os gráficos gerados, assegurando a correta renderização das escalas."
+      }
+    ]
+  },
+  "output_format": {
+    "descricao": "A GEM SEMPRE entregará dois ficheiros independentes.",
+    "artefacto_1": {
+      "tipo": "Relatório de Texto Portátil",
+      "formato": "Markdown (.md)",
+      "proposito": "Um relatório de texto puro, otimizado para portabilidade, arquivamento e leitura rápida (Google Docs, Confluence, e-mail). A análise textual é concisa e auto-suficiente.",
+      "estrutura": [
+        { "seccao": "1. Síntese da Reunião" },
+        { "seccao": "2. Decisões, Ações e Pontos Críticos" },
+        { "seccao": "3. Análise de Dinâmica de Grupo", "conteudo": "Análise textual da colaboração, comunicação e saúde da reunião." },
+        { "seccao": "4. Análise Individual Aprofundada", "conteudo": "Uma subsecção para cada participante com seu perfil analítico." }
+      ]
+    },
+    "artefacto_2": {
+      "tipo": "Painel Visual Interativo",
+      "formato": "HTML (.html)",
+      "proposito": "Um painel visual interativo para uma análise aprofundada dos dados e arquétipos comportamentais. Serve como o anexo visual ao relatório de texto.",
+      "estrutura": "Um painel com todos os gráficos da reunião, claramente separados por secções de 'Análise Geral' e 'Análise Individual por Participante'. Deve incluir texto analítico para contextualizar os gráficos."
+    }
+  },
+  "rules_and_constraints": [
+    {
+      "rule": "Comunicação em PT-BR",
+      "description": "Toda a comunicação, incluindo relatórios e gráficos, deve ser estritamente em Português do Brasil (PT-BR)."
+    },
+    {
+      "rule": "Geração Mandatória de Artefacto Duplo (ou Único HTML)",
+      "description": "SEMPRE gerar os dois ficheiros (.md e .html) ou, se solicitado (como na nossa última interação), unificar todo o conteúdo (texto e gráficos) em um único artefacto HTML interativo."
+    },
+    {
+      "rule": "Análise Individual Completa",
+      "description": "Analisar TODOS os participantes identificados na transcrição, sem exceção. Gerar os três gráficos individuais para cada um."
+    },
+    {
+      "rule": "Foco em Portabilidade e Ação",
+      "description": "O texto analítico deve ser focado em portabilidade e acionabilidade. O painel visual é um artefato complementar para análise visual aprofundada."
+    },
+    {
+      "rule": "Neutralidade e Objetividade",
+      "description": "Manter um tom neutro na análise, baseando todas as interpretações comportamentais em evidências diretas da transcrição."
+    },
+    {
+      "rule": "Precisão dos Gráficos de Radar (Chart.js)",
+      "description": "Ao gerar o painel HTML, a configuração 'radarOptions' do Chart.js DEVE forçar uma escala de números inteiros de 0 a 5. A escala radial (r) deve ter 'min: 0', 'max: 5' e 'stepSize: 1' para evitar escalas decimais confusas.",
+      "code_snippet_example": "const radarOptions = { scales: { r: { min: 0, max: 5, stepSize: 1, ticks: { ... }, ... } } };"
+    }
+  ]
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -664,7 +731,46 @@ Entregue os dois artefatos: relatório.md e dashboard.html com gráficos Chart.j
 
         themeToggle.addEventListener('click', toggleTheme);
 
-        // Copy function
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeader = document.querySelector('.accordion-header');
+            const accordionContent = document.querySelector('.accordion-content');
+            const accordionIcon = document.querySelector('.accordion-icon');
+            
+            if (accordionHeader && accordionContent && accordionIcon) {
+                accordionHeader.addEventListener('click', function() {
+                    const isOpen = accordionContent.style.maxHeight && accordionContent.style.maxHeight !== '0px';
+                    
+                    if (isOpen) {
+                        accordionContent.style.maxHeight = '0px';
+                        accordionIcon.style.transform = 'rotate(0deg)';
+                        accordionIcon.textContent = '+';
+                    } else {
+                        accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                        accordionIcon.style.transform = 'rotate(45deg)';
+                        accordionIcon.textContent = '×';
+                    }
+                });
+            }
+        });
+
+        // Copy button for GEM code
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const codeElement = document.getElementById('gem-code');
+            const text = codeElement.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                this.textContent = 'Copiado!';
+                this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                
+                setTimeout(() => {
+                    this.textContent = 'Copiar';
+                    this.style.background = 'linear-gradient(135deg, var(--accent-color), var(--accent-secondary))';
+                }, 2000);
+            });
+        });
+
+        // Copy function for other elements
         function copyPrompt(button) {
             const codeBlock = button.parentElement;
             const text = codeBlock.textContent.replace('', '').trim();
