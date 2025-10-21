@@ -130,6 +130,8 @@
       }
 
       .section {
+        max-width: 1200px;
+        margin-inline: auto;
         margin-bottom: 4rem;
       }
 
@@ -166,6 +168,10 @@
       .card:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-left-align {
+        text-align: left;
       }
 
       .card-icon {
@@ -377,7 +383,7 @@
         <div class="container">
             <!-- Onde nosso tempo realmente vai? -->
             <section class="section">
-                <div class="text-center">
+                <div class="flex-center-col">
                     <h2>Onde nosso tempo realmente vai?</h2>
                     <p class="text-secondary" style="max-width: 600px; margin: 0 auto; margin-bottom: 2rem;">
                         Vamos ser honestos. Grande parte do nosso dia é consumida por tarefas repetitivas que 
@@ -415,12 +421,14 @@
 
             <!-- Análise Dupla -->
             <section class="section">
-                <h2 class="text-center">
-                    <i class="fas fa-analytics"></i> Análise Dupla: Grupo + Individual
-                </h2>
-                <p class="text-center text-secondary" style="margin-bottom: 2rem;">
-                    Uma persona de IA elite que realiza análise holística de transcrições de reuniões técnicas
-                </p>
+                <div class="flex-center-col">
+                    <h2 class="text-center">
+                        <i class="fas fa-analytics"></i> Análise Dupla: Grupo + Individual
+                    </h2>
+                    <p class="text-center text-secondary" style="margin-bottom: 2rem;">
+                        Uma persona de IA elite que realiza análise holística de transcrições de reuniões técnicas
+                    </p>
+                </div>
 
                 <div class="grid grid-cols-4">
                     <div class="card">
@@ -479,31 +487,32 @@
 
             <!-- Como Usar -->
             <section id="setup" class="section">
-                <div style="max-width: 64rem; margin: 0 auto;">
-                    <h2 class="text-center" style="margin-bottom: 2.5rem;">Pronto para Começar?</h2>
-                    <div class="card" style="padding: 0; overflow: hidden;">
-                        <div id="accordion-container">
-                            <button class="accordion-header" style="width: 100%; text-align: left; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: none; background: var(--bg-secondary); color: var(--text-primary); font-family: inherit;">
-                                <span style="font-size: 1.25rem; font-weight: 700;">Instruções de Instalação e Código-Fonte da GEM</span>
-                                <span class="accordion-icon" style="font-size: 1.5rem; font-weight: 700; transform: rotate(0deg); transition: transform 0.3s;">+</span>
-                            </button>
-                            <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out;"
-                                <div style="padding: 1.5rem; border-top: 1px solid var(--border-color);">
-                                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Como Instalar a GEM no Gemini</h3>
-                                    <ol style="list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 2rem; font-size: 1.125rem; color: var(--text-secondary);">
-                                        <li style="margin-bottom: 0.75rem;"><strong>Acesso Corporativo:</strong> Faça o login no <a href="https://gemini.google.com/" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 600;">Gemini Pro</a> utilizando sua conta corporativa.</li>
-                                        <li style="margin-bottom: 0.75rem;"><strong>Navegue até os Gems:</strong> No menu lateral esquerdo, clique em <strong>"Veja alguns Gems"</strong>. Se o menu estiver recolhido, clique no ícone (☰) no canto superior esquerdo para expandi-lo.</li>
-                                        <li style="margin-bottom: 0.75rem;"><strong>Crie uma Nova GEM:</strong> Na tela seguinte, procure e clique na opção para <strong>"Criar uma nova GEM"</strong>.</li>
-                                        <li style="margin-bottom: 0.75rem;"><strong>Dê um Nome:</strong> Defina um nome fácil de identificar, como <em>"Arquiteto de Insights de Reunião"</em> ou <em>"Analisador de Meetings"</em>.</li>
-                                        <li style="margin-bottom: 0.75rem;"><strong>Copie as Instruções:</strong> Utilize o botão "Copiar" na caixa de código abaixo para copiar todo o JSON da nossa GEM.</li>
-                                        <li style="margin-bottom: 0.75rem;"><strong>Cole as Instruções:</strong> Cole o conteúdo copiado no campo principal de instruções da nova GEM.</li>
-                                        <li style="margin-bottom: 0.75rem;"><strong>Salve:</strong> Clique para salvar as alterações. A partir de agora, sua GEM estará disponível no menu esquerdo, pronta para analisar suas reuniões!</li>
-                                    </ol>
-                                    
-                                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Código-Fonte da GEM (JSON)</h3>
-                                    <div style="position: relative;">
-                                        <button id="copy-btn" style="position: absolute; top: 1rem; right: 1rem; z-index: 10; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary)); color: white; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; font-weight: 500;">Copiar</button>
-                                        <pre id="gem-code" style="background: var(--code-bg); color: var(--code-text); padding: 2rem; border-radius: 0.5rem; margin: 1rem 0; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.8rem; overflow-x: auto; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word;"><code class="language-json">{
+                <h2>Pronto para Começar?</h2>
+                <p class="text-secondary" style="margin-bottom: 1.5rem;">
+                    Siga os passos abaixo para instalar a GEM no seu ambiente Gemini e comece a transformar suas reuniões.
+                </p>
+                <div class="card card-left-align" style="padding: 0; overflow: hidden;">
+                    <div id="accordion-container">
+                        <button class="accordion-header" style="width: 100%; text-align: left; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: none; background: var(--bg-secondary); color: var(--text-primary); font-family: inherit;">
+                            <span style="font-size: 1.25rem; font-weight: 700;">Instruções de Instalação e Código-Fonte da GEM</span>
+                            <span class="accordion-icon" style="font-size: 1.5rem; font-weight: 700; transform: rotate(0deg); transition: transform 0.3s;">+</span>
+                        </button>
+                        <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out;">
+                            <div style="padding: 1.5rem; border-top: 1px solid var(--border-color);">
+                                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Como Instalar a GEM no Gemini</h3>
+                                <ul style="list-style-type: decimal; padding-left: 20px; margin-bottom: 2rem;">
+                                    <li style="margin-bottom: 0.75rem;"><strong>Acesso Corporativo:</strong> Faça o login no <a href="https://gemini.google.com/" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: 600;">Gemini Pro</a> utilizando sua conta corporativa.</li>
+                                    <li style="margin-bottom: 0.75rem;"><strong>Navegue até os Gems:</strong> No menu lateral esquerdo, clique em <strong>"Veja alguns Gems"</strong>. Se o menu estiver recolhido, clique no ícone (☰) no canto superior esquerdo para expandi-lo.</li>
+                                    <li style="margin-bottom: 0.75rem;"><strong>Crie uma Nova GEM:</strong> Na tela seguinte, procure e clique na opção para <strong>"Criar uma nova GEM"</strong>.</li>
+                                    <li style="margin-bottom: 0.75rem;"><strong>Dê um Nome:</strong> Defina um nome fácil de identificar, como <em>"Arquiteto de Insights de Reunião"</em> ou <em>"Analisador de Meetings"</em>.</li>
+                                    <li style="margin-bottom: 0.75rem;"><strong>Copie as Instruções:</strong> Utilize o botão "Copiar" na caixa de código abaixo para copiar todo o JSON da nossa GEM.</li>
+                                    <li style="margin-bottom: 0.75rem;"><strong>Cole as Instruções:</strong> Cole o conteúdo copiado no campo principal de instruções da nova GEM.</li>
+                                    <li style="margin-bottom: 0.75rem;"><strong>Salve:</strong> Clique para salvar as alterações. A partir de agora, sua GEM estará disponível no menu esquerdo, pronta para analisar suas reuniões!</li>
+                                </ul>
+                                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Código-Fonte da GEM (JSON)</h3>
+                                <div style="position: relative;">
+                                    <button id="copy-btn" style="position: absolute; top: 1rem; right: 1rem; z-index: 10; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary)); color: white; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; font-weight: 500;">Copiar</button>
+                                    <pre id="gem-code" style="background: var(--code-bg); color: var(--code-text); padding: 2rem; border-radius: 0.5rem; margin: 1rem 0; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.8rem; overflow-x: auto; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word;"><code class="language-json">{
   "gem_name": "GEM - Arquiteto de Insights de Reunião (Análise de Grupo e Individual)",
   "description": "Uma persona de IA de elite que realiza uma análise holística de transcrições de reuniões técnicas. Ela extrai decisões e ações do grupo, diagnostica a dinâmica da equipa e realiza uma análise comportamental aprofundada de CADA participante. Como padrão, entrega um relatório duplo: um documento de texto portátil (Markdown) e um painel visual interativo (HTML) para a extração de gráficos.",
   "persona": {
@@ -628,12 +637,14 @@
 
             <!-- Saídas Geradas -->
             <section class="section">
-                <h2 class="text-center">
-                    <i class="fas fa-chart-bar"></i> Saídas Geradas
-                </h2>
-                <p class="text-center text-secondary" style="margin-bottom: 2rem;">
-                    Dois artefatos complementares para análise completa
-                </p>
+                <div class="flex-center-col">
+                    <h2 class="text-center">
+                        <i class="fas fa-chart-bar"></i> Saídas Geradas
+                    </h2>
+                    <p class="text-center text-secondary" style="margin-bottom: 2rem;">
+                        Dois artefatos complementares para análise completa
+                    </p>
+                </div>
 
                 <div class="grid grid-cols-2">
                     <div class="card">
@@ -668,9 +679,11 @@
 
             <!-- Características Técnicas -->
             <section class="section">
-                <h2 class="text-center">
-                    <i class="fas fa-shield-alt"></i> Características Técnicas
-                </h2>
+                <div class="flex-center-col">
+                    <h2 class="text-center">
+                        <i class="fas fa-shield-alt"></i> Características Técnicas
+                    </h2>
+                </div>
 
                 <div class="grid grid-cols-4">
                     <div class="card">
