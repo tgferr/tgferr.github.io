@@ -10,7 +10,9 @@ Configuração automática do GitHub Copilot para qualquer projeto com análise 
 
 ### 💎 **GEMs - Gemini**
 
-Coleção de gems especializadas para Google Gemini, incluindo QA Expert com comandos avançados para testes e validações.
+Coleção de gems especializadas para Google Gemini:
+- **QA Expert**: Comandos avançados para testes e validações
+- **Arquiteto de Insights**: Análise holística de transcrições de reuniões com relatórios visuais
 
 ## 🚀 Acesso
 

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GEM - Arquiteto de Insights de Reunião - Análise holística de transcrições com relatórios visuais">
+    <meta name="author" content="Tiago Ferreira">
+    <meta name="keywords" content="IA, Gemini, Reuniões, Análise, Transcrições, Dashboard">
+    <meta property="og:title" content="GEM - Arquiteto de Insights de Reunião">
+    <meta property="og:description" content="Análise holística de transcrições de reuniões técnicas com painéis visuais interativos">
+    <meta property="og:type" content="website">
+    <title>GEM - Arquiteto de Insights de Reunião</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .gem-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .gem-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .gem-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .capability-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .capability-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .step-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .step-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -23px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .output-preview {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .output-preview h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+        }
+        
+        .feature-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .prompt-example {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+        
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            float: right;
+            margin-top: -0.5rem;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="gem-header">
+        <div class="content-area">
+            <h1><i class="fas fa-brain"></i> GEM - Arquiteto de Insights de Reunião</h1>
+            <p>Análise holística de transcrições de reuniões técnicas com extração de decisões, dinâmica de grupo e perfis comportamentais individuais</p>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Voltar ao Hub
+        </a>
+
+        <div class="capability-card">
+            <div class="capability-header">
+                <div class="capability-icon">
+                    <i class="fas fa-analytics"></i>
+                </div>
+                <div>
+                    <h2>Análise Dupla: Grupo + Individual</h2>
+                    <p>Uma persona de IA elite que realiza análise holística de transcrições de reuniões técnicas</p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-users"></i> Análise de Grupo</h4>
+                    <ul>
+                        <li>Extração de decisões e ações</li>
+                        <li>Dinâmica de equipe e comunicação</li>
+                        <li>Pontos de bloqueio identificados</li>
+                        <li>Radar de saúde da reunião</li>
+                    </ul>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-user-circle"></i> Análise Individual</h4>
+                    <ul>
+                        <li>Perfil comportamental detalhado</li>
+                        <li>Padrões de intervenção</li>
+                        <li>Foco de atuação identificado</li>
+                        <li>Arquétipos de comunicação</li>
+                    </ul>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-chart-radar"></i> Visualizações</h4>
+                    <ul>
+                        <li>Gráficos de radar comportamental</li>
+                        <li>Distribuição de intervenções</li>
+                        <li>Matriz de priorização</li>
+                        <li>Dashboard interativo HTML</li>
+                    </ul>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-file-alt"></i> Relatórios Duplos</h4>
+                    <ul>
+                        <li>Markdown portátil (.md)</li>
+                        <li>Dashboard visual (.html)</li>
+                        <li>Análise textual concisa</li>
+                        <li>Gráficos Chart.js interativos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="capability-card">
+            <div class="capability-header">
+                <div class="capability-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                    <h2>Metodologia de Análise</h2>
+                    <p>Processo sistemático em 4 etapas para análise completa</p>
+                </div>
+            </div>
+
+            <div class="step-timeline">
+                <div class="timeline-item" data-step="1">
+                    <h3>Análise Contextual</h3>
+                    <p>Processamento da transcrição completa e identificação de todos os participantes únicos da conversa.</p>
+                </div>
+
+                <div class="timeline-item" data-step="2">
+                    <h3>Extração de Grupo</h3>
+                    <p>Extrair decisões, tarefas e analisar dinâmica geral da reunião, gerando dados para gráficos de grupo.</p>
+                </div>
+
+                <div class="timeline-item" data-step="3">
+                    <h3>Análise Individual</h3>
+                    <p>Para CADA participante, análise comportamental detalhada processando suas intervenções específicas.</p>
+                </div>
+
+                <div class="timeline-item" data-step="4">
+                    <h3>Relatório Duplo</h3>
+                    <p>Compilação em dois artefatos: relatório Markdown portátil e dashboard HTML visual interativo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="capability-card">
+            <div class="capability-header">
+                <div class="capability-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div>
+                    <h2>Como Usar</h2>
+                    <p>Prompt otimizado para ativar a GEM no Google Gemini</p>
+                </div>
+            </div>
+
+            <div class="prompt-example">
+                <button class="copy-btn" onclick="copyPrompt(this)">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <strong>Prompt para Google Gemini:</strong><br><br>
+                
+                Ative GEM - Arquiteto de Insights de Reunião.<br><br>
+                
+                Analise esta transcrição de reunião técnica seguindo sua metodologia completa:<br><br>
+                
+                1. Identifique TODOS os participantes<br>
+                2. Extraia decisões, ações e dinâmica de grupo<br>
+                3. Faça análise comportamental individual de CADA participante<br>
+                4. Gere relatório duplo: Markdown + Dashboard HTML<br><br>
+                
+                Transcrição:<br>
+                [COLE SUA TRANSCRIÇÃO AQUI]<br><br>
+                
+                Entregue os dois artefatos: relatório.md e dashboard.html com gráficos Chart.js configurados corretamente (escala 0-5, stepSize 1).
+            </div>
+        </div>
+
+        <div class="capability-card">
+            <div class="capability-header">
+                <div class="capability-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div>
+                    <h2>Saídas Geradas</h2>
+                    <p>Dois artefatos complementares para análise completa</p>
+                </div>
+            </div>
+
+            <div class="output-preview">
+                <h4><i class="fas fa-file-text"></i> Relatório Markdown (.md)</h4>
+                <p><strong>Propósito:</strong> Relatório de texto puro otimizado para portabilidade e arquivamento</p>
+                <ul>
+                    <li>1. Síntese da Reunião</li>
+                    <li>2. Decisões, Ações e Pontos Críticos</li>
+                    <li>3. Análise de Dinâmica de Grupo</li>
+                    <li>4. Análise Individual Aprofundada (por participante)</li>
+                </ul>
+            </div>
+
+            <div class="output-preview">
+                <h4><i class="fas fa-chart-pie"></i> Dashboard HTML (.html)</h4>
+                <p><strong>Propósito:</strong> Painel visual interativo para análise aprofundada</p>
+                <ul>
+                    <li>Radar de Saúde da Reunião</li>
+                    <li>Matriz de Priorização de Ações</li>
+                    <li>Radar de Perfil Comportamental (por participante)</li>
+                    <li>Distribuição de Intervenções (gráfico de rosca)</li>
+                    <li>Matriz de Foco da Atuação</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="capability-card">
+            <div class="capability-header">
+                <div class="capability-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h2>Características Técnicas</h2>
+                    <p>Configurações e especificações da GEM</p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-language"></i> Idioma</h4>
+                    <p>Toda comunicação em Português do Brasil (PT-BR), incluindo relatórios e gráficos.</p>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-chart-line"></i> Gráficos</h4>
+                    <p>Chart.js com escala forçada (0-5, stepSize 1) para evitar decimais confusos nos radares.</p>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-balance-scale"></i> Neutralidade</h4>
+                    <p>Tom neutro e objetivo, baseando interpretações em evidências diretas da transcrição.</p>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-check-double"></i> Completude</h4>
+                    <p>Análise mandatória de TODOS os participantes identificados, sem exceção.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="capability-card">
+            <div class="capability-header">
+                <div class="capability-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div>
+                    <h2>Base de Conhecimento</h2>
+                    <p>Fontes especializadas que orientam a análise</p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-code"></i> ACM Digital Library / IEEE Xplore</h4>
+                    <p>Base para análise de processos de engenharia de software e arquitetura técnica.</p>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-users-cog"></i> Harvard Business Review / MIT Sloan</h4>
+                    <p>Fontes para análise de dinâmica de equipe e padrões de comunicação organizacional.</p>
+                </div>
+
+                <div class="feature-item">
+                    <h4><i class="fas fa-chart-area"></i> Chart.js Documentation</h4>
+                    <p>Conhecimento técnico para geração de visualizações interativas com configurações otimizadas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt(button) {
+            const promptText = button.parentElement.textContent.replace('Prompt para Google Gemini:', '').trim();
+            
+            navigator.clipboard.writeText(promptText).then(() => {
+                const originalIcon = button.querySelector('i');
+                originalIcon.className = 'fas fa-check';
+                button.style.color = 'var(--accent-color)';
+                
+                setTimeout(() => {
+                    originalIcon.className = 'fas fa-copy';
+                    button.style.color = '';
+                }, 2000);
+            });
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
