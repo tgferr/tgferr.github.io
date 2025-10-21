@@ -16,7 +16,7 @@ Este é o **IA Tools Hub** - um site GitHub Pages que serve como centro de refer
 ```
 tgferr.github.io/
 ├── index.html                    # Hub principal com navegação SPA
-├── copilot_template.html          # Página dedicada ao Template Copilot  
+├── copilot_template.html          # Página dedicada ao Template Copilot
 ├── gem_gemini_QA.html            # Apresentação do QA Expert Gem
 ├── gem_gemini_CALL_SUMMARIZER.html # Apresentação do Arquiteto de Insights
 ├── copilot-init-template/        # Template completo para download
