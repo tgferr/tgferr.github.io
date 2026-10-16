@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico">
+    <title>PROJECT BRAIN Framework</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --accent-color: #667eea;
+        --accent-secondary: #764ba2;
+        --border-color: #e5e7eb;
+        --code-bg: #2d3748;
+        --code-text: #e2e8f0;
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #1f2937;
+        --bg-secondary: #111827;
+        --text-primary: #f9fafb;
+        --text-secondary: #9ca3af;
+        --border-color: #374151;
+        --code-bg: #0f172a;
+        --code-text: #cbd5e1;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        line-height: 1.6;
+      }
+
+      .app-container {
+        min-height: 100vh;
+      }
+
+      .header {
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border: 1px solid var(--border-color);
+        cursor: pointer;
+      }
+
+      .back-btn:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .theme-toggle:hover {
+        background: var(--bg-secondary);
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        color: white;
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+
+      .hero-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: white;
+      }
+
+      .hero-section p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .section {
+        max-width: 1200px;
+        margin-inline: auto;
+        margin-bottom: 4rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .section-title i {
+        color: var(--accent-color);
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .flex-center-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 0.75rem;
+        padding: 2rem;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-left-align {
+        text-align: left;
+      }
+
+      .card-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+      }
+
+      .card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+
+      .card p {
+        color: var(--text-secondary);
+      }
+
+      .card ul {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+      }
+
+      .card li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+      }
+
+      .card li::before {
+        content: "✓";
+        color: var(--accent-color);
+        font-weight: bold;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--accent-color);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 3rem;
+        background: var(--bg-secondary);
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+      }
+
+      .timeline-item::before {
+        content: attr(data-step);
+        position: absolute;
+        left: -38px;
+        top: 1.5rem;
+        width: 30px;
+        height: 30px;
+        background: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+
+      .timeline-item h3 {
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .timeline-item p {
+        color: var(--text-secondary);
+      }
+
+      .asterisk-note {
+        margin-top: 0.75rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 0.85rem;
+        position: relative;
+        overflow-x: auto;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        color: white;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      .feature-highlight {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        border: 1px solid var(--accent-color);
+        border-radius: 0.75rem;
+        padding: 2rem;
+        margin: 2rem 0;
+      }
+
+      .feature-highlight h3 {
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .prompt-section {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 0.75rem;
+        padding: 2rem;
+        margin: 2rem 0;
+      }
+
+      .prompt-section h3 {
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .accordion-header {
+        width: 100%;
+        text-align: left;
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        border: none;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        font-family: inherit;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .accordion-header span:first-child {
+        font-size: 1.25rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .accordion-icon {
+        font-size: 1.5rem;
+        font-weight: 700;
+        transition: transform 0.3s;
+      }
+
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.7s ease-in-out;
+        background: var(--bg-secondary);
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .grid-cols-2,
+        .grid-cols-3,
+        .grid-cols-4 {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-section h1 {
+          font-size: 2rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar ao Hub
+                </a>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+            </button>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1><i class="fas fa-brain"></i> PROJECT BRAIN Framework</h1>
+            <p>Universal Brain Framework — Sistema Operacional Single-File para orquestrar agentes de IA em qualquer repositório</p>
+        </section>
+
+        <!-- Main Content -->
+        <div class="container">
+
+            <!-- Visão Geral -->
+            <section class="section">
+                <div class="flex-center-col">
+                    <h2 class="text-center">O que é o PROJECT BRAIN?</h2>
+                    <p style="color: var(--text-secondary); max-width: 800px; text-align: center; margin-top: 1rem;">
+                        Um arquivo único (<code>PROJECT-BRAIN.md</code>) que atua como fonte única de verdade, memória viva
+                        e orquestrador de desenvolvimento. Copie-o para qualquer projeto e ative o fluxo OpenSpec de
+                        demandas com governança rígida antes de qualquer linha de código.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Propósito e Modos de Operação -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-sliders-h"></i> Modos de Operação</h2>
+                <div class="grid grid-cols-2">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Perfil Enterprise Luizalabs</h3>
+                        <p>
+                            Acionado via <code>MIA + Claude Code CLI</code>: sinergia com o ecossistema corporativo
+                            — Context-Mode nativo, RTK no PATH, LSPs automáticos (Go/Python/TS), autenticação Google
+                            PKCE e plugins curados.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Perfil Community / Doméstico</h3>
+                        <p>
+                            Roda em qualquer LLM (Copilot, Ollama, OpenAI) com agentes autônomos puros, formulários
+                            interativos via UI e governança local simulada — sem depender de proxy corporativo.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diretivas Rígidas de Segurança -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-shield-alt"></i> Diretivas Rígidas de Segurança</h2>
+                <div class="grid grid-cols-2">
+                    <div class="card card-left-align">
+                        <div class="card-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h3>Nunca commit ou push automáticos</h3>
+                        <p>Proibido executar <code>git commit</code>, <code>git push</code>, <code>git merge</code> ou rebase sem instrução expressa e intencional do desenvolvedor. Operações git são somente de leitura ou staging cirúrgico pré-aprovado.</p>
+                    </div>
+                    <div class="card card-left-align">
+                        <div class="card-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Trava pré-código inegociável</h3>
+                        <p>Proibido criar ou editar arquivos sem um plano aprovado em turno explícito. O fluxo obrigatório: Coleta de Requisitos → Explore → Plano → Aprovação <code>[A]</code> → somente então, código.</p>
+                    </div>
+                    <div class="card card-left-align">
+                        <div class="card-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Transparência do runtime</h3>
+                        <p>O agente reconhece o perfil de execução ativo (LiteLLM interno ou LLM da IDE) e adapta comportamento: foco em lógica de negócio, Clean Architecture e testes no CLI; UI nativa no VS Code.</p>
+                    </div>
+                    <div class="card card-left-align">
+                        <div class="card-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Gateway interativo de abertura</h3>
+                        <p>Toda demanda inicia com um gateway de confirmação: menu limpo e atalhos no Claude Code CLI, ou botões clicáveis via <code>vscode_askQuestions</code> no VS Code.</p>
+                    </div>
+                    <div class="card card-left-align">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Zero dump de conteúdo bruto</h3>
+                        <p>Proibido colar logs, stack traces ou arquivos volumosos na conversa. Processar no sandbox e devolver apenas métricas, causas raiz e diffs mínimos.</p>
+                    </div>
+                    <div class="card card-left-align">
+                        <div class="card-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Política de retorno enxuto</h3>
+                        <p>Respostas sem preâmbulo social. Alterações exibidas apenas como deltas — <code>## ADDED</code>, <code>## MODIFIED</code> e <code>## REMOVED</code> — limitando o contexto a 3 linhas de vizinhança.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep-Search-Learning: Matriz de Personas -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-users"></i> Matriz de Personas Especialistas</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Antes de alterar qualquer linha, o framework ativa o Deep-Search-Learning e posiciona lentes especializadas
+                    na revisão pré-código e no suporte operacional.
+                </p>
+                <div class="flex-center-col">
+                    <div class="grid grid-cols-3" style="width: 100%;">
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-robot"></i></div>
+                            <h3>Especialista MIA &amp; Tooling</h3>
+                            <ul>
+                                <li>Gestão de plugins, skills e MCPs</li>
+                                <li>Gateways LiteLLM e certificados SSL</li>
+                            </ul>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-code-branch"></i></div>
+                            <h3>Arquiteto de Contratos</h3>
+                            <ul>
+                                <li>Schemas GraphQL, OpenAPI, Protobuf</li>
+                                <li>Compatibilidade semântica e <code>@key</code>/<code>@shareable</code></li>
+                            </ul>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-plug"></i></div>
+                            <h3>Engenheiro de Integração</h3>
+                            <ul>
+                                <li>Clientes HTTP, pooling e latência</li>
+                                <li>Timeout estrito e retry controlado</li>
+                            </ul>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <h3>Compatibilidade</h3>
+                            <ul>
+                                <li>Web, mobile e apps legados</li>
+                                <li>Coexistência dual (Strangler Fig)</li>
+                            </ul>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                            <h3>SRE &amp; Observabilidade</h3>
+                            <ul>
+                                <li>Latência p95/p99 e traces distribuídos</li>
+                                <li>Sanitização de logs — proibido PII</li>
+                            </ul>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-check-double"></i></div>
+                            <h3>QA &amp; Qualidade</h3>
+                            <ul>
+                                <li>Testes de unidade e integração</li>
+                                <li>Cobertura 100% de branches e linhas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ciclo Operacional -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-sync-alt"></i> Ciclo Operacional de Demandas (OpenSpec)</h2>
+                <div class="timeline">
+                    <div class="timeline-item" data-step="1">
+                        <h3><code>/start-demand</code> — Coleta e Plano</h3>
+                        <p>Detecta o perfil de execução, dispara o Explore e apresenta o plano no terminal com parada obrigatória até a aprovação <code>[A] Aprovar plano</code>.</p>
+                    </div>
+                    <div class="timeline-item" data-step="2">
+                        <h3><code>/review-personas</code> — Análise Multi-Ângulo</h3>
+                        <p>Debate técnico das lentes especializadas (Arquitetura, Integração, Compatibilidade, SRE e QA). Risco alto ou breaking change? Para e pergunta ao dev.</p>
+                    </div>
+                    <div class="timeline-item" data-step="3">
+                        <h3><code>/execute</code> — Implementação Cirúrgica</h3>
+                        <p>Execução baseada em deltas, respeitando Clean Architecture, com suíte de testes de 100% de cobertura. Em falha: diagnóstico conciso, nunca retry cego em loop.</p>
+                    </div>
+                    <div class="timeline-item" data-step="4">
+                        <h3><code>/feed-brain</code> &amp; <code>/close-demand</code> — Destilação</h3>
+                        <p>Persiste lições aprendidas na Base Viva (Seção 8), gera o template de entrega <code>MR_DESCRIPTION.md</code>, arquiva artefatos efêmeros e confirma próximos passos.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Regras de Ouro Técnicas -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-gem"></i> Regras de Ouro Técnicas</h2>
+                <div class="flex-center-col">
+                    <div class="grid grid-cols-2" style="width: 100%;">
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-draw-polygon"></i></div>
+                            <h3>Clean Architecture nos Mappers</h3>
+                            <p>Conversões de DTO externo vivem em <code>domain/mappers/</code>, como funções puras, idempotentes e com 100% de testes para cada chave opcional.</p>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-stopwatch"></i></div>
+                            <h3>Orçamento de Latência &amp; Fallback</h3>
+                            <p>Nenhuma chamada upstream pode travar além do SLA (≤ 500ms). Falhas acionam fallback gracioso — <code>null</code> ou payload degradado — sem derrubar a aplicação.</p>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-plug"></i></div>
+                            <h3>Injeção de Dependência Dinâmica</h3>
+                            <p>Nunca singletons estáticos globais que impeçam rebind/mock em testes. Dependências são injetadas sempre que exigem isolamento testável.</p>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-user-secret"></i></div>
+                            <h3>Zero Segredo ou PII em Logs</h3>
+                            <p>Tokens e senhas nunca em URL params — apenas no body. Proibido logar dados pessoais de clientes nos logs da aplicação.</p>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-hashtag"></i></div>
+                            <h3>Nomes ASCII Kebab-Case</h3>
+                            <p>Arquivos sem acentos, cedilhas ou caracteres especiais para evitar quebras em runners de CI e no SonarScanner.</p>
+                        </div>
+                        <div class="card card-left-align">
+                            <div class="card-icon"><i class="fas fa-book"></i></div>
+                            <h3>Cobertura Inegociável</h3>
+                            <p>Testes unitários garantem 100% de cobertura em statements, branches e linhas — com casos explícitos para chaves ausentes, nulos e fallbacks.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Base Viva de Lições Aprendidas -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-brain"></i> Base Viva de Lições Aprendidas</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Seção cumulativa e imutável: cada demanda concluída destila suas lições em regras acionáveis,
+                    alimentadas pelo <code>/feed-brain</code>.
+                </p>
+                <div class="grid grid-cols-2">
+                    <div class="card card-left-align">
+                        <h3><i class="fas fa-cog" style="color: var(--accent-color);"></i> Setup &amp; Runtime</h3>
+                        <ul>
+                            <li>Ferramental gerido unicamente pelo MIA CLI (skills-tk descontinuado)</li>
+                            <li>Certificado Netskope exportado para automações de navegador</li>
+                            <li>Logins institucionais exigem navegador real e MFA — aguardar confirmação</li>
+                        </ul>
+                    </div>
+                    <div class="card card-left-align">
+                        <h3><i class="fas fa-sitemap" style="color: var(--accent-color);"></i> Arquitetura &amp; Contratos</h3>
+                        <ul>
+                            <li>Strategia Strangler Fig em subgrafos legados</li>
+                            <li>Metadados abertos com custom scalars e validação de AST</li>
+                            <li>Normalização numérica segura com fallback para 0</li>
+                        </ul>
+                    </div>
+                    <div class="card card-left-align">
+                        <h3><i class="fas fa-server" style="color: var(--accent-color);"></i> Integração &amp; Resiliência</h3>
+                        <ul>
+                            <li>Zero console.log/print em produção — loggers estruturados assíncronos</li>
+                            <li>Headers de experimento/tenant propagados deterministicamente</li>
+                            <li>Timeout estrito em toda chamada upstream</li>
+                        </ul>
+                    </div>
+                    <div class="card card-left-align">
+                        <h3><i class="fas fa-vial" style="color: var(--accent-color);"></i> Testes &amp; Qualidade</h3>
+                        <ul>
+                            <li>Cobertura absoluta de casos de borda (chaves ausentes, arrays vazios, nulos)</li>
+                            <li>Fallbacks com exceções explícitas de teste na suíte</li>
+                            <li>Testes nunca acoplados a estado global</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Como Usar -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-rocket"></i> Como Usar</h2>
+                <div class="card card-left-align feature-highlight">
+                    <h3><i class="fas fa-lightbulb"></i> Instalação rápida</h3>
+                    <p>
+                        Copie o arquivo <code>PROJECT_BRAIN_FRAMEWORK.md</code> para a raiz do seu repositório como
+                        <code>PROJECT-BRAIN.md</code> ou <code>.openspec/brain.md</code> e acione o fluxo com o comando
+                        do seu runtime.
+                    </p>
+                </div>
+
+                <div class="card card-left-align prompt-section" style="padding: 0; overflow: hidden;">
+                    <div id="accordion-container">
+                        <button class="accordion-header" style="width: 100%;">
+                            <span><i class="fas fa-terminal"></i> Comandos de Inicialização</span>
+                            <span class="accordion-icon" style="transform: rotate(0deg);">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div style="padding: 1.5rem;">
+                                <p style="color: var(--text-secondary); margin-bottom: 0.75rem;">Claude Code CLI (Enterprise Luizalabs):</p>
+                                <div class="code-block">
+                                    <button id="copy-btn" class="copy-btn">Copiar</button>
+<pre id="cmd-code1" style="margin: 0;">iniciar demanda &lt;CODIGO_CARD_OU_NOME&gt; seguindo @PROJECT-BRAIN.md
+# ou
+/start-demand &lt;CODIGO_CARD_OU_NOME&gt;</pre>
+                                </div>
+                                <p style="color: var(--text-secondary); margin-top: 1rem;">VS Code Copilot Chat (Community / Doméstico):</p>
+                                <div class="code-block">
+                                    <button id="copy-btn2" class="copy-btn" onclick="copyCmd(this, 'cmd-code2')">Copiar</button>
+<pre id="cmd-code2" style="margin: 0;">@PROJECT-BRAIN.md iniciar</pre>
+                                </div>
+                                <p class="asterisk-note">
+                                    O Brain analisa a demanda, dispara a varredura das personas e exibe um plano enxuto
+                                    no terminal/chat. Parada obrigatória: o agente aguarda <b>sim</b>, <b>aprovo</b> ou
+                                    ajustes antes de editar qualquer arquivo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-highlight card card-left-align" style="text-align: center;">
+                    <h3 style="justify-content: center;"><i class="fas fa-download"></i> Leve o framework para qualquer projeto</h3>
+                    <p style="margin-bottom: 1rem;">
+                        Baixe o arquivo completo (v3.5.0 — Dual-Engine: Enterprise Luizalabs + Community Portátil).
+                    </p>
+                    <a href="PROJECT_BRAIN_FRAMEWORK.md" download="PROJECT-BRAIN.md" class="btn">
+                        <i class="fas fa-file-download"></i>
+                        Baixar PROJECT-BRAIN.md
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>PROJECT BRAIN Framework v3.5.0 — Universal Brain Framework · Single-File Operating System</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeIcon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeader = document.querySelector('.accordion-header');
+            const accordionContent = document.querySelector('.accordion-content');
+            const accordionIcon = document.querySelector('.accordion-icon');
+
+            if (accordionHeader && accordionContent && accordionIcon) {
+                accordionHeader.addEventListener('click', function() {
+                    const isOpen = accordionContent.style.maxHeight && accordionContent.style.maxHeight !== '0px';
+
+                    if (isOpen) {
+                        accordionContent.style.maxHeight = '0px';
+                        accordionIcon.style.transform = 'rotate(0deg)';
+                        accordionIcon.textContent = '+';
+                    } else {
+                        accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                        accordionIcon.style.transform = 'rotate(45deg)';
+                        accordionIcon.textContent = '×';
+                    }
+                });
+            }
+
+            // Copy buttons for command blocks
+            const copyBtn1 = document.getElementById('copy-btn');
+            if (copyBtn1) {
+                copyBtn1.addEventListener('click', function() {
+                    const codeText = document.getElementById('cmd-code1').textContent;
+                    navigator.clipboard.writeText(codeText).then(() => {
+                        this.textContent = 'Copiado!';
+                        this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                        setTimeout(() => {
+                            this.textContent = 'Copiar';
+                            this.style.background = 'rgba(255, 255, 255, 0.1)';
+                        }, 2000);
+                    });
+                });
+            }
+        });
+
+        function copyCmd(btn, preId) {
+            const codeText = document.getElementById(preId).textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                btn.textContent = 'Copiado!';
+                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                setTimeout(() => {
+                    btn.textContent = 'Copiar';
+                    btn.style.background = 'rgba(255, 255, 255, 0.1)';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

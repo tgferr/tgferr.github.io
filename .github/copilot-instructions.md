@@ -19,6 +19,13 @@ tgferr.github.io/
 ├── copilot_template.html          # Página dedicada ao Template Copilot
 ├── gem_gemini_QA.html            # Apresentação do QA Expert Gem
 ├── gem_gemini_CALL_SUMMARIZER.html # Apresentação do Arquiteto de Insights
+├── project_brain_framework.html # Apresentação do PROJECT BRAIN Framework
+├── PROJECT_BRAIN_FRAMEWORK.md  # Framework single-file para download (+ PROJECT-BRAIN.md symlink)
+├── AGENTS.md               # Protocolo agêntico (Universal Brain Framework)
+├── .claude/agents/         # 6 subagentes executáveis Claude Code
+├── .agents/                # 6 personas portáteis (padrão AGENTS.md)
+├── OPENSPEC/               # Fluxo OpenSpec (README, active_todo, templates)
+├── Checklist/              # Template de checklist por demanda
 ├── copilot-init-template/        # Template completo para download
 │   ├── README.md                 # Instruções de uso
 │   ├── COMANDO-UNIVERSAL.md      # Comando otimizado para execução
@@ -196,6 +203,17 @@ const profiles = {
 1. **Backward compatibility**: Manter compatibilidade com versões anteriores
 2. **Documentação atualizada**: README.md e arquivos de instrução
 3. **Comando universal**: Validar se comando ainda executa corretamente
+
+## 🧠 Universal Brain Framework — Agents & OpenSpec
+
+O repositório roda o **Universal Brain Framework** (`PROJECT-BRAIN.md`, symlink para `PROJECT_BRAIN_FRAMEWORK.md`). Infraestrutura agêntica neste repo:
+
+- **`.claude/agents/`** — 6 subagentes executáveis do Claude Code (matriz de personas).
+- **`.agents/`** — 6 personas portáteis no padrão AGENTS.md (Copilot/Cursor/Aider).
+- **`OPENSPEC/`** — fluxo OpenSpec: README, `active_todo.md` (memória de sessão) e templates (`openspec-files/`).
+- **`Checklist/`** — template de checklist por demanda.
+
+**Fluxo de demanda:** `iniciar demanda <CARD> seguindo @PROJECT-BRAIN.md` → Coleta → Explore → Plano → `[A]` → Execute → `/feed-brain`. Lições acumulam na Seção 8 do `PROJECT_BRAIN_FRAMEWORK.md`.
 
 ---
 
