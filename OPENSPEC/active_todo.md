@@ -2,26 +2,25 @@
 
 > Compacto (≤100 linhas). Documenta decisões arquiteturais, regras de negócio e restrições acordadas. Atualizado incrementalmente a cada iteração.
 
-## Sessão: 2026-10-21 / Demanda: Redesign Tabs project_brain_framework.html
+## Sessão: 2026-10-21 / Demanda: Especialistas Dinâmicos & Nomes USA First-Name
 
-**Demanda**: Refatorar `project_brain_framework.html` para sistema de máx 3 tabs (Tab 1: Guia lúdico & 1ª conversa; Tab 2: Governança & Personas; Tab 3: Downloads com Enterprise/MIA em destaque vs Domestic).
+**Demanda**: Atualizar personas para primeiro nome americano (USA) e padronizar o explore inicial (`/start-demand`) para criar personas dinâmicas via perguntas interativas em `project_brain_framework.html`, `ENTERPRISE_PROJECT_FRAMEWORK.md` e `DOMESTICUSER_PROJECT_FRAMEWORK.md`.
 
 ### Decisões
 
-- Tab 1: Como iniciar 1ª conversa passo a passo lúdico + comandos CLI/Chat (concluído).
-- Tab 2: Governança, Trava Pré-Código e Matriz de Personas resumida (concluído).
-- Tab 3: Downloads com card Enterprise (MIA-native) destacado vs Domestic (pessoal) (concluído).
-- Máx 3 tabs, página 100% autocontida com suporte a tema dark/light e navegação por URL hash.
+- Personas: primeiro nome USA aplicado (Marcus, Chloe, Caleb, Emma, David, Sarah, Mason, Logan, Alex) [Concluído].
+- Explore inicial: dinamismo total com perguntas interativas contínuas e geração de especialistas dedicados do projeto documentado em todos os arquivos [Concluído].
+- `project_brain_framework.html`, `ENTERPRISE_PROJECT_FRAMEWORK.md` e `DOMESTICUSER_PROJECT_FRAMEWORK.md` sincronizados [Concluído].
 
 ### Regras de Negócio Descobertas
 
-- Trava pré-código cumprida: plano aprovado via [A] antes de alteração no HTML.
+- Trava pré-código cumprida com aprovação formal [A].
 - Zero erros de sintaxe ou lint.
 
 ### Restrições Acordadas
 
 - Zero commit/push automático.
-- Respeitar AGENTS.md e mobile responsiveness.
+- Respostas enxutas (caveman/delta).
 
 ---
 

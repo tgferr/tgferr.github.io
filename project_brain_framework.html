@@ -760,11 +760,12 @@
 
               <div class="step-card">
                 <span class="step-badge">3</span>
-                <h3>Questionário &amp; Trava Pré-Código</h3>
+                <h3>Deep Explore &amp; Trava Pré-Código</h3>
                 <p>
-                  O agente analisa o escopo e apresenta o plano com o Opositor
-                  Crítico. <strong>Nenhum arquivo é editado</strong> até você
-                  responder <code>[A]</code>.
+                  O agente faz perguntas dinâmicas e interativas (sem travar o
+                  chat) para explorar o projeto e sintetizar especialistas
+                  dedicados. <strong>Nenhum arquivo é editado</strong> até você
+                  aprovar o plano final com <code>[A]</code>.
                 </p>
               </div>
 
@@ -925,26 +926,85 @@ iniciar demanda &lt;CODIGO_CARD&gt; seguindo @PROJECT-BRAIN.md
             </div>
 
             <!-- Lentes Especializadas -->
-            <h3
-              class="section-title"
-              style="font-size: 1.4rem; margin-bottom: 1rem"
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 1.25rem;
+              "
             >
-              <i class="fas fa-users-cog"></i> Matriz de Personas Especialistas
-            </h3>
+              <div>
+                <h3
+                  class="section-title"
+                  style="font-size: 1.4rem; margin-bottom: 0.25rem"
+                >
+                  <i class="fas fa-users-cog"></i> Matriz de Personas
+                  Especialistas
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem">
+                  Nomes de primeiro nível inspirados no modelo de governança
+                  autônoma, adaptados dinamicamente ao seu contexto.
+                </p>
+              </div>
+            </div>
+
+            <!-- Banner Explicativo de Especialistas Dinâmicos -->
+            <div
+              style="
+                background: var(--bg-primary);
+                border: 1px dashed var(--accent-color);
+                border-radius: 0.75rem;
+                padding: 1.25rem 1.5rem;
+                margin-bottom: 1.5rem;
+              "
+            >
+              <h4
+                style="
+                  color: var(--accent-color);
+                  margin-bottom: 0.35rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  font-size: 1.05rem;
+                "
+              >
+                <i class="fas fa-magic"></i> Explore Inicial &amp; Síntese de
+                Especialistas Dedicados
+              </h4>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.92rem;
+                  margin: 0;
+                "
+              >
+                O disparo da demanda (<code>/start-demand</code> ou
+                <code>iniciar</code>) inicia obrigatoriamente um
+                <strong>Deep Explore</strong> com
+                <strong>perguntas dinâmicas</strong> ao desenvolvedor (sem
+                travar o chat). A partir do mapeamento da stack, dependências e
+                regras de negócio do repositório, o agente
+                <strong>cria especialistas sob medida</strong> para aquele
+                projeto específico, somando-se à base de governança.
+              </p>
+            </div>
+
             <div class="grid grid-cols-3">
               <div class="card card-left-align" style="padding: 1.25rem">
                 <h3 style="font-size: 1.05rem; color: var(--accent-color)">
-                  <i class="fas fa-balance-scale"></i> ⚖️ Tiago Ferreira
-                  (Opositor)
+                  <i class="fas fa-balance-scale"></i> ⚖️ Marcus (Opositor)
                 </h3>
                 <p style="font-size: 0.88rem">
                   Devil's Advocate: primeiro a contra-argumentar, apontando
-                  riscos, custos ocultos e suposições frágeis.
+                  riscos operacionais, custos ocultos e suposições frágeis.
                 </p>
               </div>
               <div class="card card-left-align" style="padding: 1.25rem">
                 <h3 style="font-size: 1.05rem; color: var(--accent-color)">
-                  <i class="fas fa-code-branch"></i> 🏛️ Arquiteto de Contratos
+                  <i class="fas fa-code-branch"></i> 🏛️ Chloe (Contratos)
                 </h3>
                 <p style="font-size: 0.88rem">
                   Apollo Federation v2, Schemas GraphQL, OpenAPI, `@key`,
@@ -953,7 +1013,7 @@ iniciar demanda &lt;CODIGO_CARD&gt; seguindo @PROJECT-BRAIN.md
               </div>
               <div class="card card-left-align" style="padding: 1.25rem">
                 <h3 style="font-size: 1.05rem; color: var(--accent-color)">
-                  <i class="fas fa-plug"></i> 🔌 Engenheiro de Integração
+                  <i class="fas fa-plug"></i> 🔌 Caleb (Integração)
                 </h3>
                 <p style="font-size: 0.88rem">
                   Clientes HTTP, pooling Undici, timeouts rígidos (≤500ms),
@@ -962,7 +1022,7 @@ iniciar demanda &lt;CODIGO_CARD&gt; seguindo @PROJECT-BRAIN.md
               </div>
               <div class="card card-left-align" style="padding: 1.25rem">
                 <h3 style="font-size: 1.05rem; color: var(--accent-color)">
-                  <i class="fas fa-mobile-alt"></i> 📱 Compatibilidade
+                  <i class="fas fa-mobile-alt"></i> 📱 Emma (Compatibilidade)
                 </h3>
                 <p style="font-size: 0.88rem">
                   Consumidores web/mobile, design system e estratégia Strangler
@@ -971,7 +1031,7 @@ iniciar demanda &lt;CODIGO_CARD&gt; seguindo @PROJECT-BRAIN.md
               </div>
               <div class="card card-left-align" style="padding: 1.25rem">
                 <h3 style="font-size: 1.05rem; color: var(--accent-color)">
-                  <i class="fas fa-chart-line"></i> 📊 SRE &amp; Observabilidade
+                  <i class="fas fa-chart-line"></i> 📊 David (SRE)
                 </h3>
                 <p style="font-size: 0.88rem">
                   Métricas p95/p99, traces Datadog/OTel, sanitização estrita de
@@ -980,7 +1040,7 @@ iniciar demanda &lt;CODIGO_CARD&gt; seguindo @PROJECT-BRAIN.md
               </div>
               <div class="card card-left-align" style="padding: 1.25rem">
                 <h3 style="font-size: 1.05rem; color: var(--accent-color)">
-                  <i class="fas fa-check-double"></i> 🧪 QA &amp; Qualidade
+                  <i class="fas fa-check-double"></i> 🧪 Sarah (QA)
                 </h3>
                 <p style="font-size: 0.88rem">
                   Cobertura 100% inegociável em branches, functions e linhas via
