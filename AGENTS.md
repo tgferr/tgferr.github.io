@@ -1,11 +1,11 @@
-# AGENTS.md — Protocolo do Universal Brain Framework (IA Tools Hub)
+# AGENTS.md — Protocolo do Enterprise Brain Framework (IA Tools Hub)
 
-> Fonte: **[PROJECT-BRAIN.md](PROJECT-BRAIN.md)** (symlink → `PROJECT_BRAIN_FRAMEWORK.md`).
+> Fonte: **[PROJECT-BRAIN.md](PROJECT-BRAIN.md)** (symlink → `ENTERPRISE_PROJECT_FRAMEWORK.md`).
 > Este arquivo é a **única fonte de verdade** do fluxo agêntico deste repositório. Os agentes devem internalizar estas regras antes de executar.
 
 ## 🧭 Propósito
 
-O repo é um site estático **Jekyll + GitHub Pages** (hub de IA: templates, GEMs e utilitários). O Universal Brain Framework orquestra qualquer demanda aqui com governança rígida: memória viva, ciclo OPENSPEC, matriz de personas e **segurança por padrão**.
+O repo é um site estático **Jekyll + GitHub Pages** (hub de IA: templates, GEMs e utilitários). O Enterprise Brain Framework (v4.0.0-ENTERPRISE, MIA-Native Luizalabs) orquestra qualquer demanda aqui com governança rígida: memória viva, ciclo OPENSPEC, Roda de Debate com Opositor, matriz de personas e **segurança por padrão**.
 
 ## ⛔ Hard Constraints (Diretivas Rígidas)
 
@@ -20,19 +20,21 @@ O repo é um site estático **Jekyll + GitHub Pages** (hub de IA: templates, GEM
 ## 🔄 Ciclo Operacional (OPENSPEC Workflow)
 
 ```
-/start-demand <ID-OU-NOME>  →  Coleta + Explore → Plano → PARADA [A] → implementação
+/start-demand <ID-OU-NOME>  →  Coleta + Deep-Search → Roda (Opositor) → Plano → PARADA [A] → implementação
 /review-personas            →  Debates as 6 lentes especializadas pré-código; risco/algo → pergunta ao dev
 /execute                    →  Implementação cirúrgica + validação
 /feed-brain & /close-demand →  Destilação de lições na Seção 8 + MR_DESCRIPTION.md + cleanup
 ```
 
+- **Roda de Discussão Circular**: ⚖️ **Tiago Ferreira** (Opositor Crítico) é **obrigatoriamente o primeiro** a contra-argumentar após qualquer proposta; o debate é registrado em `OPENSPEC/agents-discussions-<DEMANDA>/<DEMANDA>.agent.md` (Modo Ágil vs Modo Pleno, §2 e §4 do BRAIN).
 - Estruturas criadas em `OPENSPEC/` e `Checklist/` (`/start-demand`).
 - Entregas em `OPENSPEC/openspec-files/MR_DESCRIPTION.md` (`Context` / `Changes` / `Tests`).
 
-## 🧠 Matriz de Personas (6 lentes especialistas)
+## 🧠 Matriz de Personas (6 lentes especialistas + Opositor)
 
 | # | Persona | Claude Code (executável) | Portável (Copilot/Aider) |
 | - | - | - | - |
+| 0 | ⚖️ Tiago Ferreira (Opositor Crítico) | — | — |
 | 1 | 🤖 MIA & Tooling | `.claude/agents/brain-mia-tooling.md` | `.agents/brain-mia-tooling.agent.md` |
 | 2 | 🏛️ Arquiteto de Contratos | `.claude/agents/brain-contracts-architect.md` | `.agents/brain-contracts-architect.agent.md` |
 | 3 | 🔌 Engenheiro de Integração | `.claude/agents/brain-integration-engineer.md` | `.agents/brain-integration-engineer.agent.md` |
@@ -40,7 +42,7 @@ O repo é um site estático **Jekyll + GitHub Pages** (hub de IA: templates, GEM
 | 5 | 📊 SRE & Observabilidade | `.claude/agents/brain-sre-observability.md` | `.agents/brain-sre-observability.agent.md` |
 | 6 | 🧪 QA & Qualidade | `.claude/agents/brain-qa-quality.md` | `.agents/brain-qa-quality.agent.md` |
 
-Uso na fase de review pré-código e suporte operacional (conforme §3.2 do framework).
+Uso na fase de review pré-código e suporte operacional (conforme §3–4 do framework). No Modo Pleno, o Opositor abre o debate; nos demais pontos, ver §2.1/§2.2 do BRAIN.
 
 ## 🔧 Setup de Ambiente
 
@@ -63,8 +65,9 @@ Uso na fase de review pré-código e suporte operacional (conforme §3.2 do fram
 ├── index.html               # Hub SPA (navegação showPage) + cards home
 ├── *.html                   # Páginas standalone (Template Copilot, GEMs, project_brain_framework.html)
 ├── AGENTS.md                # Este arquivo
-├── PROJECT-BRAIN.md         # symlink → PROJECT_BRAIN_FRAMEWORK.md
-├── PROJECT_BRAIN_FRAMEWORK.md # Fonte viva do framework (Seção 8 acumula lições)
+├── PROJECT-BRAIN.md         # symlink → ENTERPRISE_PROJECT_FRAMEWORK.md
+├── ENTERPRISE_PROJECT_FRAMEWORK.md # Fonte viva do framework (Seção 8 acumula lições)
+├── DOMESTICUSER_PROJECT_FRAMEWORK.md # Edição Community/Portátil (dual-engine, p/ download)
 ├── .claude/agents/          # 6 subagentes executáveis Claude Code
 ├── .agents/                 # 6 personas portáveis (.agent.md — Copilot/Cursor/Aider)
 ├── OPENSPEC/                # Fluxo OpenSpec: README, active_todo, templates (openspec-files/)

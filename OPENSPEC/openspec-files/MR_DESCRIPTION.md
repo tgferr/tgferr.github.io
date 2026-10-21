@@ -1,29 +1,27 @@
 # MR — Descrição de Entrega
 
-> **Demanda**: Materialização do Universal Brain Framework — pastas, agents, subagents + documentação
-> **Framework**: Universal Brain Framework v3.5.0
+> **Demanda**: Bootstrap do Enterprise Brain Framework v4.0.0-ENTERPRISE neste repositório
+> **Framework**: Enterprise Brain Framework 4.0.0-ENTERPRISE (MIA-Native Luizalabs)
 > **Status**: Concluído
 
 ## Context
 
-O repositório (IA Tools Hub — site estático Jekyll) passou a adotar o **Universal Brain Framework** como orquestrador de demandas de IA. Esta entrega materializa a infraestrutura agêntica do framework no repo: pastas de agentes (executáveis + portáteis), estrutura OPENSPEC/Checklist, documentação e a fonte viva do BRAIN instalada na raiz (symlink), além do `/feed-brain` com lição persistida na Seção 8.
+O repositório (IA Tools Hub — site estático Jekyll) passou a adotar o **Enterprise Brain Framework** como orquestrador de demandas de IA no ecossistema Luizalabs. Esta entrega materializa a infraestrutura agêntica do framework no repo: instalação da fonte viva na raiz (symlink), estrutura OPENSPEC/Checklist, documentação e atualização das referências de versão.
 
 ## Changes
 
-- **`.claude/agents/`** (6 subagentes executáveis Claude Code, frontmatter `name`/`description`/`tools`/`permissionMode`/`model`): `brain-mia-tooling`, `brain-contracts-architect`, `brain-integration-engineer`, `brain-compat-specialist`, `brain-sre-observability`, `brain-qa-quality`.
-- **`.agents/`** (6 pessoas portáteis `.agent.md`, padrão AGENTS.md/Copilot): mesmo conjunto em sincronia.
-- **`AGENTS.md`** (raiz): protocolo aberto do framework (hard constraints, ciclo OpenSpec, matriz de personas, setup, segurança).
-- **`OPENSPEC/`**: `README.md` (guia do fluxo), `active_todo.md` (memória de sessão), `openspec-files/{MR_DESCRIPTION.md, execution-summary.md}` (templates).
-- **`Checklist/TEMPLATE.md`**: checklist de demanda (coleta → explore → plano `[A]` → execute → feed-brain).
-- **`PROJECT-BRAIN.md`**: symlink → `PROJECT_BRAIN_FRAMEWORK.md` (fonte única).
-- **Editados**: `README.md` (seção BRAIN + árvore), `.github/copilot-instructions.md` (árvore + seção BRAIN).
-- **Feed-brain**: lição adicionada na **§8.1** do `PROJECT_BRAIN_FRAMEWORK.md` (`.claude/agents/` é o único caminho executável do Claude Code; `.agents/` é padrão aberto para outros editores; manter os dois espelhos em sincronia).
+- **ADDED** `PROJECT-BRAIN.md` (symlink → `ENTERPRISE_PROJECT_FRAMEWORK.md`).
+- **ADDED** `OPENSPEC/README.md`, `OPENSPEC/active_todo.md`, `OPENSPEC/openspec-files/MR_DESCRIPTION.md`, `OPENSPEC/openspec-files/execution-summary.md`.
+- **MODIFIED** `AGENTS.md` (reponta para Enterprise v4 + matriz com Opositor Crítico Tiago Ferreira).
+- **MODIFIED** `Checklist/TEMPLATE.md` (refs para v4).
+- **MODIFIED** `README.md` e `.github/copilot-instructions.md` (seção BRAIN → Enterprise v4).
+- **MODIFIED** `project_brain_framework.html` (rótulos v4.0.0 + download Enterprise/Community).
 
 ## Tests
 
-- `claude plugin validate .claude/agents` → validação dos 6 subagentes (frontmatter ok).
-- `PROJECT-BRAIN.md` → symlink válido apontando para `PROJECT_BRAIN_FRAMEWORK.md`.
-- Servidor local (`python3 -m http.server`) → páginas/markdown novos servidos (HTTP 200), sem quebra do site.
+- `readlink PROJECT-BRAIN.md` → symlink válido apontando para `ENTERPRISE_PROJECT_FRAMEWORK.md`.
+- Validação de estrutura OPENSPEC + consistência de referências (`grep`).
+- Servidor local (`python3 -m http.server`) → páginas/markdown servidos (HTTP 200), sem quebra do site.
 - `git status` → revisados arquivos novos/delta (nenhum commit efetuado).
 
 ---
