@@ -350,6 +350,170 @@
         box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
       }
 
+      /* Tabs Navigation */
+      .tabs-nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        margin: 2rem 0 3rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.85rem 1.75rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem 0.5rem 0 0;
+        color: var(--text-secondary);
+        font-family: inherit;
+        font-weight: 600;
+        font-size: 1.05rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .tab-btn:hover {
+        color: var(--text-primary);
+        background: var(--border-color);
+      }
+
+      .tab-btn.active {
+        color: white;
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        border-color: transparent;
+        box-shadow: 0 4px 14px rgba(102, 126, 234, 0.35);
+      }
+
+      .tab-panel {
+        display: none;
+        animation: fadeIn 0.25s ease-in-out;
+      }
+
+      .tab-panel.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Step Cards for Tab 1 */
+      .step-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .step-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        position: relative;
+        text-align: left;
+      }
+
+      .step-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        color: white;
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .step-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .step-card p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      /* Enterprise Featured Card */
+      .card-enterprise-featured {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.12));
+        border: 2px solid var(--accent-color);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-badge-top {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.35rem 0.75rem;
+        border-radius: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .btn-enterprise {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        padding: 0.85rem 1.75rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+      }
+
+      .btn-enterprise:hover {
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      }
+
+      .btn-domestic {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+
+      .btn-domestic:hover {
+        background: var(--border-color);
+      }
+
+      /* Table comparison */
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.5rem;
+        font-size: 0.92rem;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--border-color);
+        text-align: left;
+      }
+
+      .comparison-table th {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+      }
+
+      .comparison-table td {
+        color: var(--text-secondary);
+      }
+
       .feature-highlight {
         background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
         border: 1px solid var(--accent-color);
@@ -426,8 +590,19 @@
       @media (max-width: 768px) {
         .grid-cols-2,
         .grid-cols-3,
-        .grid-cols-4 {
+        .grid-cols-4,
+        .step-grid {
           grid-template-columns: 1fr;
+        }
+
+        .tabs-nav {
+          gap: 0.5rem;
+        }
+
+        .tab-btn {
+          width: 100%;
+          justify-content: center;
+          border-radius: 0.5rem;
         }
 
         .hero-section h1 {
@@ -464,319 +639,267 @@
         <!-- Main Content -->
         <div class="container">
 
-            <!-- Visão Geral -->
-            <section class="section">
-                <div class="flex-center-col">
-                    <h2 class="text-center">O que é o PROJECT BRAIN?</h2>
-                    <p style="color: var(--text-secondary); max-width: 800px; text-align: center; margin-top: 1rem;">
-                        Um arquivo único (<code>PROJECT-BRAIN.md</code>) que atua como fonte única de verdade, memória viva
-                        e orquestrador de desenvolvimento. Copie-o para qualquer projeto e ative o fluxo OpenSpec de
-                        demandas com governança rígida antes de qualquer linha de código.
-                    </p>
-                </div>
-            </section>
+            <!-- Navegação por Tabs (Máximo 3 Tabs) -->
+            <nav class="tabs-nav" role="tablist">
+                <button class="tab-btn active" data-tab="tab-inicio" role="tab" aria-selected="true" onclick="switchTab('tab-inicio')">
+                    <i class="fas fa-play-circle"></i> 1. Como Iniciar (1ª Conversa)
+                </button>
+                <button class="tab-btn" data-tab="tab-governanca" role="tab" aria-selected="false" onclick="switchTab('tab-governanca')">
+                    <i class="fas fa-shield-alt"></i> 2. Governança &amp; Personas
+                </button>
+                <button class="tab-btn" data-tab="tab-downloads" role="tab" aria-selected="false" onclick="switchTab('tab-downloads')">
+                    <i class="fas fa-download"></i> 3. Downloads &amp; Edições
+                </button>
+            </nav>
 
-            <!-- Propósito e Modos de Operação -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-sliders-h"></i> Modos de Operação</h2>
-                <div class="grid grid-cols-2">
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <h3>Perfil Enterprise Luizalabs</h3>
-                        <p>
-                            Acionado via <code>MIA + Claude Code CLI</code>: sinergia com o ecossistema corporativo
-                            — Context-Mode nativo, RTK no PATH, LSPs automáticos (Go/Python/TS), autenticação Google
-                            PKCE e plugins curados.
+            <!-- TAB 1: COMO INICIAR (PASSO A PASSO LÚDICO) -->
+            <div id="tab-inicio" class="tab-panel active" role="tabpanel">
+                <section class="section" style="margin-bottom: 2rem;">
+                    <div class="flex-center-col" style="margin-bottom: 2rem;">
+                        <h2 class="text-center" style="font-size: 1.85rem;"><i class="fas fa-rocket" style="color: var(--accent-color);"></i> Como Iniciar a Primeira Conversa</h2>
+                        <p style="color: var(--text-secondary); max-width: 760px; text-align: center; margin-top: 0.5rem;">
+                            Siga estes 4 passos simples para ativar o agente de IA com governança rígida, sem risco de alterações indesejadas no seu repositório.
                         </p>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-laptop-code"></i>
+
+                    <!-- 4 Passos Lúdicos -->
+                    <div class="step-grid">
+                        <div class="step-card">
+                            <span class="step-badge">1</span>
+                            <h3>Prepare seu Ambiente</h3>
+                            <p>
+                                <strong>Terminal (MIA)</strong>: Faça <code>mia login</code> e abra o agente com <code>mia launch claude</code>.<br>
+                                <strong>VS Code</strong>: Certifique-se de que o <code>PROJECT-BRAIN.md</code> está na raiz do projeto e abra o chat do Copilot.
+                            </p>
                         </div>
-                        <h3>Perfil Community / Doméstico</h3>
-                        <p>
-                            Roda em qualquer LLM (Copilot, Ollama, OpenAI) com agentes autônomos puros, formulários
-                            interativos via UI e governança local simulada — sem depender de proxy corporativo.
+
+                        <div class="step-card">
+                            <span class="step-badge">2</span>
+                            <h3>Envie o Comando de Abertura</h3>
+                            <p>
+                                Dispare a demanda informando o código da tarefa (ex: <code>STK-1234</code> ou nome da feature). Copie os comandos prontos logo abaixo.
+                            </p>
+                        </div>
+
+                        <div class="step-card">
+                            <span class="step-badge">3</span>
+                            <h3>Questionário &amp; Trava Pré-Código</h3>
+                            <p>
+                                O agente analisa o escopo e apresenta o plano com o Opositor Crítico. <strong>Nenhum arquivo é editado</strong> até você responder <code>[A]</code>.
+                            </p>
+                        </div>
+
+                        <div class="step-card">
+                            <span class="step-badge">4</span>
+                            <h3>Execução Cirúrgica &amp; Validação</h3>
+                            <p>
+                                Após seu <code>[A]</code>, o agente edita o código estritamente necessário e roda a Tríade Determinística: <code>rtk test</code> ➔ <code>rtk eslint</code> ➔ <code>rtk build</code>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bloco de Comandos Rápidos -->
+                    <div class="card card-left-align feature-highlight" style="margin-top: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem;"><i class="fas fa-terminal"></i> Comandos Prontos para Copiar</h3>
+
+                        <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Opção A: No Terminal via Claude Code CLI (MIA):</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCmd(this, 'cmd-cli')">Copiar</button>
+<pre id="cmd-cli" style="margin: 0;">iniciar demanda &lt;CODIGO_CARD&gt; seguindo @PROJECT-BRAIN.md
+# ou simplesmente:
+/start-demand &lt;CODIGO_CARD&gt;</pre>
+                        </div>
+
+                        <p style="color: var(--text-secondary); margin-top: 1.25rem; margin-bottom: 0.5rem; font-weight: 600;">Opção B: No VS Code Copilot Chat:</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCmd(this, 'cmd-copilot')">Copiar</button>
+<pre id="cmd-copilot" style="margin: 0;">@PROJECT-BRAIN.md iniciar demanda &lt;CODIGO_CARD&gt;
+# ou comando rápido:
+/start-demand &lt;CODIGO_CARD&gt;</pre>
+                        </div>
+
+                        <div style="margin-top: 1.25rem; padding: 0.85rem 1rem; background: var(--bg-primary); border-left: 4px solid var(--accent-color); border-radius: 0.375rem;">
+                            <strong style="color: var(--text-primary);"><i class="fas fa-shield-alt"></i> Trava Pré-Código Inegociável:</strong>
+                            <span style="color: var(--text-secondary);"> O agente aguarda você digitar ou selecionar <code>[A] Aprovar plano</code> antes de criar ou modificar qualquer linha de código.</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- TAB 2: FRAMEWORK & GOVERNANÇA -->
+            <div id="tab-governanca" class="tab-panel" role="tabpanel">
+                <section class="section" style="margin-bottom: 2rem;">
+                    <div class="flex-center-col" style="margin-bottom: 2rem;">
+                        <h2 class="text-center" style="font-size: 1.85rem;"><i class="fas fa-balance-scale" style="color: var(--accent-color);"></i> Governança &amp; Personas Especialistas</h2>
+                        <p style="color: var(--text-secondary); max-width: 760px; text-align: center; margin-top: 0.5rem;">
+                            O Brain garante qualidade industrial através de travas rígidas e deliberação circular entre 6 lentes técnicas + Opositor Crítico.
                         </p>
                     </div>
-                </div>
-            </section>
 
-            <!-- Diretivas Rígidas de Segurança -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-shield-alt"></i> Diretivas Rígidas de Segurança</h2>
-                <div class="grid grid-cols-2">
-                    <div class="card card-left-align">
-                        <div class="card-icon">
-                            <i class="fas fa-ban"></i>
+                    <!-- 3 Diretivas Rígidas -->
+                    <div class="grid grid-cols-3" style="margin-bottom: 2rem;">
+                        <div class="card card-left-align">
+                            <div class="card-icon" style="width: 48px; height: 48px; font-size: 1.4rem;"><i class="fas fa-ban"></i></div>
+                            <h3 style="font-size: 1.15rem;">Nunca Commit Automático</h3>
+                            <p style="font-size: 0.9rem;">Git é restrito a leitura (status/diff) e staging pré-aprovado. Proibido <code>git push</code> ou alterar histórico sem ordem direta.</p>
                         </div>
-                        <h3>Nunca commit ou push automáticos</h3>
-                        <p>Proibido executar <code>git commit</code>, <code>git push</code>, <code>git merge</code> ou rebase sem instrução expressa e intencional do desenvolvedor. Operações git são somente de leitura ou staging cirúrgico pré-aprovado.</p>
-                    </div>
-                    <div class="card card-left-align">
-                        <div class="card-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h3>Trava pré-código inegociável</h3>
-                        <p>Proibido criar ou editar arquivos sem um plano aprovado em turno explícito. O fluxo obrigatório: Coleta de Requisitos → Explore → Plano → Aprovação <code>[A]</code> → somente então, código.</p>
-                    </div>
-                    <div class="card card-left-align">
-                        <div class="card-icon">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <h3>Transparência do runtime</h3>
-                        <p>O agente reconhece o perfil de execução ativo (LiteLLM interno ou LLM da IDE) e adapta comportamento: foco em lógica de negócio, Clean Architecture e testes no CLI; UI nativa no VS Code.</p>
-                    </div>
-                    <div class="card card-left-align">
-                        <div class="card-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <h3>Gateway interativo de abertura</h3>
-                        <p>Toda demanda inicia com um gateway de confirmação: menu limpo e atalhos no Claude Code CLI, ou botões clicáveis via <code>vscode_askQuestions</code> no VS Code.</p>
-                    </div>
-                    <div class="card card-left-align">
-                        <div class="card-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <h3>Zero dump de conteúdo bruto</h3>
-                        <p>Proibido colar logs, stack traces ou arquivos volumosos na conversa. Processar no sandbox e devolver apenas métricas, causas raiz e diffs mínimos.</p>
-                    </div>
-                    <div class="card card-left-align">
-                        <div class="card-icon">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <h3>Política de retorno enxuto</h3>
-                        <p>Respostas sem preâmbulo social. Alterações exibidas apenas como deltas — <code>## ADDED</code>, <code>## MODIFIED</code> e <code>## REMOVED</code> — limitando o contexto a 3 linhas de vizinhança.</p>
-                    </div>
-                </div>
-            </section>
 
-            <!-- Deep-Search-Learning: Matriz de Personas -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-users"></i> Matriz de Personas Especialistas</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                    Antes de alterar qualquer linha, o framework ativa o Deep-Search-Learning e posiciona lentes especializadas
-                    na revisão pré-código e no suporte operacional.
-                </p>
-                <div class="flex-center-col">
-                    <div class="grid grid-cols-3" style="width: 100%;">
                         <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-robot"></i></div>
-                            <h3>Especialista MIA &amp; Tooling</h3>
-                            <ul>
-                                <li>Gestão de plugins, skills e MCPs</li>
-                                <li>Gateways LiteLLM e certificados SSL</li>
-                            </ul>
+                            <div class="card-icon" style="width: 48px; height: 48px; font-size: 1.4rem;"><i class="fas fa-lock"></i></div>
+                            <h3 style="font-size: 1.15rem;">Trava Pré-Código</h3>
+                            <p style="font-size: 0.9rem;">Zero edições antes de plano aprovado em turno explícito. Fluxo: Coleta ➔ Explore ➔ Roda ➔ Plano ➔ <code>[A]</code> ➔ Código.</p>
                         </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-code-branch"></i></div>
-                            <h3>Arquiteto de Contratos</h3>
-                            <ul>
-                                <li>Schemas GraphQL, OpenAPI, Protobuf</li>
-                                <li>Compatibilidade semântica e <code>@key</code>/<code>@shareable</code></li>
-                            </ul>
-                        </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-plug"></i></div>
-                            <h3>Engenheiro de Integração</h3>
-                            <ul>
-                                <li>Clientes HTTP, pooling e latência</li>
-                                <li>Timeout estrito e retry controlado</li>
-                            </ul>
-                        </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
-                            <h3>Compatibilidade</h3>
-                            <ul>
-                                <li>Web, mobile e apps legados</li>
-                                <li>Coexistência dual (Strangler Fig)</li>
-                            </ul>
-                        </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                            <h3>SRE &amp; Observabilidade</h3>
-                            <ul>
-                                <li>Latência p95/p99 e traces distribuídos</li>
-                                <li>Sanitização de logs — proibido PII</li>
-                            </ul>
-                        </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-check-double"></i></div>
-                            <h3>QA &amp; Qualidade</h3>
-                            <ul>
-                                <li>Testes de unidade e integração</li>
-                                <li>Cobertura 100% de branches e linhas</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- Ciclo Operacional -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-sync-alt"></i> Ciclo Operacional de Demandas (OpenSpec)</h2>
-                <div class="timeline">
-                    <div class="timeline-item" data-step="1">
-                        <h3><code>/start-demand</code> — Coleta e Plano</h3>
-                        <p>Detecta o perfil de execução, dispara o Explore e apresenta o plano no terminal com parada obrigatória até a aprovação <code>[A] Aprovar plano</code>.</p>
+                        <div class="card card-left-align">
+                            <div class="card-icon" style="width: 48px; height: 48px; font-size: 1.4rem;"><i class="fas fa-compress-alt"></i></div>
+                            <h3 style="font-size: 1.15rem;">Zero Dump de Logs</h3>
+                            <p style="font-size: 0.9rem;">Dumps e logs brutos ficam no sandbox local. Respostas enxutas apenas com métricas, causas raiz e deltas cirúrgicos.</p>
+                        </div>
                     </div>
-                    <div class="timeline-item" data-step="2">
-                        <h3><code>/review-personas</code> — Análise Multi-Ângulo</h3>
-                        <p>Debate técnico das lentes especializadas (Arquitetura, Integração, Compatibilidade, SRE e QA). Risco alto ou breaking change? Para e pergunta ao dev.</p>
-                    </div>
-                    <div class="timeline-item" data-step="3">
-                        <h3><code>/execute</code> — Implementação Cirúrgica</h3>
-                        <p>Execução baseada em deltas, respeitando Clean Architecture, com suíte de testes de 100% de cobertura. Em falha: diagnóstico conciso, nunca retry cego em loop.</p>
-                    </div>
-                    <div class="timeline-item" data-step="4">
-                        <h3><code>/feed-brain</code> &amp; <code>/close-demand</code> — Destilação</h3>
-                        <p>Persiste lições aprendidas na Base Viva (Seção 8), gera o template de entrega <code>MR_DESCRIPTION.md</code>, arquiva artefatos efêmeros e confirma próximos passos.</p>
-                    </div>
-                </div>
-            </section>
 
-            <!-- Regras de Ouro Técnicas -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-gem"></i> Regras de Ouro Técnicas</h2>
-                <div class="flex-center-col">
-                    <div class="grid grid-cols-2" style="width: 100%;">
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-draw-polygon"></i></div>
-                            <h3>Clean Architecture nos Mappers</h3>
-                            <p>Conversões de DTO externo vivem em <code>domain/mappers/</code>, como funções puras, idempotentes e com 100% de testes para cada chave opcional.</p>
+                    <!-- Lentes Especializadas -->
+                    <h3 class="section-title" style="font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-users-cog"></i> Matriz de Personas Especialistas</h3>
+                    <div class="grid grid-cols-3">
+                        <div class="card card-left-align" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1.05rem; color: var(--accent-color);"><i class="fas fa-balance-scale"></i> ⚖️ Tiago Ferreira (Opositor)</h3>
+                            <p style="font-size: 0.88rem;">Devil's Advocate: primeiro a contra-argumentar, apontando riscos, custos ocultos e suposições frágeis.</p>
                         </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-stopwatch"></i></div>
-                            <h3>Orçamento de Latência &amp; Fallback</h3>
-                            <p>Nenhuma chamada upstream pode travar além do SLA (≤ 500ms). Falhas acionam fallback gracioso — <code>null</code> ou payload degradado — sem derrubar a aplicação.</p>
+                        <div class="card card-left-align" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1.05rem; color: var(--accent-color);"><i class="fas fa-code-branch"></i> 🏛️ Arquiteto de Contratos</h3>
+                            <p style="font-size: 0.88rem;">Apollo Federation v2, Schemas GraphQL, OpenAPI, `@key`, `@provides` e compatibilidade semântica.</p>
                         </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-plug"></i></div>
-                            <h3>Injeção de Dependência Dinâmica</h3>
-                            <p>Nunca singletons estáticos globais que impeçam rebind/mock em testes. Dependências são injetadas sempre que exigem isolamento testável.</p>
+                        <div class="card card-left-align" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1.05rem; color: var(--accent-color);"><i class="fas fa-plug"></i> 🔌 Engenheiro de Integração</h3>
+                            <p style="font-size: 0.88rem;">Clientes HTTP, pooling Undici, timeouts rígidos (≤500ms), Circuit Breakers e fallbacks defensivos.</p>
                         </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-user-secret"></i></div>
-                            <h3>Zero Segredo ou PII em Logs</h3>
-                            <p>Tokens e senhas nunca em URL params — apenas no body. Proibido logar dados pessoais de clientes nos logs da aplicação.</p>
+                        <div class="card card-left-align" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1.05rem; color: var(--accent-color);"><i class="fas fa-mobile-alt"></i> 📱 Compatibilidade</h3>
+                            <p style="font-size: 0.88rem;">Consumidores web/mobile, design system e estratégia Strangler Fig para coexistência dual sem quebra.</p>
                         </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-hashtag"></i></div>
-                            <h3>Nomes ASCII Kebab-Case</h3>
-                            <p>Arquivos sem acentos, cedilhas ou caracteres especiais para evitar quebras em runners de CI e no SonarScanner.</p>
+                        <div class="card card-left-align" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1.05rem; color: var(--accent-color);"><i class="fas fa-chart-line"></i> 📊 SRE &amp; Observabilidade</h3>
+                            <p style="font-size: 0.88rem;">Métricas p95/p99, traces Datadog/OTel, sanitização estrita de PII e zero console.log em produção.</p>
                         </div>
-                        <div class="card card-left-align">
-                            <div class="card-icon"><i class="fas fa-book"></i></div>
-                            <h3>Cobertura Inegociável</h3>
-                            <p>Testes unitários garantem 100% de cobertura em statements, branches e linhas — com casos explícitos para chaves ausentes, nulos e fallbacks.</p>
+                        <div class="card card-left-align" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1.05rem; color: var(--accent-color);"><i class="fas fa-check-double"></i> 🧪 QA &amp; Qualidade</h3>
+                            <p style="font-size: 0.88rem;">Cobertura 100% inegociável em branches, functions e linhas via Tríade Determinística de validação.</p>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
 
-            <!-- Base Viva de Lições Aprendidas -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-brain"></i> Base Viva de Lições Aprendidas</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                    Seção cumulativa e imutável: cada demanda concluída destila suas lições em regras acionáveis,
-                    alimentadas pelo <code>/feed-brain</code>.
-                </p>
-                <div class="grid grid-cols-2">
-                    <div class="card card-left-align">
-                        <h3><i class="fas fa-cog" style="color: var(--accent-color);"></i> Setup &amp; Runtime</h3>
-                        <ul>
-                            <li>Ferramental gerido unicamente pelo MIA CLI (skills-tk descontinuado)</li>
-                            <li>Certificado Netskope exportado para automações de navegador</li>
-                            <li>Logins institucionais exigem navegador real e MFA — aguardar confirmação</li>
-                        </ul>
+            <!-- TAB 3: DOWNLOADS & EDIÇÕES -->
+            <div id="tab-downloads" class="tab-panel" role="tabpanel">
+                <section class="section" style="margin-bottom: 2rem;">
+                    <div class="flex-center-col" style="margin-bottom: 2rem;">
+                        <h2 class="text-center" style="font-size: 1.85rem;"><i class="fas fa-download" style="color: var(--accent-color);"></i> Escolha a Edição do Framework</h2>
+                        <p style="color: var(--text-secondary); max-width: 760px; text-align: center; margin-top: 0.5rem;">
+                            Baixe o arquivo correspondente e salve na raiz do seu repositório como <code>PROJECT-BRAIN.md</code>.
+                        </p>
                     </div>
-                    <div class="card card-left-align">
-                        <h3><i class="fas fa-sitemap" style="color: var(--accent-color);"></i> Arquitetura &amp; Contratos</h3>
-                        <ul>
-                            <li>Strategia Strangler Fig em subgrafos legados</li>
-                            <li>Metadados abertos com custom scalars e validação de AST</li>
-                            <li>Normalização numérica segura com fallback para 0</li>
-                        </ul>
-                    </div>
-                    <div class="card card-left-align">
-                        <h3><i class="fas fa-server" style="color: var(--accent-color);"></i> Integração &amp; Resiliência</h3>
-                        <ul>
-                            <li>Zero console.log/print em produção — loggers estruturados assíncronos</li>
-                            <li>Headers de experimento/tenant propagados deterministicamente</li>
-                            <li>Timeout estrito em toda chamada upstream</li>
-                        </ul>
-                    </div>
-                    <div class="card card-left-align">
-                        <h3><i class="fas fa-vial" style="color: var(--accent-color);"></i> Testes &amp; Qualidade</h3>
-                        <ul>
-                            <li>Cobertura absoluta de casos de borda (chaves ausentes, arrays vazios, nulos)</li>
-                            <li>Fallbacks com exceções explícitas de teste na suíte</li>
-                            <li>Testes nunca acoplados a estado global</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
 
-            <!-- Como Usar -->
-            <section class="section">
-                <h2 class="section-title"><i class="fas fa-rocket"></i> Como Usar</h2>
-                <div class="card card-left-align feature-highlight">
-                    <h3><i class="fas fa-lightbulb"></i> Instalação rápida</h3>
-                    <p>
-                        Copie o arquivo <code>ENTERPRISE_PROJECT_FRAMEWORK.md</code> (Enterprise) ou
-                        <code>DOMESTICUSER_PROJECT_FRAMEWORK.md</code> (Community) para a raiz do seu repositório como
-                        <code>PROJECT-BRAIN.md</code> ou <code>.openspec/brain.md</code> e acione o fluxo com o comando
-                        do seu runtime.
-                    </p>
-                </div>
+                    <!-- Cards de Download: Enterprise Destacado vs Domestic -->
+                    <div class="grid grid-cols-2" style="align-items: stretch;">
 
-                <div class="card card-left-align prompt-section" style="padding: 0; overflow: hidden;">
-                    <div id="accordion-container">
-                        <button class="accordion-header" style="width: 100%;">
-                            <span><i class="fas fa-terminal"></i> Comandos de Inicialização</span>
-                            <span class="accordion-icon" style="transform: rotate(0deg);">+</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div style="padding: 1.5rem;">
-                                <p style="color: var(--text-secondary); margin-bottom: 0.75rem;">Claude Code CLI (Enterprise Luizalabs):</p>
-                                <div class="code-block">
-                                    <button id="copy-btn" class="copy-btn">Copiar</button>
-<pre id="cmd-code1" style="margin: 0;">iniciar demanda &lt;CODIGO_CARD_OU_NOME&gt; seguindo @PROJECT-BRAIN.md
-# ou
-/start-demand &lt;CODIGO_CARD_OU_NOME&gt;</pre>
+                        <!-- Card Enterprise (MIA-Native) - DESTACADO -->
+                        <div class="card card-left-align card-enterprise-featured" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span class="card-badge-top"><i class="fas fa-star"></i> RECOMENDADO CORPORATIVO</span>
+                                <div class="card-icon" style="margin: 0 0 1rem 0; width: 56px; height: 56px;">
+                                    <i class="fas fa-building"></i>
                                 </div>
-                                <p style="color: var(--text-secondary); margin-top: 1rem;">VS Code Copilot Chat (Community / Doméstico):</p>
-                                <div class="code-block">
-                                    <button id="copy-btn2" class="copy-btn" onclick="copyCmd(this, 'cmd-code2')">Copiar</button>
-<pre id="cmd-code2" style="margin: 0;">@PROJECT-BRAIN.md iniciar</pre>
-                                </div>
-                                <p class="asterisk-note">
-                                    O Brain analisa a demanda, dispara a varredura das personas e exibe um plano enxuto
-                                    no terminal/chat. Parada obrigatória: o agente aguarda <b>sim</b>, <b>aprovo</b> ou
-                                    ajustes antes de editar qualquer arquivo.
+                                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Enterprise (MIA-Native)</h3>
+                                <p style="font-weight: 600; color: var(--accent-color); margin-bottom: 0.75rem;">
+                                    Trabalha em conjunto com o ecossistema MIA Luizalabs
                                 </p>
+                                <p style="margin-bottom: 1rem; font-size: 0.95rem;">
+                                    Projetado especificamente para operar em simbiose com o <strong>MIA CLI</strong> (<code>~/.mia/</code>):
+                                </p>
+                                <ul>
+                                    <li><strong>Proxy RTK integrado</strong>: filtra e compacta saídas no PATH, economizando de 60% a 90% dos tokens.</li>
+                                    <li><strong>Gateway LiteLLM Corporativo</strong>: autenticação Google PKCE e quotas gerenciadas centralmente.</li>
+                                    <li><strong>Context-Mode &amp; LSPs</strong>: indexação inteligente em sandbox e LSPs semânticos STDIO (Go, Python, TypeScript).</li>
+                                    <li><strong>Governança Enterprise</strong>: conformidade com SonarQube, Hangar, Netskope e cultura Luizalabs.</li>
+                                </ul>
+                            </div>
+                            <div style="margin-top: 2rem;">
+                                <a href="ENTERPRISE_PROJECT_FRAMEWORK.md" download="PROJECT-BRAIN.md" class="btn btn-enterprise" style="width: 100%; justify-content: center;">
+                                    <i class="fas fa-download"></i>
+                                    Baixar Enterprise (MIA-Native)
+                                </a>
+                                <p class="asterisk-note" style="text-align: center;">Salvar como <code>PROJECT-BRAIN.md</code> no repo corporativo.</p>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="feature-highlight card card-left-align" style="text-align: center;">
-                    <h3 style="justify-content: center;"><i class="fas fa-download"></i> Leve o framework para qualquer projeto</h3>
-                    <p style="margin-bottom: 1rem;">
-                        Baixe o framework completo (v4.0.0 — Dual-Engine: Enterprise Luizalabs + Community Portátil).
-                    </p>
-                    <a href="ENTERPRISE_PROJECT_FRAMEWORK.md" download="ENTERPRISE_PROJECT_FRAMEWORK.md" class="btn">
-                        <i class="fas fa-building"></i>
-                        Baixar Enterprise (MIA-Native)
-                    </a>
-                    <a href="DOMESTICUSER_PROJECT_FRAMEWORK.md" download="DOMESTICUSER_PROJECT_FRAMEWORK.md" class="btn" style="margin-left: 0.5rem;">
-                        <i class="fas fa-laptop-code"></i>
-                        Baixar Community Portátil
-                    </a>
-                </div>
-            </section>
+                        <!-- Card Domestic (Uso Pessoal) -->
+                        <div class="card card-left-align" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="card-icon" style="margin: 0 0 1rem 0; width: 56px; height: 56px; background: var(--border-color); color: var(--text-primary);">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Domestic (Uso Pessoal)</h3>
+                                <p style="font-weight: 600; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                                    Edição portátil para estudos e projetos individuais
+                                </p>
+                                <p style="margin-bottom: 1rem; font-size: 0.95rem;">
+                                    Projetado para ser 100% autônomo, sem qualquer dependência de rede corporativa:
+                                </p>
+                                <ul>
+                                    <li><strong>Universal &amp; Portátil</strong>: funciona com qualquer LLM (GitHub Copilot, OpenAI, Claude, Ollama, Cursor).</li>
+                                    <li><strong>Sem Proxy Corporativo</strong>: não requer login PKCE, certificados CA ou ferramentas privadas.</li>
+                                    <li><strong>Governança Local Simulada</strong>: mantém a Trava Pré-Código e aprovação <code>[A]</code> via prompts.</li>
+                                    <li><strong>Ideal para Side-Projects</strong>: repositórios no GitHub pessoal, freelancers e estudos.</li>
+                                </ul>
+                            </div>
+                            <div style="margin-top: 2rem;">
+                                <a href="DOMESTICUSER_PROJECT_FRAMEWORK.md" download="DOMESTICUSER_PROJECT_FRAMEWORK.md" class="btn btn-domestic" style="width: 100%; justify-content: center;">
+                                    <i class="fas fa-download"></i>
+                                    Baixar Domestic (Pessoal)
+                                </a>
+                                <p class="asterisk-note" style="text-align: center;">Pronto para uso individual ou comunitário.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Tabela Comparativa Resumida -->
+                    <div style="margin-top: 2.5rem;">
+                        <h3 class="section-title" style="font-size: 1.3rem; margin-bottom: 0.75rem;"><i class="fas fa-columns"></i> Comparativo Rápido</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Característica</th>
+                                    <th>Enterprise (MIA-Native)</th>
+                                    <th>Domestic (Uso Pessoal)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Ambiente / Rede</strong></td>
+                                    <td>Corporativo Luizalabs (com MIA e LiteLLM)</td>
+                                    <td>Qualquer ambiente local / público</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Otimização de Tokens</strong></td>
+                                    <td>RTK automático no PATH (60-90% economia)</td>
+                                    <td>Instruções embutidas no prompt</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Motor do Agente</strong></td>
+                                    <td>MIA CLI (<code>mia launch claude</code>) ou Copilot</td>
+                                    <td>Qualquer agente (Copilot, Aider, Claude)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Padrões de Governança</strong></td>
+                                    <td>Hangar, Netskope, SonarQube e Colegiado</td>
+                                    <td>Trava pré-código e Clean Code portáteis</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
         </div>
     </div>
 
@@ -799,59 +922,48 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        // Load saved theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
         themeIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-
         themeToggle.addEventListener('click', toggleTheme);
 
-        // Accordion functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const accordionHeader = document.querySelector('.accordion-header');
-            const accordionContent = document.querySelector('.accordion-content');
-            const accordionIcon = document.querySelector('.accordion-icon');
+        // Tab Navigation Functionality (Max 3 Tabs)
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                const isActive = btn.getAttribute('data-tab') === tabId;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
 
-            if (accordionHeader && accordionContent && accordionIcon) {
-                accordionHeader.addEventListener('click', function() {
-                    const isOpen = accordionContent.style.maxHeight && accordionContent.style.maxHeight !== '0px';
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.toggle('active', panel.id === tabId);
+            });
 
-                    if (isOpen) {
-                        accordionContent.style.maxHeight = '0px';
-                        accordionIcon.style.transform = 'rotate(0deg)';
-                        accordionIcon.textContent = '+';
-                    } else {
-                        accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-                        accordionIcon.style.transform = 'rotate(45deg)';
-                        accordionIcon.textContent = '×';
-                    }
-                });
+            // Update URL hash without jumping
+            if (history.replaceState) {
+                history.replaceState(null, null, '#' + tabId.replace('tab-', ''));
             }
+        }
 
-            // Copy buttons for command blocks
-            const copyBtn1 = document.getElementById('copy-btn');
-            if (copyBtn1) {
-                copyBtn1.addEventListener('click', function() {
-                    const codeText = document.getElementById('cmd-code1').textContent;
-                    navigator.clipboard.writeText(codeText).then(() => {
-                        this.textContent = 'Copiado!';
-                        this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                        setTimeout(() => {
-                            this.textContent = 'Copiar';
-                            this.style.background = 'rgba(255, 255, 255, 0.1)';
-                        }, 2000);
-                    });
-                });
+        // Initialize Tab from URL hash or default
+        document.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById('tab-' + hash)) {
+                switchTab('tab-' + hash);
             }
         });
 
+        // Copy command snippets
         function copyCmd(btn, preId) {
-            const codeText = document.getElementById(preId).textContent;
+            const codeEl = document.getElementById(preId);
+            if (!codeEl) return;
+            const codeText = codeEl.textContent;
             navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = btn.textContent;
                 btn.textContent = 'Copiado!';
                 btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                 setTimeout(() => {
-                    btn.textContent = 'Copiar';
+                    btn.textContent = originalText;
                     btn.style.background = 'rgba(255, 255, 255, 0.1)';
                 }, 2000);
             });
