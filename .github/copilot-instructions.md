@@ -1,6 +1,6 @@
 # IA Tools Hub — Instruções para Agentes de IA
 
-> **Fonte de verdade**: [`PROJECT-BRAIN.md`](../PROJECT-BRAIN.md) (symlink → `ENTERPRISE_PROJECT_FRAMEWORK.md`, v4.0.0-ENTERPRISE MIA-Native).
+> **Fonte de verdade**: [`PROJECT-BRAIN.md`](../PROJECT-BRAIN.md) (instância viva especializada deste repo, v4.0.0-ENTERPRISE MIA-Native; o template genérico publicado é `ENTERPRISE_PROJECT_FRAMEWORK.md`).
 > Este arquivo (e o symlink `CLAUDE.md` → aqui) resume as regras para agentes neste repositório. Em conflito, o BRAIN prevalece.
 
 ## 🎯 Visão Geral do Projeto
@@ -33,7 +33,7 @@ tgferr.github.io/
 ├── project_brain_framework.html    # Apresentação do PROJECT BRAIN Framework (autocontida)
 ├── ENTERPRISE_PROJECT_FRAMEWORK.md # Metamodelo Enterprise v4.0.0 (download → PROJECT-BRAIN.md)
 ├── DOMESTICUSER_PROJECT_FRAMEWORK.md # Edição Community/Portátil (download)
-├── PROJECT-BRAIN.md                # symlink → ENTERPRISE_PROJECT_FRAMEWORK.md
+├── PROJECT-BRAIN.md                # Instância viva especializada (memória §8 + mapa §9)
 ├── CLAUDE.md                       # symlink → .github/copilot-instructions.md
 ├── AGENTS.md                       # Protocolo agêntico (Enterprise Brain Framework)
 ├── .claude/agents/                 # 6 subagentes executáveis (Claude Code)

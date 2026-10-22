@@ -791,6 +791,46 @@
           padding: 1rem;
         }
       }
+
+      /* TASK1 — contador de downloads (discreto, autocontido) */
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .dl-stats {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+      }
+      .dl-stats i {
+        opacity: 0.85;
+      }
+      .dl-stats .dl-num {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .dl-stats[hidden] {
+        display: none;
+      }
+      .dl-count {
+        display: block;
+        margin-top: 0.4rem;
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        opacity: 0.85;
+      }
+      .dl-count[hidden] {
+        display: none;
+      }
+      @media (max-width: 480px) {
+        .dl-stats .dl-label {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -803,9 +843,21 @@
             Voltar ao Hub
           </a>
         </div>
-        <button class="theme-toggle" id="themeToggle">
-          <i class="fas fa-sun"></i>
-        </button>
+        <div class="header-right">
+          <span
+            class="dl-stats"
+            id="dlStats"
+            hidden
+            title="Total de downloads dos frameworks (Enterprise + Domestic)"
+          >
+            <i class="fas fa-eye" aria-hidden="true"></i>
+            <span class="dl-label">Downloads</span>
+            <span class="dl-num" id="dlTotal" aria-live="polite">—</span>
+          </span>
+          <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-sun"></i>
+          </button>
+        </div>
       </header>
 
       <!-- Hero Section -->
@@ -963,6 +1015,7 @@ flowchart LR
                     href="ENTERPRISE_PROJECT_FRAMEWORK.md"
                     download="PROJECT-BRAIN.md"
                     class="btn-download-step btn-download-enterprise"
+                    data-dl-key="enterprise"
                   >
                     <span class="btn-title"
                       ><i class="fas fa-download"></i> Baixar Enterprise</span
@@ -971,6 +1024,10 @@ flowchart LR
                       >Salvar na raiz como PROJECT-BRAIN.md</span
                     >
                   </a>
+                  <span class="dl-count" data-dl-count="enterprise" hidden
+                    ><i class="fas fa-download" aria-hidden="true"></i>
+                    <span class="dl-num">—</span> downloads</span
+                  >
                 </div>
                 <div
                   style="
@@ -1036,6 +1093,7 @@ flowchart LR
                     href="DOMESTICUSER_PROJECT_FRAMEWORK.md"
                     download="DOMESTICUSER_PROJECT_FRAMEWORK.md"
                     class="btn-download-step btn-download-domestic"
+                    data-dl-key="domestic"
                   >
                     <span class="btn-title"
                       ><i class="fas fa-download"></i> Baixar Domestic</span
@@ -1044,6 +1102,10 @@ flowchart LR
                       >Salvar na raiz como PROJECT-BRAIN.md</span
                     >
                   </a>
+                  <span class="dl-count" data-dl-count="domestic" hidden
+                    ><i class="fas fa-download" aria-hidden="true"></i>
+                    <span class="dl-num">—</span> downloads</span
+                  >
                 </div>
                 <div
                   style="
@@ -2090,6 +2152,108 @@ flowchart LR
           }, 2000);
         });
       }
+
+      // ── TASK1: contador de downloads (abacus.jasoncameron.dev — sem backend) ──
+      (function () {
+        var NS = "tgferr-github-io";
+        var API = "https://abacus.jasoncameron.dev";
+        var KEYS = ["enterprise", "domestic"];
+        window.__dlCounts = window.__dlCounts || {};
+
+        function fmt(n) {
+          return typeof n === "number" && isFinite(n)
+            ? n.toLocaleString("pt-BR")
+            : null;
+        }
+
+        // Contrato de dados: só exibe se houver número válido (nunca 0/undefined/NaN).
+        function render() {
+          var total = 0,
+            any = false;
+          KEYS.forEach(function (k) {
+            if (typeof window.__dlCounts[k] === "number") {
+              total += window.__dlCounts[k];
+              any = true;
+            }
+          });
+          var bar = document.getElementById("dlStats");
+          var totalEl = document.getElementById("dlTotal");
+          if (bar && totalEl) {
+            totalEl.textContent = any ? fmt(total) : "—";
+            bar.hidden = false;
+          }
+          KEYS.forEach(function (k) {
+            var el = document.querySelector(
+              '[data-dl-count="' + k + '"] .dl-num'
+            );
+            if (el && typeof window.__dlCounts[k] === "number") {
+              el.textContent = fmt(window.__dlCounts[k]);
+              el.parentElement.hidden = false;
+            }
+          });
+        }
+
+        function persist() {
+          try {
+            localStorage.setItem("dlCounts", JSON.stringify(window.__dlCounts));
+          } catch (e) {
+            /* modo privado / storage bloqueado: ignora */
+          }
+        }
+
+        // 1) hidrata do cache (estado compartilhado entre páginas standalone)
+        try {
+          var cached = JSON.parse(localStorage.getItem("dlCounts") || "null");
+          if (cached) {
+            KEYS.forEach(function (k) {
+              if (typeof cached[k] === "number") window.__dlCounts[k] = cached[k];
+            });
+          }
+        } catch (e) {}
+        render();
+
+        // 2) clique: incrementa no contador e atualiza
+        document.querySelectorAll("[data-dl-key]").forEach(function (a) {
+          a.addEventListener("click", function () {
+            var k = a.getAttribute("data-dl-key");
+            fetch(API + "/hit/" + NS + "/" + k, { cache: "no-store" })
+              .then(function (r) {
+                return r.json();
+              })
+              .then(function (d) {
+                if (d && typeof d.value === "number") {
+                  window.__dlCounts[k] = d.value;
+                  persist();
+                  render();
+                }
+              })
+              .catch(function () {
+                /* falha silenciosa: mantém o valor anterior / "—" */
+              });
+          });
+        });
+
+        // 3) estado atual (soma dos dois botões) no topo-direito
+        Promise.all(
+          KEYS.map(function (k) {
+            return fetch(API + "/get/" + NS + "/" + k, { cache: "no-store" })
+              .then(function (r) {
+                return r.ok ? r.json() : null;
+              })
+              .catch(function () {
+                return null;
+              });
+          })
+        ).then(function (res) {
+          res.forEach(function (d, i) {
+            if (d && typeof d.value === "number") {
+              window.__dlCounts[KEYS[i]] = d.value;
+            }
+          });
+          persist();
+          render();
+        });
+      })();
     </script>
   </body>
 </html>

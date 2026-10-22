@@ -20,6 +20,36 @@
         --code-text: #e2e8f0;
       }
 
+      /* TASK1 — total de downloads (discreto, autocontido) */
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .dl-stats {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+      }
+      .dl-stats i {
+        opacity: 0.85;
+      }
+      .dl-stats .dl-num {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .dl-stats[hidden] {
+        display: none;
+      }
+      @media (max-width: 480px) {
+        .dl-stats .dl-label {
+          display: none;
+        }
+      }
+
       [data-theme="dark"] {
         --bg-primary: #1f2937;
         --bg-secondary: #111827;
@@ -351,9 +381,17 @@
                 </a>
                 <h1 style="font-size: 1.5rem; margin: 0;">QA Expert</h1>
             </div>
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-sun"></i>
-            </button>
+            <div class="header-right">
+                <span class="dl-stats" id="dlStats" hidden
+                    title="Total de downloads dos frameworks (Enterprise + Domestic)">
+                    <i class="fas fa-eye" aria-hidden="true"></i>
+                    <span class="dl-label">Downloads</span>
+                    <span class="dl-num" id="dlTotal" aria-live="polite">—</span>
+                </span>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
         </header>
 
         <main class="container">
@@ -975,6 +1013,29 @@ WHERE
                 }
             });
         });
+
+        // ── TASK1: total de downloads (abacus.jasoncameron.dev — sem backend) ──
+        (function () {
+            var NS = "tgferr-github-io";
+            var API = "https://abacus.jasoncameron.dev";
+            var KEYS = ["enterprise", "domestic"];
+            var bar = document.getElementById("dlStats");
+            var totalEl = document.getElementById("dlTotal");
+            if (!bar || !totalEl) return;
+            Promise.all(KEYS.map(function (k) {
+                return fetch(API + "/get/" + NS + "/" + k, { cache: "no-store" })
+                    .then(function (r) { return r.ok ? r.json() : null; })
+                    .catch(function () { return null; });
+            })).then(function (res) {
+                var total = 0, any = false;
+                res.forEach(function (d) {
+                    if (d && typeof d.value === "number") { total += d.value; any = true; }
+                });
+                if (any) { totalEl.textContent = total.toLocaleString("pt-BR"); }
+                else { totalEl.textContent = "—"; }
+                bar.hidden = false;
+            });
+        })();
     </script>
 </body>
 </html>

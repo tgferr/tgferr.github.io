@@ -1,6 +1,6 @@
 # OPENSPEC — Fluxo do Enterprise Brain Framework neste repositório
 
-> **Framework**: SDD OPENSPEC + Enterprise Brain Framework (`PROJECT-BRAIN.md` → symlink para `ENTERPRISE_PROJECT_FRAMEWORK.md`).
+> **Framework**: SDD OPENSPEC + Enterprise Brain Framework (`PROJECT-BRAIN.md`, instância viva especializada; o template genérico é `ENTERPRISE_PROJECT_FRAMEWORK.md`).
 > **Versão**: 4.0.0-ENTERPRISE (MIA-Native Luizalabs).
 > **Alvo**: IA Tools Hub — site estático Jekyll / GitHub Pages.
 

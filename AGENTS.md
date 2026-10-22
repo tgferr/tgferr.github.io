@@ -1,6 +1,6 @@
 # AGENTS.md — Protocolo do Enterprise Brain Framework (IA Tools Hub)
 
-> Fonte: **[PROJECT-BRAIN.md](PROJECT-BRAIN.md)** (symlink → `ENTERPRISE_PROJECT_FRAMEWORK.md`).
+> Fonte: **[PROJECT-BRAIN.md](PROJECT-BRAIN.md)** (instância viva especializada deste repo; o template genérico publicado é `ENTERPRISE_PROJECT_FRAMEWORK.md`).
 > Este arquivo é a **única fonte de verdade** do fluxo agêntico deste repositório. Os agentes devem internalizar estas regras antes de executar.
 
 ## 🧭 Propósito
@@ -65,7 +65,7 @@ Uso na fase de review pré-código e suporte operacional (conforme §3–4 do fr
 ├── index.html               # Hub SPA (navegação showPage) + cards home
 ├── *.html                   # Páginas standalone (Template Copilot, GEMs, project_brain_framework.html)
 ├── AGENTS.md                # Este arquivo
-├── PROJECT-BRAIN.md         # symlink → ENTERPRISE_PROJECT_FRAMEWORK.md
+├── PROJECT-BRAIN.md         # Instância viva especializada (memória §8 + mapa §9)
 ├── ENTERPRISE_PROJECT_FRAMEWORK.md # Fonte viva do framework (Seção 8 acumula lições)
 ├── DOMESTICUSER_PROJECT_FRAMEWORK.md # Edição Community/Portátil (dual-engine, p/ download)
 ├── .claude/agents/          # 6 subagentes executáveis Claude Code
