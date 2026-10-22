@@ -48,12 +48,25 @@ flowchart LR
    # Desenvolvimento padrão diário (Claude Code com proxy corporativo e RTK):
    mia launch claude
 
+   # Assistente leve com busca corporativa ativa (Web-Search):
+   mia launch codex
+
+   # CLI oficial do Copilot com gestão centralizada de cotas:
+   mia launch copilot
+
    # Para tarefas complexas de arquitetura/contratos (Tier de alto raciocínio):
    MIA_MODEL=labs-code-max mia launch claude
 
-   # Para dúvidas rápidas / terminal leve:
+   # Para tarefas mecânicas, commits rápidos ou formatação (Tier super econômico):
+   MIA_MODEL=labs-code-mini mia launch claude
+
+   # Para dúvidas rápidas / terminal leve sem gastar cota:
    mia launch pi
+   # ou:
+   mia launch omp
    ```
+
+   > 💡 **Dica de Governança**: Se tiver dúvidas sobre configuração de quotas, LSPs ou bloqueios Netskope/SSL, consulte o agente especialista **🤖 Logan (`brain-mia-tooling`)**. Comandos úteis: `mia doctor` (diagnóstico), `mia quota` (consumo), `mia tools list` (componentes).
 
 2. **Dentro da sessão do agente, digite**:
    ```text
