@@ -2,6 +2,7 @@
 
 > **Framework**: SDD OPENSPEC + Enterprise Brain Framework (`PROJECT-BRAIN.md` → symlink para `ENTERPRISE_PROJECT_FRAMEWORK.md`).
 > **Versão**: 4.0.0-ENTERPRISE (MIA-Native Luizalabs).
+> **Alvo**: IA Tools Hub — site estático Jekyll / GitHub Pages.
 
 Este diretório centraliza a esteira de demandas do repositório: memória de sessão, encerramento de entregas e templates de documentação.
 
@@ -21,10 +22,10 @@ OPENSPEC/
 ## Ciclo de uma demanda
 
 1. **Coleta** — colete requisitos do card (código, objetivo, links). Crie a pasta/checklist em `Checklist/`.
-2. **Deep-Search / Explore** — varra downstreams/upstreams e consulte a memória viva (§8 do BRAIN).
+2. **Deep-Search / Explore** — varra downstreams/upstreams (HTML ↔ CSS ↔ JS, links/downloads, `_config.yml`) e consulte a memória viva (§8 do BRAIN).
 3. **Roda com Opositor** — Tiago Ferreira (Opositor Crítico) é o primeiro a contra-argumentar; Modo Ágil vs Modo Pleno (§2).
 4. **Plano + `[A]`** — apresente plano conciso e **PARE** até aprovação explícita. Nada de código antes.
-5. **Execute** — implementação cirúrgica (deltas), validação local.
+5. **Execute** — implementação cirúrgica (deltas), validação local (Tríade adaptada para estático).
 6. **Feed-brain / Close** — destile lições na Seção 8 do `ENTERPRISE_PROJECT_FRAMEWORK.md`, preencha `MR_DESCRIPTION.md`, atualize `execution-summary.md`, limpe `active_todo.md`.
 
 ## Comandos
@@ -38,6 +39,7 @@ iniciar demanda <CODIGO_CARD> seguindo @PROJECT-BRAIN.md
 
 ## Regras
 
+- **Metamodelos são produto**: `ENTERPRISE_PROJECT_FRAMEWORK.md` e `DOMESTICUSER_PROJECT_FRAMEWORK.md` são genéricos e publicados para download — **não** especializar/sobrescrever.
 - **Imutabilidade da Seção 8** (§5.1): lições válidas nunca são deletadas; só corrigidas/complementadas.
 - **Zero dump bruto**: conversas/debates nunca são transcritos no BRAIN; apenas regras acionáveis.
 - **Proibido commit/push** sem instrução expressa (hard constraint global).

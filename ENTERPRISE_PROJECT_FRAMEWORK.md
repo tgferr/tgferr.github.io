@@ -3,9 +3,42 @@
 > **Framework**: SDD OPENSPEC + Brain Agent Unificado (Edição Enterprise Luizalabs)  
 > **Versão**: 4.0.0-ENTERPRISE  
 > **Motor de Runtime**: MIA (`mia launch claude` / `mia launch copilot`) + LiteLLM corporativo  
-> **Uso**: Copie este arquivo para a raiz de qualquer repositório corporativo como `PROJECT-BRAIN.md` ou `.openspec/brain.md`.
+> **Uso**: Copie este arquivo para a raiz de qualquer repositório corporativo como `PROJECT-BRAIN.md`.  
+> **Estado de Bootstrapping**: `[ ] TEMPLATE_BASE_AGNOSTICO` (Muda automaticamente para `[X] ESPECIALIZADO_NO_REPOSITORIO` no primeiro explore).
 
 ---
+
+## ⚡ PROTOCOLO ZERO: BOOTSTRAPPING & AUTO-SOBREESCRITA NO PROJETO-ALVO
+
+Este arquivo inicia como um **Metamodelo Neutro e Universal**, capaz de gerenciar repositórios em qualquer linguagem (Python, Go, Node.js/TypeScript, Java/Kotlin, Rust, Android, etc.).
+
+### Como Funciona a Auto-Especialização do BRAIN Central:
+
+```mermaid
+flowchart TD
+    A["Template Baixado no Repo<br/><code>PROJECT-BRAIN.md</code>"] --> B["Disparo Inicial<br/><code>/start-demand</code> ou <code>/init-brain</code>"]
+    B --> C["Deep Explore Automático<br/>Linguagens, Frameworks, DBs, Testes, Linters"]
+    C --> D["Auto-Sobrescrita do BRAIN Central<br/>Grava o Mapa Real do Projeto em <code>PROJECT-BRAIN.md</code>"]
+    C --> E["Síntese e Persistência de Subagentes<br/>Salva em <code>.agents/</code> e <code>.claude/agents/</code>"]
+    D --> F["Estado Ativo: <code>[X] ESPECIALIZADO</code><br/>Pronto para Operação Contínua"]
+    E --> F
+```
+
+1. **Gatilho de Bootstrapping**: Ao receber `/init-brain` ou o primeiro `/start-demand <CARD>`, o agente checa o cabeçalho. Se estiver como `[ ] TEMPLATE_BASE_AGNOSTICO`:
+2. **Varredura da Stack (Deep Explore)**:
+   - Detecta manifestos (`package.json`, `pyproject.toml`, `requirements.txt`, `Cargo.toml`, `go.mod`, `pom.xml`, `build.gradle`, `Makefile`, `Dockerfile`).
+   - Identifica suites de teste (`pytest`, `jest`, `vitest`, `go test`, `cargo test`, `junit`), linters (`eslint`, `ruff`, `flake8`, `golangci-lint`) e build scripts.
+   - Mapeia arquitetura (pastas de entrada, regras de negócio/domínio, persistência/banco, rotas/endpoints, mensageria/filas, clientes HTTP).
+3. **Auto-Sobrescrita do Próprio Arquivo (`PROJECT-BRAIN.md`)**:
+   - Atualiza o cabeçalho para `[X] ESPECIALIZADO_NO_REPOSITORIO (<Nome do Projeto> - <Stack>)`.
+   - Preenche o **Mapa Arquitetural do Repositório (Seção 9)** com a estrutura e convenções reais descobertas.
+   - Especializa a **Tríade Determinística (Seção 5.2)** com os comandos de terminal exatos do repositório.
+   - Limpa o histórico de projetos anteriores da **Seção 8 (Lições Aprendidas)**, mantendo-a pronta para registrar a evolução viva daquele código.
+4. **Persistência Física dos Subagentes Especialistas**:
+   - Gera e grava os arquivos de persona dedicados à stack do projeto sob:
+     - Formato portável (Copilot/Cursor/Aider): `.agents/<persona-name>.agent.md`
+     - Formato executável Claude Code: `.claude/agents/<persona-name>.md`
+   - O `PROJECT-BRAIN.md` atua como **Agente Central Orquestrador (Maestro)**, coordenando esses especialistas nas fases de debate e execução.
 
 ## 🚀 GUIA LÚDICO: COMO INICIAR NO ECOSSISTEMA LUIZALABS
 
@@ -144,31 +177,40 @@ flowchart TD
 
 ### 3.1 Explore Inicial Obrigatório & Criação Dinâmica de Especialistas
 
-Ao receber o comando `/start-demand <CARD>` ou `iniciar <CARD>`, o agente **NÃO pode assumir um conjunto estático e genérico de regras**. O protocolo manda:
+Ao receber o comando `/start-demand <CARD>`, `/init-brain` ou `iniciar <CARD>`, o agente **NÃO pode assumir um conjunto estático e genérico de regras**. O protocolo manda:
 
-1. **Deep Explore no Repositório**: Mapear contratos, dependências de pacotes, configs de ambiente e estrutura de diretórios.
+1. **Deep Explore no Repositório**: Mapear manifestos de dependência, contratos de interface, banco de dados, configs de ambiente e estrutura de diretórios.
 2. **Interação Dinâmica com o Desenvolvedor**: Conduzir perguntas interativas via `vscode_askQuestions` (no VS Code) ou menus dinâmicos no CLI, **sem travar a sessão ou interromper o fluxo**, refinando o escopo da demanda.
-3. **Síntese de Especialistas Dedicados do Projeto**: A partir do resultado do explore, instanciar agentes especialistas customizados para aquele repositório específico (ex.: Especialista em Banco/Motor, Especialista em Resiliência Celery/Redis, Especialista em Mappers de Vitrine), somando-se à base de governança.
+3. **Síntese de Especialistas Dedicados do Projeto**: A partir do resultado do explore, instanciar e persistir agentes especialistas customizados para aquele repositório específico (ex.: Especialista em Domínio/Regras, Especialista em Banco/Persistência, Especialista em Resiliência/Workers, Especialista em Frontend/Consumidores), somando-se à base de governança.
 
 Antes de redigir qualquer proposta técnica, o agente deve cruzar 3 fontes reais de dados:
 
-1. **Downstreams (Consumidores)**: Repositórios clientes (`ecomm-queries`, `mixer-web`, apps) para checar as queries reais e tolerância a nulos.
-2. **Upstreams (Provedores)**: APIs de backend e contratos de payload DTO (`federation-schema.graphql`, `supergraph.yaml`).
-3. **Memória Viva (Seção 7)**: Lições aprendidas e incidentes anteriores neste projeto.
+1. **Downstreams (Consumidores)**: Repositórios clientes, apps ou serviços dependentes para checar tolerância a nulos e schemas consumidos.
+2. **Upstreams (Provedores)**: APIs externas, filas, tópicos de mensageria e bancos provedores de dados.
+3. **Memória Viva (Seção 8)**: Lições aprendidas e incidentes anteriores documentados neste repositório.
 
-### 3.2 Matriz de Personas Base (Padrão de Governança — USA First-Name)
+### 3.2 Matriz de Personas (Governança Base + Especialistas Sintetizados)
 
-| Persona (Nome) | Papel na Mesa & Especialidade                                                                                                                                                    |
-| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **⚖️ Marcus**  | **Opositor Crítico / Devil's Advocate (Generalista Sênior)**. Sempre o primeiro a falar após o proponente, apontando pontos negativos, riscos operacionais e suposições frágeis. |
-| **📋 Mason**   | **Kanban Force & Fluxo**. Rastreabilidade estrita de cards e subcards (`STKs`), critérios de aceite atômicos e auditoria de board.                                               |
-| **🤖 Logan**   | **MIA & Arquitetura Enterprise**. Governança de plugins, LSPs e conformidade com o ecossistema Luizalabs.                                                                        |
-| **🏛️ Chloe**   | **Contratos & Federação GraphQL**. Apollo Federation v2, `@key`, `@provides`, `@shareable`, `@external` e compatibilidade semântica.                                             |
-| **🔌 Caleb**   | **Integração Upstream & Resiliência**. Clientes HTTP, pooling Undici, timeouts rígidos, Circuit Breakers e fallbacks seguros.                                                    |
-| **📱 Emma**    | **Frontend & Compatibilidade**. Consumidores web/mobile, design system, prevenção de layout shifts e estratégia Strangler Fig.                                                   |
-| **📊 David**   | **SRE & Observabilidade**. Tráfego leste-oeste no cluster, métricas p95/p99, traces distribuídos Datadog/OTel e zero logs poluentes.                                             |
-| **🧪 Sarah**   | **QA & Qualidade de Código**. Pirâmide de testes Jest, cobertura 100% inegociável em branches/linhas e testes determinísticos.                                                   |
-| **🔬 Alex**    | **Apollo Local & Query Planning**. Composição de supergrafo, planos de execução do Apollo Router e eliminação de subqueries redundantes.                                         |
+#### 🏛️ A. Núcleo Imutável de Governança Institucional (USA First-Name)
+
+| Persona (Nome) | Papel na Mesa & Especialidade                                                                                                                                                                         |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **⚖️ Marcus**  | **Opositor Crítico / Devil's Advocate (Generalista Sênior)**. Sempre o primeiro a falar após o proponente, apontando pontos negativos, riscos operacionais, quebra de contratos e suposições frágeis. |
+| **📋 Mason**   | **Kanban Force & Fluxo**. Rastreabilidade estrita de cards e subcards (`STKs`), critérios de aceite atômicos e auditoria de board.                                                                    |
+| **🤖 Logan**   | **MIA & Arquitetura Enterprise**. Governança de plugins, LSPs, certificados Netskope/SSL e conformidade com o ecossistema Luizalabs.                                                                  |
+| **🧪 Sarah**   | **QA & Qualidade de Código**. Pirâmide de testes, cobertura alta inegociável em branches/linhas e testes determinísticos sem flaky tests.                                                             |
+
+#### 🧬 B. Especialistas de Domínio Sintetizados no Bootstrapping
+
+Instanciados dinamicamente no primeiro explore conforme a stack detectada no projeto e salvos em `.agents/<persona>.agent.md` e `.claude/agents/<persona>.md`:
+
+| Persona (Exemplo)          | Papel Adaptado à Stack Real                                                                                               |
+| :------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **🏛️ Chloe**               | **Arquitetura de Contratos & APIs** (REST OpenAPI, GraphQL, Protobuf, DTOs de Domínio).                                   |
+| **🔌 Caleb**               | **Integração & Resiliência** (Clientes HTTP, pooling de conexões, timeouts rígidos, Circuit Breaker e fallbacks).         |
+| **📱 Emma**                | **Frontend, Mobile & Clientes** (Consumidores de API, design system, layout stability e coexistência dual Strangler Fig). |
+| **📊 David**               | **SRE & Observabilidade** (Métricas de latência p95/p99, distributed tracing OTel/Datadog e logs estruturados em JSON).   |
+| **⚡ Especialista Custom** | **Especialista no Framework Central** (ex.: FastAPI/Pydantic, Celery/Redis, NestJS/Prisma, Go/Gin, Spring Boot, etc.).    |
 
 ---
 
@@ -204,9 +246,9 @@ flowchart TD
 
 Checkboxes em markdown não provam conformidade; **sensores computacionais têm precedência absoluta**:
 
-1. `rtk corepack pnpm test`: Cobertura inegociável de 100% em statements, branches, functions e lines.
-2. `rtk corepack pnpm run eslint`: 0 errors e 0 warnings obrigatórios (arquivos de codegen protegidos em `ignores`).
-3. `rtk corepack pnpm run build`: Compilação de produção sem falhas de tipagem.
+1. **Testes Automatizados**: `rtk <comando-de-teste>` (ex.: `rtk pytest -q`, `rtk pnpm test`, `rtk go test ./...`, `rtk cargo test`). Cobertura inegociável de 100% (ou meta do projeto) em statements, branches, functions e lines.
+2. **Linter & Análise Estática**: `rtk <comando-de-lint>` (ex.: `rtk flake8`, `rtk ruff check`, `rtk pnpm run eslint`, `rtk golangci-lint`). 0 errors e 0 warnings obrigatórios.
+3. **Build & Verificação de Tipos**: `rtk <comando-de-build>` (ex.: `rtk mypy .`, `rtk pnpm run build`, `rtk cargo check`). Compilação sem falhas de tipagem ou empacotamento.
 
 ---
 
@@ -230,7 +272,7 @@ O agente nunca propõe código defensivo por conta própria. Toda integração e
 
 1. **Timeout Estrito**: Orçamento rígido de latência (ex.: $\le 500$ms).
 2. **Retry Exponencial com Jitter**: Apenas para erros transitórios (502, 503, 504), nunca para 4xx.
-3. **Circuit Breaker**: Isolamento de falhas via Opossum ou similar para não contaminar a malha.
+3. **Circuit Breaker**: Isolamento de falhas via circuit breaker para não contaminar a malha.
 4. **Fallback Gracioso**: Retorno seguro degradado (lista vazia ou `null`) sem derrubar a aplicação.
 
 ---
@@ -251,20 +293,39 @@ O `/feed-brain` garante o aprendizado contínuo sem inflar a janela de contexto 
 
 ## 8. BASE VIVA DE LIÇÕES APRENDIDAS (CUMULATIVA & CURADA)
 
-> _Seção viva. Adicione novas lições e faça garbage collection de regras obsoletas a cada ciclo._
+> _Seção viva. Esta seção acumula as lições e padrões aprendidos exclusivamente neste repositório. Novos itens entram via `/feed-brain`._
 
-### 8.1 Setup de Ambiente & Tooling
+### 8.1 Setup de Ambiente, Tooling & Segurança
 
-- **Corepack & pnpm v10**: Executar sempre `corepack enable` antes do install para garantir links simbólicos executáveis em `node_modules/`.
-- **ESLint Flat Config com Codegen**: Arquivos gerados dinamicamente (`src/infra/graphql/types.ts`) devem estar no bloco de `ignores` puro no topo do array de configuração para eliminar falsos positivos de variáveis não utilizadas.
+- **Filtros de Saída de Terminal via RTK**: Execute comandos de console sempre precedidos por `rtk` para comprimir saídas e poupar 60-90% de contexto.
+- **Netskope e Certificados Corporativos**: Variáveis CA (`NODE_EXTRA_CA_CERTS`, `REQUESTS_CA_BUNDLE`) devem ser aplicadas apenas em caso de falha de validação SSL.
+- **Segurança de Credenciais em Requisições**: Jamais passe tokens ou `client_secret` em query parameters (`params`); use sempre o corpo da requisição (`data` ou `json`) com `POST`.
 
-### 8.2 Arquitetura & Federação GraphQL
+### 8.2 Arquitetura, Contratos & Domínio
 
-- **Eliminação de Conflito de `@key` (`ItemOffer`)**: Quando subgrafos proprietários (`PRICES`) utilizam superchaves complexas, o subgrafo consumidor deve declarar o tipo como `@shareable` sem `@key`, provendo os dados sob `@provides` sem tentar resolver entidade via `_entities`.
-- **Paridade Estrita de Subcampos no `@provides`**: Todos os nós consumidos pelos fragmentos de vitrine do frontend (incluindo `url` em categorias) devem constar no `@provides`, reduzindo o plano do Apollo Router de $O(1+4N)$ para $O(1)$ estrito.
-- **Strangler Fig para Consumidores**: Coexistência dual de `items: [Item]` (Item-first) com `products: [Product]` (referência {id}) permite migração sem big bang entre clientes modernos e legados.
+- **Evolução de Contratos sem Breaking Changes**: Ao modificar contratos de API (REST/GraphQL/Protobuf), campos novos devem ser opcionais e campos depreciados mantidos até a migração total dos clientes (coexistência dual / Strangler Fig).
+- **Tipagem Estrita e Modelos Imutáveis**: Toda fronteira externa (APIs, mensageria, banco) deve validar payloads com schemas estritos (Pydantic, Zod, Protobuf) antes de ingressar no domínio.
 
 ### 8.3 Resiliência, SRE & Observabilidade
 
-- **Zero console.log em Produção**: Logs síncronos degradam a taxa de requisições no Node.js sob alta carga. Utilizar apenas loggers estruturados assíncronos (Pino).
-- **Tráfego Leste-Oeste**: O enriquecimento local via `@provides` elimina milhares de requisições internas de entidade para catálogo e preços em horários de pico.
+- **Zero Logs Síncronos Poluentes em Produção**: Proibido `console.log` ou `print()` em produção. Usar bibliotecas assíncronas estruturadas (Pino, logging estruturado) com correlação de request ID e zero PII.
+- **Orçamento de Latência (Latency Budget)**: Chamadas remotas a microsserviços devem conter timeouts configurados rigidamente para não bloquear threads do worker/servidor.
+
+---
+
+## 9. MAPA ARQUITETURAL DO REPOSITÓRIO (ESPECIALIZADO VIA BOOTSTRAPPING)
+
+> _Preenchido automaticamente pelo Deep Explore no primeiro `/start-demand` ou `/init-brain`._
+
+- **Nome do Projeto / Módulo**: `[NOME_DO_PROJETO]`
+- **Stack Tecnológica Principal**: `[Ex: Python 3.11 + FastAPI + Motor / Node.js + TypeScript / Go 1.23 / Rust]`
+- **Padrão de Arquitetura**: `[Ex: Clean Architecture, Hexagonal / Ports & Adapters, MVC Modular, Event-Driven]`
+- **Comunicação, Persistência & Mensageria**: `[Ex: HTTP REST, GraphQL, gRPC, PostgreSQL, MongoDB, Redis, Kafka, RabbitMQ, PubSub]`
+- **Tríade Determinística Real**:
+  - Testes: `[Ex: rtk pytest -q --cov=app | rtk pnpm test | rtk cargo test]`
+  - Linter: `[Ex: rtk flake8 / rtk ruff check | rtk pnpm run eslint | rtk golangci-lint]`
+  - Build: `[Ex: rtk mypy . | rtk pnpm run build | rtk cargo check]`
+- **Estrutura de Pastas Padrão**:
+  ```
+  [Preenchido com a árvore real mapeada pelo explore]
+  ```

@@ -1,11 +1,15 @@
-# Histórico de Execução — (repositório)
+# execution-summary — Histórico de Execução
 
-> Registro acumulado de entregas executadas sob o Enterprise Brain Framework.
+> Registro acumulado das demandas concluídas neste repositório. Mais recente no topo.
 
-## Demanda: Bootstrap Enterprise Brain Framework v4.0.0
+## 2026-10-22 — Rebootstrap do Enterprise Brain Framework
 
-- **Data**: 2026-10-21
-- **Card/ID**: (a definir)
-- **Status**: Concluído
-- **Deltas**: symlink `PROJECT-BRAIN.md` → `ENTERPRISE_PROJECT_FRAMEWORK.md`; estrutura OPENSPEC recriada; refs v3.5.0 → v4.0.0; downloads Enterprise/Community no site.
-- **Validação**: symlink/estrutura/refs; HTTP 200 em 8 rotas-chave (ver `MR_DESCRIPTION.md`).
+- **Objetivo**: reespecializar a infraestrutura agêntica à stack estática (Jekyll/GitHub Pages).
+- **Entregue**:
+  - `.claude/agents/` — 6 subagentes executáveis (Claude Code), adaptados à stack.
+  - `.agents/` — 6 personas portáveis (AGENTS.md — Copilot/Cursor/Aider).
+  - `.github/copilot-instructions.md` — instruções da stack estática.
+  - `OPENSPEC/` — README, `active_todo.md` (limpo), `openspec-files/{MR_DESCRIPTION,execution-summary}.md`.
+  - `PROJECT-BRAIN.md` — symlink → `ENTERPRISE_PROJECT_FRAMEWORK.md`.
+- **Validação**: `node --check` nos JS, markup e YAML; Jekyll local não validável (Ruby ausente).
+- **Estado**: aplicado no working tree; **sem commit** (aguardando instrução expressa do dev).

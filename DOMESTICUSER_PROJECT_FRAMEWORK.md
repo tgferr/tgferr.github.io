@@ -3,7 +3,42 @@
 > **Framework**: SDD OPENSPEC + Brain Agent Unificado (Edição Doméstica / Standalone / Open Source)  
 > **Versão**: 4.0.0-COMMUNITY (Complete Edition)  
 > **Compatibilidade**: VS Code Copilot Chat, Cursor, Windsurf, Claude Code Standalone, Codex, Aider e Neovim  
-> **Uso**: Copie este arquivo para a raiz de qualquer projeto pessoal ou open-source como `PROJECT-BRAIN.md` ou `.openspec/brain.md`.
+> **Uso**: Copie este arquivo para a raiz de qualquer projeto pessoal ou open-source como `PROJECT-BRAIN.md`.  
+> **Estado de Bootstrapping**: `[ ] TEMPLATE_BASE_AGNOSTICO` (Muda automaticamente para `[X] ESPECIALIZADO_NO_REPOSITORIO` no primeiro explore).
+
+---
+
+## ⚡ PROTOCOLO ZERO: BOOTSTRAPPING & AUTO-SOBREESCRITA NO PROJETO-ALVO
+
+Este arquivo inicia como um **Metamodelo Neutro e Universal**, capaz de gerenciar repositórios em qualquer stack técnica (Python, Node.js/TypeScript, Rust, Go, Java/Kotlin, C#, PHP, Mobile, Web ou CLI).
+
+### Como Funciona a Auto-Especialização do BRAIN Central:
+
+```mermaid
+flowchart TD
+    A["Template Baixado no Repo<br/><code>PROJECT-BRAIN.md</code>"] --> B["Disparo Inicial<br/><code>/start-demand</code> ou <code>@PROJECT-BRAIN.md iniciar</code>"]
+    B --> C["Deep Explore Automático<br/>Linguagens, Frameworks, DBs, Testes, Linters"]
+    C --> D["Auto-Sobrescrita do BRAIN Central<br/>Grava o Mapa Real do Projeto em <code>PROJECT-BRAIN.md</code>"]
+    C --> E["Síntese e Persistência de Subagentes<br/>Salva em <code>.agents/</code> e <code>.claude/agents/</code>"]
+    D --> F["Estado Ativo: <code>[X] ESPECIALIZADO</code><br/>Pronto para Operação Contínua"]
+    E --> F
+```
+
+1. **Gatilho de Bootstrapping**: Ao receber `/init-brain`, `/start-demand <NOME>` ou `@PROJECT-BRAIN.md iniciar`, o agente checa o cabeçalho. Se estiver como `[ ] TEMPLATE_BASE_AGNOSTICO`:
+2. **Varredura da Stack (Deep Explore)**:
+   - Detecta manifestos (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `pom.xml`, `Makefile`, etc.).
+   - Identifica suites de teste (`pytest`, `jest`, `vitest`, `cargo test`, `go test`), linters (`eslint`, `ruff`, `flake8`, `clippy`) e comandos de compilação.
+   - Mapeia arquitetura (pastas de entrada, rotas, lógica de domínio, banco de dados, mensageria e integrações).
+3. **Auto-Sobrescrita do Próprio Arquivo (`PROJECT-BRAIN.md`)**:
+   - Atualiza o cabeçalho para `[X] ESPECIALIZADO_NO_REPOSITORIO (<Nome do Projeto> - <Stack>)`.
+   - Preenche o **Mapa Arquitetural do Repositório (Seção 9)** com os dados reais do projeto.
+   - Especializa a **Tríade Determinística (Seção 7.2)** com os comandos exatos de teste, lint e build daquele repo.
+   - Mantém a **Seção 11 (Lições Aprendidas)** pronta para registrar o histórico vivo deste projeto.
+4. **Persistência Física dos Subagentes Especialistas**:
+   - Cria e salva os subagentes dedicados à stack sob:
+     - Formato portável (Copilot/Cursor/Aider): `.agents/<persona-name>.agent.md`
+     - Formato Claude Code CLI: `.claude/agents/<persona-name>.md`
+   - O `PROJECT-BRAIN.md` atua como **Agente Central Orquestrador (Maestro)**, orquestrando as personas durante as deliberações e entregas.
 
 ---
 
@@ -200,19 +235,28 @@ Ao receber o comando de início no VS Code / IDE compatível, o agente **NUNCA c
 
 ---
 
-## 5. MATRIZ DE PERSONAS BASE (PADRÃO DE GOVERNANÇA — USA FIRST-NAME)
+## 5. MATRIZ DE PERSONAS (GOVERNANÇA BASE + ESPECIALISTAS SINTETIZADOS)
+
+#### 🏛️ A. Núcleo Imutável de Governança (USA First-Name)
 
 | Persona (Nome) | Papel na Mesa & Especialidade                                                                                                                                                         | Gatilhos de Alerta & Perguntas                                                                          |
 | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------ |
 | **⚖️ Marcus**  | **Opositor Crítico / Devil's Advocate (Generalista Sênior)**. Sempre o primeiro a falar após qualquer proposta, apontando pontos negativos, riscos operacionais e suposições frágeis. | Premissas excessivamente otimistas, riscos ocultos, complexidade acidental, falsos positivos em testes. |
 | **📋 Mason**   | **Fluxo & Gestão de Demanda**. Rastreabilidade de tarefas, critérios de aceite atômicos e organização de prioridades.                                                                 | Escopo ambíguo, falta de critérios de aceite claros, tarefas acopladas sem ordem de dependência.        |
 | **🤖 Logan**   | **Tooling & DX Standalone**. Boas práticas de linters, ferramentas open-source, comandos rápidos e ambiente do desenvolvedor.                                                         | Setup de ferramentas quebrado, ausência de linters locais, scripts lentos ou não idempotentes.          |
-| **🏛️ Chloe**   | **Arquitetura de Contratos & APIs**. Design de APIs REST/GraphQL, contratos de DTOs, interfaces e validações de dados.                                                                | Alteração de campos sem retrocompatibilidade, falta de validação de tipos, payloads inconsistentes.     |
-| **🔌 Caleb**   | **Integração & Resiliência**. Clientes HTTP, pooling de conexões, timeouts rígidos, retry com jitter e Circuit Breakers.                                                              | Chamadas externas sem timeout, ausência de fallback seguro, retry infinito sem backoff.                 |
-| **📱 Emma**    | **UI/UX & Compatibilidade Frontend**. Consumidores web/mobile, acessibilidade, responsividade e prevenção de layout shifts.                                                           | Risco de quebra visual, dados ausentes que quebram componentes, regressão em navegadores.               |
-| **📊 David**   | **Observabilidade & Performance**. Latência, perfilamento de memória, logs estruturados em JSON e métricas limpas.                                                                    | Logs síncronos poluentes, memory leaks, gargalos de serialização JSON, falta de métricas.               |
 | **🧪 Sarah**   | **QA & Qualidade de Código**. Testes automatizados unitários/integração, cobertura alta e testes determinísticos.                                                                     | Testes ausentes para casos de borda, cobertura $<90\%$, testes acoplados a estado global.               |
-| **🔬 Alex**    | **Validação Local & Testes Headless**. Testes E2E locais, mocks semânticos e garantia de feedback loops rápidos.                                                                      | Testes que dependem de rede externa, fixtures quebradas, suites lentas ($>15$s).                        |
+
+#### 🧬 B. Especialistas de Domínio Sintetizados no Bootstrapping
+
+Criados dinamicamente no primeiro explore conforme a stack do repositório e salvos em `.agents/<persona>.agent.md` e `.claude/agents/<persona>.md`:
+
+| Persona (Exemplo)          | Papel Adaptado à Stack Real                                                                        | Gatilhos de Alerta & Perguntas                                                                      |
+| :------------------------- | :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| **🏛️ Chloe**               | **Arquitetura de Contratos & APIs** (REST OpenAPI, GraphQL, DTOs e validações).                    | Alteração de campos sem retrocompatibilidade, falta de validação de tipos, payloads inconsistentes. |
+| **🔌 Caleb**               | **Integração & Resiliência** (Clientes HTTP, conexões, timeouts e fallbacks).                      | Chamadas externas sem timeout, ausência de fallback seguro, retry sem backoff.                      |
+| **📱 Emma**                | **UI/UX & Compatibilidade Frontend** (Web/mobile, acessibilidade e componentes).                   | Risco de quebra visual, dados ausentes que quebram componentes, regressão em browsers.              |
+| **📊 David**               | **Observabilidade & Performance** (Latência, consumo de memória, logs estruturados).               | Logs poluentes, memory leaks, gargalos de serialização JSON, falta de métricas.                     |
+| **⚡ Especialista Custom** | **Especialista da Stack Central** (ex.: React/Vite, FastAPI/SQLAlchemy, Rust/Axum, Go/Echo, etc.). | Padrões de framework violados, antipatterns da linguagem, concorrência insegura.                    |
 
 ---
 
@@ -282,24 +326,21 @@ O agente nunca propõe código defensivo por conta própria. Toda integração e
 
 ---
 
-## 9. MAPA ARQUITETURAL DO REPOSITÓRIO (TEMPLATE PREENCHÍVEL)
+## 9. MAPA ARQUITETURAL DO REPOSITÓRIO (ESPECIALIZADO VIA BOOTSTRAPPING)
 
-> _Substitua os dados desta seção com as características reais do seu projeto._
+> _Preenchido automaticamente pelo Deep Explore no primeiro `/start-demand` ou `@PROJECT-BRAIN.md iniciar`._
 
 - **Nome do Projeto / Módulo**: `[NOME_DO_PROJETO]`
 - **Stack Tecnológica Principal**: `[Ex: TypeScript 5.x + Node.js / Python 3.12 + FastAPI / Rust 1.8x / Go 1.23]`
 - **Padrão de Arquitetura**: `[Ex: Clean Architecture, Ports & Adapters, MVC modular, Monorepo]`
-- **Comunicação & Camadas**: `[Ex: HTTP REST, GraphQL, gRPC, SQLite / PostgreSQL, Redis]`
+- **Comunicação, Persistência & Mensageria**: `[Ex: HTTP REST, GraphQL, gRPC, SQLite / PostgreSQL, Redis, RabbitMQ]`
+- **Tríade Determinística Real**:
+  - Testes: `[Ex: pytest -q | npm test -- --silent | cargo test]`
+  - Linter: `[Ex: flake8 / ruff | npm run lint | cargo clippy]`
+  - Build: `[Ex: mypy . | npm run build | cargo build --release]`
 - **Estrutura de Pastas Padrão**:
   ```
-  src/
-  ├── app/                  # Controllers, rotas HTTP, handlers de eventos ou CLI
-  ├── domain/               # Entidades de negócio, modelos puros e mappers
-  │   └── mappers/          # Conversão estrita de DTOs externos para entidades locais
-  ├── services/             # Casos de uso e orquestrações com resiliência
-  ├── infra/                # Clientes de banco de dados, mensageria e APIs externas
-  └── container.ts          # Injeção de dependências ou factory de inicialização
-  test/                     # Suíte de testes automatizados espelhando src/
+  [Preenchido com a árvore real mapeada pelo explore]
   ```
 
 ---

@@ -1,221 +1,95 @@
-# IA Tools Hub - Instruções para Agentes de IA
+# IA Tools Hub — Instruções para Agentes de IA
+
+> **Fonte de verdade**: [`PROJECT-BRAIN.md`](../PROJECT-BRAIN.md) (symlink → `ENTERPRISE_PROJECT_FRAMEWORK.md`, v4.0.0-ENTERPRISE MIA-Native).
+> Este arquivo (e o symlink `CLAUDE.md` → aqui) resume as regras para agentes neste repositório. Em conflito, o BRAIN prevalece.
 
 ## 🎯 Visão Geral do Projeto
 
-Este é o **IA Tools Hub** - um site GitHub Pages que serve como centro de referência para templates, gems e utilitários de IA. O projeto é focado em facilitar a configuração e uso do GitHub Copilot através de templates automatizados e documentação completa.
+O **IA Tools Hub** é um site estático **Jekyll / GitHub Pages** que serve como centro de referência para templates, GEMs e utilitários de IA. Não há runtime de servidor, banco de dados nem build de aplicação — apenas HTML/CSS/JS servidos estaticamente, com o GitHub Pages gerando o site a partir da branch `main`.
 
 ### Arquitetura Principal
 
-- **Frontend**: Site estático Jekyll com interface SPA-like em vanilla JavaScript
-- **Estrutura**: Hub de ferramentas com navegação por abas (sem reload de página)
-- **Conteúdo**: Templates para download, documentação interativa, recursos de Copilot e GEMs especializadas
-- **Deploy**: GitHub Pages automático via Jekyll
+- **Frontend**: HTML estático + vanilla JavaScript (navegação SPA por `showPage`, sem reload).
+- **Estilo**: `css/style.css` (tema claro/escuro) usado por `copilot_template.html`; as demais páginas são **autocontidas** (estilo inline) e não dependem de `css/`/`js/`.
+- **Conteúdo**: templates para download, documentação interativa e os **metamodelos do framework** (`ENTERPRISE_PROJECT_FRAMEWORK.md`, `DOMESTICUSER_PROJECT_FRAMEWORK.md`) — artefatos **genéricos** publicados para download.
+- **Deploy**: GitHub Pages automático via Jekyll (push em `main`).
+
+## ⛔ Hard Constraints (Diretivas Rígidas)
+
+1. **Nunca commit/push automático**: `git commit`, `git push`, `git merge`, `git rebase` ou alteração de histórico remoto **apenas** com instrução expressa e intencional do desenvolvedor. Git é somente leitura (`status`, `diff`, `log`) ou staging cirúrgico pré-aprovado.
+2. **Trava pré-código**: proibido criar/editar arquivos (`*.html`, `*.css`, `*.js`, `*.md`) antes de um **plano aprovado em turno explícito** (`[A] Aprovar plano`). Fluxo: **Coleta → Explore → Roda (Opositor) → Plano → `[A]` → Código**.
+3. **Metamodelos são produto**: **não** especializar nem sobrescrever `ENTERPRISE_PROJECT_FRAMEWORK.md` / `DOMESTICUSER_PROJECT_FRAMEWORK.md`. O conhecimento específico deste repo vive em `AGENTS.md`, nas personas e em `OPENSPEC/`.
+4. **Zero dump bruto**: logs/arquivos volumosos são processados no sandbox; apenas métricas, causas raiz e deltas chegam ao chat.
+5. **Saída enxuta**: deltas `## ADDED` / `## MODIFIED (De:/Para:)` / `## REMOVED`, com ≤3 linhas de vizinhança.
 
 ## 🏗️ Estrutura do Projeto
 
 ```
 tgferr.github.io/
-├── index.html                    # Hub principal com navegação SPA
-├── copilot_template.html          # Página dedicada ao Template Copilot
-├── gem_gemini_QA.html            # Apresentação do QA Expert Gem
-├── gem_gemini_CALL_SUMMARIZER.html # Apresentação do Arquiteto de Insights
-├── project_brain_framework.html # Apresentação do PROJECT BRAIN Framework
-├── ENTERPRISE_PROJECT_FRAMEWORK.md # Fonte viva Enterprise v4.0.0 (download: PROJECT-BRAIN.md)
+├── index.html                      # Hub SPA (navegação showPage) + cards da home
+├── copilot_template.html           # Página do Template Copilot (usa css/style.css + js/*.js)
+├── gem_gemini_QA.html              # Gem QA Expert (autocontida)
+├── gem_gemini_CALL_SUMMARIZER.html # Gem Arquiteto de Insights (autocontida)
+├── project_brain_framework.html    # Apresentação do PROJECT BRAIN Framework (autocontida)
+├── ENTERPRISE_PROJECT_FRAMEWORK.md # Metamodelo Enterprise v4.0.0 (download → PROJECT-BRAIN.md)
 ├── DOMESTICUSER_PROJECT_FRAMEWORK.md # Edição Community/Portátil (download)
-├── AGENTS.md               # Protocolo agêntico (Enterprise Brain Framework)
-├── .claude/agents/         # 6 subagentes executáveis Claude Code
-├── .agents/                # 6 personas portáteis (padrão AGENTS.md)
-├── OPENSPEC/               # Fluxo OpenSpec (README, active_todo, templates)
-├── Checklist/              # Template de checklist por demanda
-├── copilot-init-template/        # Template completo para download
-│   ├── README.md                 # Instruções de uso
-│   ├── COMANDO-UNIVERSAL.md      # Comando otimizado para execução
-│   ├── project-template.instructions.md  # Template base universal
-│   └── [outros arquivos de documentação]
-├── css/style.css                 # Tema completo com dark/light mode
-├── js/main.js                    # Funcionalidades principais SPA
-├── js/modals.js                  # Sistema de modais interativos
-└── _config.yml                   # Configuração Jekyll
+├── PROJECT-BRAIN.md                # symlink → ENTERPRISE_PROJECT_FRAMEWORK.md
+├── CLAUDE.md                       # symlink → .github/copilot-instructions.md
+├── AGENTS.md                       # Protocolo agêntico (Enterprise Brain Framework)
+├── .claude/agents/                 # 6 subagentes executáveis (Claude Code)
+├── .agents/                        # 6 personas portáveis (.agent.md — Copilot/Cursor/Aider)
+├── OPENSPEC/                       # Fluxo OpenSpec (README, active_todo, openspec-files/)
+├── Checklist/                      # Template de checklist por demanda
+├── copilot-init-template/          # Template completo para download
+├── css/style.css                   # Tema claro/escuro
+├── js/main.js                      # Funcionalidades SPA
+├── js/modals.js                    # Sistema de modais
+└── _config.yml                     # Configuração Jekyll
 ```
 
-## 🎨 Padrões de Interface e Experiência
+## 🧠 Matriz de Personas (6 lentes + Opositor)
 
-### Sistema de Navegação SPA
+| # | Persona | Claude Code (executável) | Portável (Copilot/Aider) |
+| - | - | - | - |
+| 0 | ⚖️ Tiago Ferreira (Opositor Crítico) | — | — |
+| 1 | 🤖 MIA & Tooling | `.claude/agents/brain-mia-tooling.md` | `.agents/brain-mia-tooling.agent.md` |
+| 2 | 🏛️ Arquiteto de Contratos | `.claude/agents/brain-contracts-architect.md` | `.agents/brain-contracts-architect.agent.md` |
+| 3 | 🔌 Engenheiro de Integração | `.claude/agents/brain-integration-engineer.md` | `.agents/brain-integration-engineer.agent.md` |
+| 4 | 📱 Compatibilidade | `.claude/agents/brain-compat-specialist.md` | `.agents/brain-compat-specialist.agent.md` |
+| 5 | 📊 SRE & Observabilidade | `.claude/agents/brain-sre-observability.md` | `.agents/brain-sre-observability.agent.md` |
+| 6 | 🧪 QA & Qualidade | `.claude/agents/brain-qa-quality.md` | `.agents/brain-qa-quality.agent.md` |
 
-- **Navegação sem reload**: JavaScript gerencia mudança de conteúdo via `showPage(pageId)`
-- **URLs amigáveis**: Não usa hash routing, mantém experiência fluida
-- **Estado persistente**: Theme e preferências salvos em localStorage
+No Modo Pleno, o Opositor abre o debate (ver §2 e §4 do BRAIN).
 
-### Tema Adaptativo
+## 🔄 Ciclo Operacional (OpenSpec)
 
-- **CSS Variables**: Sistema de tema baseado em `--bg-primary`, `--text-primary`, etc.
-- **Toggle automático**: Botão com persistência e ícones Font Awesome
-- **Tema escuro**: Atributo `[data-theme="dark"]` alterna paleta completa
-
-### Sistema de Modais Dinâmicos
-
-```javascript
-// Padrão para criar modais interativos
-createModal(id, title, content);
-// Exemplo: openProfileModal(profileData) para perfis de usuário
+```
+/start-demand <ID-OU-NOME>  →  Coleta + Deep-Search → Roda (Opositor) → Plano → PARADA [A] → implementação
+/feed-brain & /close-demand →  Destilação de lições (Seção 8) + MR_DESCRIPTION.md + cleanup
 ```
 
-## 🛠️ Fluxos de Trabalho Críticos
+Trabalho ativo reside em `OPENSPEC/openspec-files/`; entregas em `MR_DESCRIPTION.md` (`Context` / `Changes` / `Tests`).
 
-### 1. Adição de Nova Ferramenta
+## 🔧 Setup de Ambiente
 
-```bash
-# 1. Criar nova página HTML (se necessário)
-touch nova_ferramenta.html
+- **Ferramentas**: CLI `mia` (não `skills-tk`); skills via `mia plugin install`.
+- **RTK**: comandos de terminal passam por `rtk` (proxy de compressão, 60-90% de economia).
+- **Host local**: `node` v24 e `python3` 3.12 disponíveis; **Ruby/Bundler/Jekyll ausentes** — validar por `node`, e para o build Jekyll entregar `bundle install && bundle exec jekyll serve` (http://localhost:4000) pausando para o humano.
+- **Netskope/SSL**: exportar `NODE_EXTRA_CA_CERTS="/etc/ssl/certs/nscacert.pem"` **apenas** em erro de validação SSL.
 
-# 2. Adicionar card no index.html seção cards-grid
-# 3. Adicionar nova página no sistema de navegação JS
-# 4. Atualizar documentação em copilot-init-template/
-```
+## ✅ Validação (Tríade Adaptada para Estático)
 
-### 2. Atualização do Template Copilot
+| Sensor | Comando | Critério |
+| :-- | :-- | :-- |
+| Sintaxe JS | `rtk node --check js/main.js js/modals.js` | 0 erros |
+| Markup | tags pareadas, `id` único, `href`/`download` válidos | 0 quebras |
+| YAML | frontmatter dos agentes + `_config.yml` parseáveis | 0 erros |
 
-```bash
-# Template localizado em copilot-init-template/
-# Arquivos principais a modificar:
-# - README.md (instruções de uso)
-# - COMANDO-UNIVERSAL.md (comando otimizado)
-# - project-template.instructions.md (template base)
-```
+> Não há suite de testes de runtime neste repositório. Jekyll local é opcional e depende de Ruby (ausente no host).
 
-### 3. Deploy e Publicação
+## 🔒 Segurança & Qualidade
 
-- **Automático**: Push para `main` triggera build Jekyll no GitHub Pages
-- **URL oficial**: https://tgferr.github.io
-- **Configuração**: `_config.yml` define tema, plugins e SEO
-
-## 🎯 Convenções de Código Específicas
-
-### JavaScript Modular
-
-- **main.js**: Funcionalidades core (tema, navegação, animações)
-- **modals.js**: Sistema completo de modais com dados estruturados
-- **Eventos globais**: Funções expostas via `window.functionName` para HTML
-
-### CSS Arquitetural
-
-```css
-/* Padrão de variáveis temáticas */
-:root {
-  --primary-color: #2563eb;
-  --bg-primary: #ffffff;
-  --text-primary: #0f172a;
-}
-
-[data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --text-primary: #f8fafc;
-}
-```
-
-### HTML Semântico e Acessível
-
-- **Ícones Font Awesome**: Padrão `<i class="fas fa-icon-name"></i>`
-- **Navegação**: Atributos `data-page` para SPA routing
-- **Modais**: Sistema aria-compliant com overlay e escape key
-
-## 🔧 Comandos de Desenvolvimento
-
-### Jekyll Local
-
-```bash
-# Instalar dependências
-bundle install
-
-# Servir local (http://localhost:4000)
-bundle exec jekyll serve
-
-# Build para produção
-bundle exec jekyll build
-```
-
-### Validação e Testes
-
-```bash
-# Verificar links quebrados
-grep -r "href=" *.html | grep -v "http"
-
-# Validar CSS/JS syntax
-# (usar extensões VS Code ou ferramentas online)
-
-# Testar responsividade
-# Usar DevTools do navegador
-```
-
-## 📋 Templates e Recursos Específicos
-
-### Template Copilot Universal
-
-- **Localização**: `copilot-init-template/`
-- **Comando otimizado**: Projetado para execução direta no Copilot Chat
-- **Auto-configuração**: Detecta stack tecnológica e cria configurações personalizadas
-- **Estrutura correta**: Usa `.github/copilot-instructions.md` (não `.vscode/`)
-
-### Sistema de Perfis de Usuário
-
-```javascript
-// Perfis predefinidos em main.js
-const profiles = {
-  junior: {
-    /* configuração para dev iniciante */
-  },
-  experienced: {
-    /* configuração para dev experiente */
-  },
-  architect: {
-    /* configuração para tech lead */
-  },
-  manager: {
-    /* configuração para gestores */
-  },
-};
-```
-
-## 🚨 Práticas de Segurança e Compliance
-
-### Configurações GitHub Copilot
-
-- **AllowList/DenyList**: Templates incluem configurações de segurança
-- **Telemetria**: Desabilitada por padrão nos templates
-- **Arquivos sensíveis**: Excluídos das sugestões via configuração
-
-### Content Security
-
-- **Links externos**: Sempre com `target="_blank" rel="noopener"`
-- **Scripts**: Apenas CDNs confiáveis (Font Awesome, Google Fonts)
-- **Dados sensíveis**: Nenhuma informação corporativa hardcoded
-
-## 🎯 Contribuição e Manutenção
-
-### Ao adicionar novos recursos:
-
-1. **Mantenha consistência**: Use padrões existentes de CSS/JS
-2. **Documentação**: Atualize este arquivo se necessário
-3. **Teste responsivo**: Verificar em mobile/desktop
-4. **SEO**: Atualizar meta tags quando relevante
-
-### Ao modificar templates:
-
-1. **Backward compatibility**: Manter compatibilidade com versões anteriores
-2. **Documentação atualizada**: README.md e arquivos de instrução
-3. **Comando universal**: Validar se comando ainda executa corretamente
-
-## 🧠 Enterprise Brain Framework — Agents & OpenSpec
-
-O repositório roda o **Enterprise Brain Framework** (`PROJECT-BRAIN.md`, symlink para `ENTERPRISE_PROJECT_FRAMEWORK.md`, v4.0.0-ENTERPRISE MIA-Native). Infraestrutura agêntica neste repo:
-
-- **`.claude/agents/`** — 6 subagentes executáveis do Claude Code (matriz de personas).
-- **`.agents/`** — 6 personas portáteis no padrão AGENTS.md (Copilot/Cursor/Aider).
-- **`OPENSPEC/`** — fluxo OpenSpec: README, `active_todo.md` (memória de sessão) e templates (`openspec-files/`).
-- **`Checklist/`** — template de checklist por demanda.
-
-**Fluxo de demanda:** `iniciar demanda <CARD> seguindo @PROJECT-BRAIN.md` → Coleta → Deep-Search → Roda (Opositor Crítico) → Plano → `[A]` → Execute → `/feed-brain`. Lições acumulam na Seção 8 do `ENTERPRISE_PROJECT_FRAMEWORK.md`.
-
----
-
-**Criado por**: Tiago Ferreira • **Ano**: 2025 • **Foco**: Produtividade com IA
+- Nenhum segredo/token/PII em logs, URLs, query strings ou commits.
+- Páginas standalone autocontidas: **não** fazê-las depender de `css/style.css`/`js/*.js`.
+- Código cirúrgico: tocar somente as linhas do escopo; sem refatoração por conveniência.
+- Falhar alto: nunca esconder teste pulado, blocker ou incerteza.
